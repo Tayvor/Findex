@@ -9,8 +9,8 @@ class Comment(db.Model):
 
   id = db.Column(db.Integer, primary_key=True)
   content = db.Column(db.Text, nullable=False)
-  user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('user.id')))
-  thread_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('thread.id')))
+  user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
+  thread_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('threads.id')))
 
   user = db.relationship('User', back_populates='comments', lazy=False)
 

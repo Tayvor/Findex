@@ -20,7 +20,7 @@ def seed():
         undo_threads()
         undo_users()
     seed_users()
-    seed_threads
+    seed_threads()
     # Add other seed functions here
 
 
