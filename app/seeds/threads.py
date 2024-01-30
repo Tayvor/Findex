@@ -6,19 +6,19 @@ from sqlalchemy.sql import text
 def seed_threads():
   one = Thread(
     title = "Help! What's wrong with my fish!?",
-    content = "Last night my fish were fine. This morning I wake up to find them all laying on the bottom of  the tank..",
+    description = "Last night my fish were fine. This morning I wake up to find them all laying on the bottom of  the tank..",
     user_id = 1
   )
 
   two = Thread(
     title = "5 gal bowl stocking suggestions?",
-    content = "I was thinking some shrimp, and maybe a couple gouramis.",
+    description = "I was thinking some shrimp, and maybe a couple gouramis.",
     user_id = 2
   )
 
   three = Thread(
     title = "What is this??",
-    content = "All of these tiny worms crawling around on the glass. Friend or foe?",
+    description = "All of these tiny worms crawling around on the glass. Friend or foe?",
     user_id = 3
   )
 
