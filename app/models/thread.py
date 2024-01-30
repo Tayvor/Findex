@@ -9,7 +9,7 @@ class Thread(db.Model):
 
   id = db.Column(db.Integer, primary_key=True)
   title = db.Column(db.String(50), nullable=False)
-  content = db.Column(db.Text, nullable=False)
+  description = db.Column(db.Text, nullable=False)
   user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
 
   user = db.relationship('User', back_populates='threads', lazy=False)
@@ -18,6 +18,6 @@ class Thread(db.Model):
     return {
 			'id': self.id,
 			'title': self.title,
-      'content': self.content,
+      'description': self.description,
 			'user_id': self.user_id
 		}
