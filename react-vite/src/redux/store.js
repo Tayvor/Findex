@@ -6,10 +6,14 @@ import {
 } from "redux";
 import thunk from "redux-thunk";
 import sessionReducer from "./session";
+import threads from "./threads";
+
 
 const rootReducer = combineReducers({
   session: sessionReducer,
+  threads,
 });
+
 
 let enhancer;
 if (import.meta.env.MODE === "production") {
