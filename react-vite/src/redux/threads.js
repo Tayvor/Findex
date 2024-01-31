@@ -21,10 +21,12 @@ export const thunkGetThreads = () => async (dispatch) => {
 
 // REDUCER
 function threads(state = {}, action) {
+  let newState = {};
   switch (action.type) {
     case STORE_THREADS:
-      action.threads.map((thread) => state[thread.id] = thread);
-      return state;
+      newState = { ...state }
+      action.threads.map((thread) => newState[thread.id] = thread);
+      return newState;
 
     default:
       return state;

@@ -5,11 +5,9 @@ import { thunkGetThreads } from "../../redux/threads";
 
 function Threads() {
   const dispatch = useDispatch();
-  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     dispatch(thunkGetThreads())
-      .then(() => setLoaded(true))
   }, [dispatch]);
 
   const threads = Object.values(useSelector((state) => state.threads));
