@@ -4,12 +4,12 @@ const STORE_THREADS = 'STORE_THREADS';
 // ACTIONS
 const storeThreads = (threads) => ({
   type: STORE_THREADS,
-  threads
+  threads: threads
 });
 
 
 // THUNKS
-export const thunkGetThreads = async (dispatch) => {
+export const thunkGetThreads = () => async (dispatch) => {
   const res = await fetch('/api/threads');
 
   if (res.ok) {
@@ -23,6 +23,7 @@ export const thunkGetThreads = async (dispatch) => {
 function threads(state = {}, action) {
   switch (action.type) {
     case STORE_THREADS:
+      action.threads.map((thread) => state[thread.id] = thread);
       return state;
 
     default:
