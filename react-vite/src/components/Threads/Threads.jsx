@@ -22,7 +22,7 @@ function Threads() {
       className="threadsContainer"
     >
       <div className="threadsHeader">
-        <h2>Threads:</h2>
+        <h2>Threads: dropdown (photos)</h2>
 
         <button
           className="newThreadBtn clickable"
@@ -38,6 +38,8 @@ function Threads() {
           onClick={() => navigate(`/threads/${thread.id}`)}
         >
           <div className="threadTitle">{thread.title}</div>
+
+          <div>IMG</div>
         </div>
       )}
     </div>
