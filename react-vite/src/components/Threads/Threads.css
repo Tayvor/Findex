@@ -1,0 +1,30 @@
+.threadBox {
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  width: 50%;
+  height: 65px;
+  margin: 10px 0;
+}
+
+.clickable:hover {
+  cursor: pointer;
+}
+
+.newThreadBtn {
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  transition: all 1s;
+}
+
+.newThreadBtn:hover {
+  transition: all 1s;
+  width: 120px;
+}
+
+.newThreadBtn:hover::after {
+  transition: all 1s;
+  content: ' New Thread';
+}
