@@ -1,3 +1,19 @@
+.navHeader {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+}
+
+.navHeader>h1 {
+  width: fit-content;
+  margin: 10px;
+}
+
+.profileBtn {
+  position: relative;
+}
+
 .profile-dropdown {
   position: absolute;
+  left: -100px;
 }

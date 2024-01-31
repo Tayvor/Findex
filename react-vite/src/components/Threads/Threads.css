@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* border: 1px solid black; */
 }
 
 .threadsHeader {
@@ -23,10 +22,6 @@
 .threadTitle {
   margin: 10px;
   font-size: 20px;
-}
-
-.clickable:hover {
-  cursor: pointer;
 }
 
 .newThreadBtn {
