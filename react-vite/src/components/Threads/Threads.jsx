@@ -14,16 +14,22 @@ function Threads() {
   }, [dispatch]);
 
   const threads = Object.values(useSelector((state) => state.threads));
+  const user = useSelector((state) => state.session.user);
 
 
   return (
-    <>
-      <h2>Threads:</h2>
+    <div
+      className="threadsContainer"
+    >
+      <div className="threadsHeader">
+        <h2>Threads:</h2>
 
-      <button
-        className="newThreadBtn clickable"
-        onClick={() => navigate('/create-thread')}
-      >+</button>
+        <button
+          className="newThreadBtn clickable"
+          onClick={() => navigate('/create-thread')}
+          hidden={user ? false : true}
+        >+</button>
+      </div>
 
       {threads.map((thread) =>
         <div
@@ -31,10 +37,10 @@ function Threads() {
           className="threadBox clickable"
           onClick={() => navigate(`/threads/${thread.id}`)}
         >
-          <div>{thread.title}</div>
+          <div className="threadTitle">{thread.title}</div>
         </div>
       )}
-    </>
+    </div>
   )
 }
 

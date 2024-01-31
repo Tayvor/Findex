@@ -1,10 +1,28 @@
+.threadsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* border: 1px solid black; */
+}
+
+.threadsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 50%;
+}
+
 .threadBox {
   border: 1px solid black;
   border-radius: 10px;
-  padding: 10px;
   width: 50%;
-  height: 65px;
+  height: 85px;
   margin: 10px 0;
+}
+
+.threadTitle {
+  margin: 10px;
+  font-size: 20px;
 }
 
 .clickable:hover {
@@ -16,6 +34,7 @@
   border-radius: 10px;
   width: 40px;
   height: 40px;
+  font-size: 15px;
   transition: all 1s;
 }
 

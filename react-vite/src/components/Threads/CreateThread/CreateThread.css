@@ -1,0 +1,14 @@
+.createThreadForm {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+/* .createThreadTitle {
+  color: red;
+} */
+
+.createThreadSubmitBtn {
+  width: 15%;
+  height: 25px;
+}

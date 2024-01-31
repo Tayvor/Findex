@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 // import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import Threads from '../components/Threads';
+import CreateThread from '../components/Threads/CreateThread';
 
 export const router = createBrowserRouter([
   {
@@ -11,6 +12,14 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Threads />,
+      },
+      {
+        path: "/create-thread",
+        element: <CreateThread />,
+      },
+      {
+        path: "/threads/:threadId",
+        element: <div>viewing a thread</div>,
       },
       // {
       //   path: "login",
