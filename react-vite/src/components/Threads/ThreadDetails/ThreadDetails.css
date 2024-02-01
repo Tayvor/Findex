@@ -17,14 +17,6 @@
   align-items: center;
   font-size: 30px;
   height: 40px;
-  margin-left: 10px;
-}
-
-.threadDetails-BackBtn {
-  border: 1px solid black;
-  border-radius: 10px;
-  width: 40px;
-  height: 40px;
 }
 
 .threadDetails-Desc {
@@ -42,7 +34,7 @@
 }
 
 
-/* Reply */
+/* Reply Button */
 .threadDetails-ReplyBtn {
   border: 1px solid black;
   border-radius: 10px;
@@ -63,7 +55,7 @@
 }
 
 
-/* Edit */
+/* Edit Button */
 .threadDetails-EditBtn {
   border: 1px solid black;
   border-radius: 10px;
@@ -81,6 +73,27 @@
 
 .threadDetails-EditBtn:hover::after {
   content: ' Edit';
+}
+
+
+/* Back Button */
+.threadDetails-BackBtn {
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  font-size: 15px;
+  transition: all 1s;
+}
+
+.threadDetails-BackBtn:hover {
+  transition: all .5s;
+  width: 70px;
+  background-color: lightgoldenrodyellow;
+}
+
+.threadDetails-BackBtn:hover::after {
+  content: ' Back';
 }
 
 

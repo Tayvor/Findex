@@ -1,9 +1,10 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import './ThreadDetails.css';
+import './EditThread.css'
 
 
-function ThreadDetails() {
+function EditThread() {
   const { threadId } = useParams();
   const navigate = useNavigate();
 
@@ -11,13 +12,16 @@ function ThreadDetails() {
   const currUser = useSelector((state) => state.session.user)
   const back = '<'
 
+  const [title, setTitle] = useState(thread.title);
+  const [desc, setDesc] = useState(thread.description);
+
   const checkUserId = (user) => {
     if (user.id === thread.user_id) {
       return (
         <button
-          className="threadDetails-EditBtn clickable"
+          className="editThread-SubmitBtn clickable"
           onClick={() => navigate(`/threads/${threadId}/edit`)}
-        >:</button>
+        >=</button>
       )
     } else {
       return (
@@ -28,22 +32,20 @@ function ThreadDetails() {
     }
   }
 
-  // Bug with refresh clearing redux state.
-  // Could dispatch(thunkGetThread(threadId))
-  // then force re-render.
-  // or look into persistent storage in the browser, w18
 
   return (thread &&
-    < div className="threadDetails-Container">
-      < div className="threadDetails-Header">
+    <form className="editThread-Form">
+      <div className="editThread-Header">
         <button
-          className="threadDetails-BackBtn clickable"
-          onClick={() => navigate('/')}
+          className="editThread-BackBtn clickable"
+          onClick={() => navigate(`/threads/${threadId}`)}
         >{back}</button>
 
-        <div
-          className="threadDetails-Title"
-        >{thread.title}</div>
+        <input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="editThread-Title"
+        ></input>
 
         {
           currUser !== null ? checkUserId(currUser)
@@ -52,13 +54,15 @@ function ThreadDetails() {
               className="hiddenBtn"
             ></button>
         }
-      </div >
-
-      <div className="threadDetails-Desc">
-        <p>{thread.description}</p>
       </div>
-    </div >
+
+      <textarea
+        value={desc}
+        onChange={(e) => setDesc(e.target.value)}
+        className="editThread-Desc"
+      ></textarea>
+    </form>
   )
 }
 
-export default ThreadDetails;
+export default EditThread;

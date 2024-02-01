@@ -9,28 +9,26 @@ function CreateThread() {
 
 
   return (
-    <form
-      className="createThreadForm"
-    >
+    <form className="createThread-Form">
       <h2>Create a Thread</h2>
 
       <input
         placeholder="Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="createThreadTitle"
+        className="createThread-Title"
       ></input>
 
       <textarea
         placeholder="Description"
         value={desc}
         onChange={(e) => setDesc(e.target.value)}
-        className="createThreadDesc"
+        className="createThread-Desc"
       ></textarea>
 
       <button
         type="submit"
-        className="createThreadSubmitBtn clickable"
+        className="createThread-SubmitBtn clickable"
       >Submit</button>
     </form>
   )

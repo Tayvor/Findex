@@ -9,12 +9,21 @@ const storeThreads = (threads) => ({
 
 
 // THUNKS
-export const thunkGetThreads = () => async (dispatch) => {
-  const res = await fetch('/api/threads');
+export const thunkGetThreads = (id = 0) => async (dispatch) => {
+  if (id) {
+    const res = await fetch(`/api/threads/${id}`)
 
-  if (res.ok) {
-    const data = await res.json();
-    dispatch(storeThreads(data));
+    if (res.ok) {
+      const data = await res.json();
+      dispatch(storeThreads(data));
+    }
+  } else {
+    const res = await fetch('/api/threads');
+
+    if (res.ok) {
+      const data = await res.json();
+      dispatch(storeThreads(data));
+    }
   }
 }
 

@@ -1,14 +1,14 @@
-.createThreadForm {
+.createThread-Form {
   display: flex;
   flex-direction: column;
   width: 50%;
 }
 
-/* .createThreadTitle {
+/* .createThread-Title {
   color: red;
 } */
 
-.createThreadSubmitBtn {
+.createThread-SubmitBtn {
   width: 15%;
   height: 25px;
 }

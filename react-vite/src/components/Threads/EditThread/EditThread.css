@@ -1,0 +1,71 @@
+.editThread-Form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.editThread-Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  width: 50%;
+}
+
+.editThread-Title {
+  border: 1px solid black;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 25px;
+  width: 500px;
+  height: 35px;
+  background-color: rgba(173, 216, 230, .5);
+}
+
+.editThread-Desc {
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 50%;
+  min-height: 85px;
+  margin: 10px 0;
+  background-color: rgba(173, 216, 230, .5);
+}
+
+
+/* Back Button */
+.editThread-BackBtn {
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+}
+
+.editThread-BackBtn:hover {
+  transition: all .5s;
+  width: 70px;
+  background-color: lightgoldenrodyellow;
+}
+
+.editThread-BackBtn:hover::after {
+  content: ' Back';
+}
+
+
+/* Submit Button */
+.editThread-SubmitBtn {
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+}
+
+.editThread-SubmitBtn:hover {
+  transition: all .5s;
+  width: 70px;
+  background-color: lightgreen;
+}
+
+.editThread-SubmitBtn:hover::after {
+  content: ' Submit';
+}

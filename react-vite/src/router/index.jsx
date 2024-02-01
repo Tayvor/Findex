@@ -5,6 +5,7 @@ import Layout from './Layout';
 import Threads from '../components/Threads';
 import CreateThread from '../components/Threads/CreateThread';
 import ThreadDetails from '../components/Threads/ThreadDetails';
+import EditThread from '../components/Threads/EditThread';
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
       {
         path: "/threads/:threadId",
         element: <ThreadDetails />,
+      },
+      {
+        path: "/threads/:threadId/edit",
+        element: <EditThread />,
       },
       // {
       //   path: "login",
