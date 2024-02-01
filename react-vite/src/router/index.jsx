@@ -4,6 +4,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Layout from './Layout';
 import Threads from '../components/Threads';
 import CreateThread from '../components/Threads/CreateThread';
+import ThreadDetails from '../components/Threads/ThreadDetails';
 
 export const router = createBrowserRouter([
   {
@@ -19,7 +20,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/threads/:threadId",
-        element: <div>viewing a thread</div>,
+        element: <ThreadDetails />,
       },
       // {
       //   path: "login",

@@ -9,6 +9,7 @@
   justify-content: space-between;
   align-items: flex-end;
   width: 50%;
+  /* border: 1px solid black; */
 }
 
 .threadBox {
@@ -36,11 +37,26 @@
 }
 
 .newThreadBtn:hover {
-  transition: all 1s;
+  transition: all .5s;
   width: 120px;
+  background-color: lightgreen;
 }
 
 .newThreadBtn:hover::after {
-  transition: all 1s;
   content: ' New Thread';
 }
+
+/* .newThreadBtn:hover {
+  animation: animate 2s;
+}
+
+@keyframes animate {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+    content: 'hello'
+  }
+} */
