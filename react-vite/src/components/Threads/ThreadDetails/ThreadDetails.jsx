@@ -11,7 +11,7 @@ function ThreadDetails() {
   const currUser = useSelector((state) => state.session.user)
   const back = '<'
 
-  const checkLogin = (user) => {
+  const checkUserId = (user) => {
     if (user.id === thread.id) {
       return (
         <button
@@ -44,7 +44,7 @@ function ThreadDetails() {
           className="threadDetails-Title"
         >{thread.title}</div>
 
-        {currUser !== null ? checkLogin(currUser)
+        {currUser !== null ? checkUserId(currUser)
           :
           <button
             className="hiddenBtn"
