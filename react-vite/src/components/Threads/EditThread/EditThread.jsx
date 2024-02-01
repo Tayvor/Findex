@@ -20,21 +20,20 @@ function EditThread() {
       return (
         <button
           className="editThread-SubmitBtn clickable"
-          onClick={() => navigate(`/threads/${threadId}/edit`)}
+          type="submit"
         >=</button>
-      )
-    } else {
-      return (
-        <button
-          className="threadDetails-ReplyBtn clickable"
-        >+</button>
       )
     }
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('submitted')
+  }
+
 
   return (thread &&
-    <form className="editThread-Form">
+    <form className="editThread-Form" onSubmit={(e) => handleSubmit(e)}>
       <div className="editThread-Header">
         <button
           className="editThread-BackBtn clickable"
@@ -47,13 +46,7 @@ function EditThread() {
           className="editThread-Title"
         ></input>
 
-        {
-          currUser !== null ? checkUserId(currUser)
-            :
-            <button
-              className="hiddenBtn"
-            ></button>
-        }
+        {currUser !== null ? checkUserId(currUser) : ''}
       </div>
 
       <textarea
