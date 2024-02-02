@@ -1,12 +1,14 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { thunkEditThread } from "../../../redux/threads";
 import './EditThread.css'
 
 
 function EditThread() {
   const { threadId } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const thread = useSelector((state) => state.threads[threadId]);
   const currUser = useSelector((state) => state.session.user)
@@ -27,13 +29,19 @@ function EditThread() {
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log('submitted')
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('id', threadId);
+    formData.append('title', title);
+    formData.append('desc', desc);
+
+    dispatch(thunkEditThread(formData));
   }
 
 
   return (thread &&
-    <form className="editThread-Form" onSubmit={(e) => handleSubmit(e)}>
+    <form className="editThread-Form" onSubmit={handleSubmit} method="put">
       <div className="editThread-Header">
         <button
           className="editThread-BackBtn clickable"
@@ -54,7 +62,7 @@ function EditThread() {
         onChange={(e) => setDesc(e.target.value)}
         className="editThread-Desc"
       ></textarea>
-    </form>
+    </form >
   )
 }
 
