@@ -41,7 +41,7 @@ function EditThread() {
 
 
   return (thread &&
-    <form className="editThread-Form" onSubmit={handleSubmit} method="put">
+    <form className="editThread-Form" onSubmit={handleSubmit}>
       <div className="editThread-Header">
         <button
           className="editThread-BackBtn clickable"
