@@ -15,7 +15,8 @@ function EditThread() {
   const back = '<'
 
   const [title, setTitle] = useState(thread.title);
-  const [desc, setDesc] = useState(thread.description);
+  const [description, setDesc] = useState(thread.description);
+  const [errors, setErrors] = useState({});
 
   const checkUserId = (user) => {
     if (user.id === thread.user_id) {
@@ -28,20 +29,31 @@ function EditThread() {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const formInfo = {
+      'title': title,
+      'description': description,
+    };
 
-    const formData = new FormData();
-    formData.append('id', threadId);
-    formData.append('title', title);
-    formData.append('desc', desc);
+    const response = await dispatch(
+      thunkEditThread(formInfo, threadId)
+    );
 
-    dispatch(thunkEditThread(formData));
+    if (response) {
+      setErrors(response);
+    } else {
+      navigate('/');
+    }
   }
 
 
   return (thread &&
     <form className="editThread-Form" onSubmit={handleSubmit}>
+
+      {errors.length > 0 &&
+        errors.map((message) => <p key={message}>{message}</p>)}
+
       <div className="editThread-Header">
         <button
           className="editThread-BackBtn clickable"
@@ -52,15 +64,17 @@ function EditThread() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="editThread-Title"
+          name="title"
         ></input>
 
         {currUser !== null ? checkUserId(currUser) : ''}
       </div>
 
       <textarea
-        value={desc}
+        value={description}
         onChange={(e) => setDesc(e.target.value)}
         className="editThread-Desc"
+        name="desc"
       ></textarea>
     </form >
   )

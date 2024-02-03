@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from app.models import db, Thread, User
 from flask_login import current_user
 from sqlalchemy import update
+from app.forms.thread_form import ThreadForm
 
 thread_routes = Blueprint('thread', __name__)
 
@@ -17,24 +18,26 @@ def get_threads():
 # EDIT A THREAD
 @thread_routes.route('/<int:thread_id>/edit', methods=['PUT'])
 def edit_thread(thread_id):
-  thread = Thread.query.get(thread_id)
-  # print('whoop whoop!', thread_id)
+  form = ThreadForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
 
-  return jsonify([thread.to_dict()])
+  if form.validate_on_submit():
+    thread = Thread.query.get(thread_id)
+    title = form.data['title']
+    description = form.data['description']
+
+    setattr(thread, 'title', title)
+    setattr(thread, 'description', description)
+
+    db.session.commit()
+
+    return jsonify([thread.to_dict()])
+
+  return jsonify('Bad Data')
 
 
 # GET THREAD BY ID
 @thread_routes.route('/:thread_id')
-def get_thread_by_id(thread_id):
-  title = request.form.get('title')
-  desc = request.form.get('desc')
-  id = request.form.get('id')
+def get_thread_by_id(thread):
 
-  update_thread = update(Thread).where(Thread.c.id == id).values(title=title, description=desc)
-
-  db.session.execute(update_thread)
-  db.session.commit()
-
-  thread = Thread.query.get(id)
-  print('***', thread, '***')
-  return jsonify(list(thread.to_dict()))
+  return jsonify()

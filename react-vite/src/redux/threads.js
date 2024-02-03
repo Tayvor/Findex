@@ -34,16 +34,21 @@ export const thunkGetThreads = (id = 0) => async (dispatch) => {
 };
 
 
-export const thunkEditThread = (formData) => async (dispatch) => {
-  const res = await fetch(`/api/threads/${formData.get('id')}/edit`, {
+export const thunkEditThread = (info, threadId) => async (dispatch) => {
+  const res = await fetch(`/api/threads/${threadId}/edit`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(formData),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(info),
   });
 
   if (res.ok) {
     const data = await res.json();
     dispatch(updateThread(data));
+  } else if (res.status < 500) {
+    const errors = await res.json();
+    return errors
+  } else {
+    return { server: "Something went wrong. Please try again" }
   }
 }
 
