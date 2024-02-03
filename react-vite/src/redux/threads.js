@@ -53,6 +53,15 @@ export const thunkEditThread = (info, threadId) => async (dispatch) => {
 }
 
 
+export const thunkDeleteThread = (threadId) => async () => {
+  const res = await fetch(`/api/threads/${threadId}/delete`, {
+    method: 'DELETE',
+  });
+
+  return res
+}
+
+
 // REDUCER
 function threads(state = {}, action) {
   let newState = {};

@@ -73,3 +73,35 @@
 .editThread-SubmitBtn:hover::after {
   content: ' Submit';
 }
+
+
+/* Delete Button */
+.editThread-DeleteBtn {
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+}
+
+.editThread-DeleteBtn:hover {
+  transition: all .5s;
+  width: 70px;
+  background-color: rgb(255, 125, 125);
+}
+
+.editThread-DeleteBtn:hover::after {
+  content: ' Delete';
+}
+
+
+/* Delete Btn Alignment */
+.alignCenterDiv {
+  display: flex;
+  justify-content: center;
+}
+
+.editThread-DeleteBtnDiv {
+  display: flex;
+  justify-content: flex-end;
+  width: 50%;
+}

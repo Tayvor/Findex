@@ -1,13 +1,12 @@
 from flask import Blueprint, request, jsonify
 from app.models import db, Thread, User
 from flask_login import current_user
-from sqlalchemy import update
 from app.forms.thread_form import ThreadForm
 
 thread_routes = Blueprint('thread', __name__)
 
 
-# GET ALL THREADS
+# GET ALL
 @thread_routes.route('')
 def get_threads():
   threads = Thread.query.all()
@@ -15,7 +14,14 @@ def get_threads():
   return jsonify([thread.to_dict() for thread in threads])
 
 
-# EDIT A THREAD
+# CREATE
+@thread_routes.route('/create')
+def create_thread(info):
+
+  return jsonify('')
+
+
+# EDIT
 @thread_routes.route('/<int:thread_id>/edit', methods=['PUT'])
 def edit_thread(thread_id):
   form = ThreadForm()
@@ -36,8 +42,12 @@ def edit_thread(thread_id):
   return jsonify('Bad Data')
 
 
-# GET THREAD BY ID
-@thread_routes.route('/:thread_id')
-def get_thread_by_id(thread):
+# DELETE
+@thread_routes.route('/<int:thread_id>/delete', methods=['DELETE'])
+def delete_thread(thread_id):
+  thread = Thread.query.get(thread_id)
 
-  return jsonify()
+  db.session.delete(thread)
+  db.session.commit()
+
+  return jsonify('Deleted')

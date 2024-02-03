@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { thunkEditThread } from "../../../redux/threads";
+import { thunkDeleteThread, thunkEditThread } from "../../../redux/threads";
 import './EditThread.css'
 
 
@@ -47,36 +47,53 @@ function EditThread() {
     }
   }
 
+  const handleDelete = (e) => {
+    e.preventDefault();
+
+    dispatch(thunkDeleteThread(threadId))
+      .then(() => navigate('/'));
+  };
+
 
   return (thread &&
-    <form className="editThread-Form" onSubmit={handleSubmit}>
+    <>
+      <form className="editThread-Form" onSubmit={handleSubmit}>
+        {errors.length > 0 &&
+          errors.map((message) => <p key={message}>{message}</p>)}
 
-      {errors.length > 0 &&
-        errors.map((message) => <p key={message}>{message}</p>)}
+        <div className="editThread-Header">
+          <button
+            className="editThread-BackBtn clickable"
+            onClick={() => navigate(`/threads/${threadId}`)}
+          >{back}</button>
 
-      <div className="editThread-Header">
-        <button
-          className="editThread-BackBtn clickable"
-          onClick={() => navigate(`/threads/${threadId}`)}
-        >{back}</button>
+          <input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="editThread-Title"
+            name="title"
+          ></input>
 
-        <input
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="editThread-Title"
-          name="title"
-        ></input>
+          {currUser !== null ? checkUserId(currUser) : ''}
+        </div>
 
-        {currUser !== null ? checkUserId(currUser) : ''}
+        <textarea
+          value={description}
+          onChange={(e) => setDesc(e.target.value)}
+          className="editThread-Desc"
+          name="desc"
+        ></textarea>
+      </form >
+
+      <div className="alignCenterDiv">
+        <div className="editThread-DeleteBtnDiv">
+          <button
+            className="editThread-DeleteBtn clickable"
+            onClick={handleDelete}
+          >X</button>
+        </div>
       </div>
-
-      <textarea
-        value={description}
-        onChange={(e) => setDesc(e.target.value)}
-        className="editThread-Desc"
-        name="desc"
-      ></textarea>
-    </form >
+    </>
   )
 }
 
