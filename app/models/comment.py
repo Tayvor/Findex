@@ -20,6 +20,6 @@ class Comment(db.Model):
 			'id': self.id,
       'content': self.content,
 			'user_id': self.user_id,
-      'thread_id': self.thread_id,
-      'parent_id': self.parent_id
+      'thread_id': self.thread_id or 0,
+      'parent_id': self.parent_id or 0
 		}

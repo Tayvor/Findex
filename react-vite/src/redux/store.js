@@ -7,11 +7,13 @@ import {
 import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import threads from "./threads";
+import comments from "./comments";
 
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   threads,
+  comments,
 });
 
 

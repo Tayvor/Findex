@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import './ThreadDetails.css';
+import Comments from "../../Comments";
 
 
 function ThreadDetails() {
@@ -34,30 +35,34 @@ function ThreadDetails() {
   // or look into persistent storage in the browser, w18
 
   return (thread &&
-    < div className="threadDetails-Container">
-      < div className="threadDetails-Header">
-        <button
-          className="threadDetails-BackBtn clickable"
-          onClick={() => navigate('/')}
-        >{back}</button>
+    <>
+      < div className="threadDetails-Container">
+        < div className="threadDetails-Header">
+          <button
+            className="threadDetails-BackBtn clickable"
+            onClick={() => navigate('/')}
+          >{back}</button>
 
-        <div
-          className="threadDetails-Title"
-        >{thread.title}</div>
+          <div
+            className="threadDetails-Title"
+          >{thread.title}</div>
 
-        {
-          currUser !== null ? checkUserId(currUser)
-            :
-            <button
-              className="hiddenBtn"
-            ></button>
-        }
+          {
+            currUser !== null ? checkUserId(currUser)
+              :
+              <button
+                className="hiddenBtn"
+              ></button>
+          }
+        </div >
+
+        <div className="threadDetails-Desc">
+          <p>{thread.description}</p>
+        </div>
+
+        <Comments threadId={threadId} />
       </div >
-
-      <div className="threadDetails-Desc">
-        <p>{thread.description}</p>
-      </div>
-    </div >
+    </>
   )
 }
 

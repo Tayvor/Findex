@@ -39,8 +39,6 @@ def edit_thread(thread_id):
   form = ThreadForm()
   form['csrf_token'].data = request.cookies['csrf_token']
 
-  # may need to add user_id to form
-
   if form.validate_on_submit():
     thread = Thread.query.get(thread_id)
     title = form.data['title']
