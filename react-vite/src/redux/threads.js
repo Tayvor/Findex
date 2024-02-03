@@ -34,6 +34,15 @@ export const thunkGetThreads = (id = 0) => async (dispatch) => {
 };
 
 
+export const thunkCreateThread = (info) => async (dispatch) => {
+  const res = await fetch('/api/threads/create', {
+    method: 'POST',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(info),
+  });
+}
+
+
 export const thunkEditThread = (info, threadId) => async (dispatch) => {
   const res = await fetch(`/api/threads/${threadId}/edit`, {
     method: 'PUT',

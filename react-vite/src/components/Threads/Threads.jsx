@@ -22,7 +22,13 @@ function Threads() {
       className="threadsContainer"
     >
       <div className="threadsHeader">
-        <h2>Threads: dropdown (photos)</h2>
+        <select className="threadsFilter clickable">
+          <option value='Threads' style={{ 'textAlign': 'center' }}
+          >Threads</option>
+
+          <option value='Photos' style={{ 'textAlign': 'center' }}
+          >Photos</option>
+        </select>
 
         <button
           className="newThreadBtn clickable"

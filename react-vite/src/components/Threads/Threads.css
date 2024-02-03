@@ -7,9 +7,15 @@
 .threadsHeader {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
   width: 50%;
-  /* border: 1px solid black; */
+  margin-top: 20px;
+}
+
+.threadsFilter {
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 100px;
+  font-size: 20px;
 }
 
 .threadBox {
@@ -19,7 +25,7 @@
   border-radius: 10px;
   width: 50%;
   height: 85px;
-  margin: 10px 0;
+  margin-top: 10px;
 }
 
 .threadTitle {

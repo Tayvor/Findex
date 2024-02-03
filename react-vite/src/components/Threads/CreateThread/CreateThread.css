@@ -1,14 +1,76 @@
 .createThread-Form {
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.createThread-Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
   width: 50%;
 }
 
-/* .createThread-Title {
-  color: red;
-} */
+.createThread-Title {
+  border: 1px solid black;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 25px;
+  width: 500px;
+  height: 35px;
+  background-color: rgba(173, 216, 230, .5);
+  text-align: center;
+}
 
+.createThread-Desc {
+  border: 1px solid black;
+  border-radius: 10px;
+  box-sizing: border-box;
+  font-size: 20px;
+  width: 50%;
+  min-height: 85px;
+  height: auto;
+  margin: 10px 0;
+  background-color: rgba(173, 216, 230, .5);
+  padding: 10px;
+}
+
+
+/* Back Button */
+.createThread-BackBtn {
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+}
+
+.createThread-BackBtn:hover {
+  transition: all .5s;
+  width: 70px;
+  background-color: lightgoldenrodyellow;
+}
+
+.createThread-BackBtn:hover::after {
+  content: ' Back';
+}
+
+
+/* Submit Button */
 .createThread-SubmitBtn {
-  width: 15%;
-  height: 25px;
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+}
+
+.createThread-SubmitBtn:hover {
+  transition: all .5s;
+  width: 70px;
+  background-color: lightgreen;
+}
+
+.createThread-SubmitBtn:hover::after {
+  content: ' Create';
 }

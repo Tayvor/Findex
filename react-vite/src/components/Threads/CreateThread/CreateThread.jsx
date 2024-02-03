@@ -1,35 +1,61 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import './CreateThread.css'
+import { thunkCreateThread } from "../../../redux/threads";
 
 
 
 function CreateThread() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
+  const [description, setDesc] = useState("");
+
+  const userId = useSelector((state) => state.session.user.id);
+
+  const back = '<'
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formInfo = {
+      'title': title,
+      'description': description,
+      'user_id': userId,
+    };
+
+    dispatch(thunkCreateThread(formInfo));
+  };
 
 
   return (
-    <form className="createThread-Form">
-      <h2>Create a Thread</h2>
+    <form className="createThread-Form" onSubmit={handleSubmit}>
+      <div className="createThread-Header">
+        <button
+          className="createThread-BackBtn clickable"
+          onClick={() => navigate('/')}
+        >{back}</button>
 
-      <input
-        placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        className="createThread-Title"
-      ></input>
+        <input
+          className="createThread-Title"
+          placeholder="Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        ></input>
+
+        <button
+          className="createThread-SubmitBtn clickable"
+          type="submit"
+        >+</button>
+      </div>
 
       <textarea
-        placeholder="Description"
-        value={desc}
-        onChange={(e) => setDesc(e.target.value)}
         className="createThread-Desc"
+        placeholder="Description"
+        value={description}
+        onChange={(e) => setDesc(e.target.value)}
       ></textarea>
-
-      <button
-        type="submit"
-        className="createThread-SubmitBtn clickable"
-      >Submit</button>
     </form>
   )
 }

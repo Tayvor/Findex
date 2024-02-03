@@ -15,10 +15,22 @@ def get_threads():
 
 
 # CREATE
-@thread_routes.route('/create')
-def create_thread(info):
+@thread_routes.route('/create', methods=['POST'])
+def create_thread():
+  form = ThreadForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
 
-  return jsonify('')
+  if form.validate_on_submit():
+    new_thread = Thread(
+      title = form.data['title'],
+      description = form.data['description'],
+      user_id = current_user.id
+    )
+
+  db.session.add(new_thread)
+  db.session.commit()
+
+  return jsonify([new_thread.to_dict()])
 
 
 # EDIT
@@ -26,6 +38,8 @@ def create_thread(info):
 def edit_thread(thread_id):
   form = ThreadForm()
   form['csrf_token'].data = request.cookies['csrf_token']
+
+  # may need to add user_id to form
 
   if form.validate_on_submit():
     thread = Thread.query.get(thread_id)
