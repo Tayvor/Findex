@@ -50,8 +50,8 @@ function EditThread() {
   const handleDelete = (e) => {
     e.preventDefault();
 
-    dispatch(thunkDeleteThread(threadId))
-      .then(() => navigate('/'));
+    dispatch(thunkDeleteThread(threadId));
+    navigate('/');
   };
 
 

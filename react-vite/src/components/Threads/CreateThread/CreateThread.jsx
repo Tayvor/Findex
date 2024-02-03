@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import './CreateThread.css'
 import { thunkCreateThread } from "../../../redux/threads";
+import './CreateThread.css'
 
 
 
@@ -13,7 +13,6 @@ function CreateThread() {
   const [description, setDesc] = useState("");
 
   const userId = useSelector((state) => state.session.user.id);
-
   const back = '<'
 
   const handleSubmit = (e) => {
@@ -25,7 +24,8 @@ function CreateThread() {
       'user_id': userId,
     };
 
-    dispatch(thunkCreateThread(formInfo));
+    dispatch(thunkCreateThread(formInfo))
+      .then(() => navigate('/'));
   };
 
 

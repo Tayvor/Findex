@@ -1,5 +1,6 @@
 const STORE_THREADS = 'STORE_THREADS';
 const UPDATE_THREAD = 'UPDATE_THREAD';
+const DELETE_THREAD = 'DELETE_THREAD';
 
 
 // ACTIONS
@@ -11,6 +12,11 @@ const storeThreads = (threads) => ({
 const updateThread = (thread) => ({
   type: UPDATE_THREAD,
   thread
+});
+
+const deleteThread = (threadId) => ({
+  type: DELETE_THREAD,
+  threadId
 });
 
 
@@ -34,12 +40,15 @@ export const thunkGetThreads = (id = 0) => async (dispatch) => {
 };
 
 
-export const thunkCreateThread = (info) => async (dispatch) => {
+export const thunkCreateThread = (info) => async () => {
   const res = await fetch('/api/threads/create', {
     method: 'POST',
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(info),
   });
+
+  const data = await res.json();
+  return data
 }
 
 
@@ -62,12 +71,20 @@ export const thunkEditThread = (info, threadId) => async (dispatch) => {
 }
 
 
-export const thunkDeleteThread = (threadId) => async () => {
+export const thunkDeleteThread = (threadId) => async (dispatch) => {
   const res = await fetch(`/api/threads/${threadId}/delete`, {
     method: 'DELETE',
   });
 
-  return res
+  if (res.ok) {
+    // const data = await res.json();
+    dispatch(deleteThread(threadId));
+  } else if (res.status < 500) {
+    const errors = await res.json();
+    return errors
+  } else {
+    return { server: "Something went wrong. Please try again" }
+  }
 }
 
 
@@ -78,6 +95,11 @@ function threads(state = {}, action) {
     case STORE_THREADS:
       newState = { ...state }
       action.threads.map((thread) => newState[thread.id] = thread);
+      return newState;
+
+    case DELETE_THREAD:
+      newState = { ...state };
+      delete newState[action.threadId];
       return newState;
 
     default:
