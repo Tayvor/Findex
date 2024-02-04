@@ -20,12 +20,13 @@ export const thunkGetComments = (threadId) => async (dispatch) => {
 
 
 // REDUCER
-function comments(state = {}, action) {
+const initialState = {};
+
+function comments(state = initialState, action) {
   let newState = {};
   switch (action.type) {
     case STORE_COMMENTS:
-      newState = { ...state }
-      action.comments.map((comment) => newState[comment.id] = comment);
+      action.comments.map((comment) => newState[comment.id] = comment)
       return newState;
 
     default:

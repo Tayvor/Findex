@@ -5,8 +5,8 @@ import Comments from "../../Comments";
 
 
 function ThreadDetails() {
-  const { threadId } = useParams();
   const navigate = useNavigate();
+  const { threadId } = useParams();
 
   const thread = useSelector((state) => state.threads[threadId]);
   const currUser = useSelector((state) => state.session.user)
@@ -60,8 +60,8 @@ function ThreadDetails() {
           <p>{thread.description}</p>
         </div>
 
-        <Comments threadId={threadId} />
       </div >
+      <Comments threadId={threadId} />
     </>
   )
 }

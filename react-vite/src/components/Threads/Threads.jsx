@@ -18,9 +18,8 @@ function Threads() {
 
 
   return (
-    <div
-      className="threadsContainer"
-    >
+    <div className="threadsContainer">
+
       <div className="threadsHeader">
         <select className="threadsFilter clickable">
           <option value='Threads' style={{ 'textAlign': 'center' }}

@@ -89,7 +89,9 @@ export const thunkDeleteThread = (threadId) => async (dispatch) => {
 
 
 // REDUCER
-function threads(state = {}, action) {
+const initialState = {};
+
+function threads(state = initialState, action) {
   let newState = {};
   switch (action.type) {
     case STORE_THREADS:

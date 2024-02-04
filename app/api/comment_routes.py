@@ -6,11 +6,9 @@ comment_routes = Blueprint('comment', __name__)
 
 
 # GET COMMENTS BY THREAD ID
-@comment_routes.route('/thread_id')
+@comment_routes.route('/<int:thread_id>')
 def get_thread_comments(thread_id):
   comments = Comment.query.filter(Comment.thread_id == thread_id)
-
-  print('00000000000000        0000000000000000')
 
   return jsonify([comment.to_dict() for comment in comments])
 

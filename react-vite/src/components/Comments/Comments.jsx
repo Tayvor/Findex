@@ -1,22 +1,27 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { thunkGetComments } from '../../redux/comments'
+import { useSelector, useDispatch } from 'react-redux';
+import { thunkGetComments } from '../../redux/comments';
 import './Comments.css';
-
 
 function Comments({ threadId }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(thunkGetComments(threadId))
-  })
+    dispatch(thunkGetComments(threadId));
+  }, [dispatch, threadId])
 
   const comments = Object.values(useSelector((state) => state.comments));
 
   return (
     <div className='commentsContainer'>
       {comments.map((comment) =>
-        <div className='commentBox' key={comment.id}>{comment.content}</div>
+        <div
+          className='commentBox'
+          key={'comment' + comment.id}
+        >
+          <div>UserId: {comment.user_id}</div>
+          <div>{comment.content}</div>
+        </div>
       )}
     </div>
   )
