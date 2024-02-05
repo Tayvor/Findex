@@ -10,10 +10,31 @@ def seed_users():
         username='marnie', email='marnie@aa.io', password='password')
     bobbie = User(
         username='bobbie', email='bobbie@aa.io', password='password')
+    fatherFish = User(
+        username='fatherFish', email='fatherFish@aa.io', password='password')
+    guppyGal = User(
+        username='guppyGal', email='guppyGal@aa.io', password='password')
+    postMaloney = User(
+        username='postMaloney', email='postMaloney@aa.io', password='password')
+    finDoctor = User(
+        username='finDoctor', email='finDoctor@aa.io', password='password')
+    sharkTank = User(
+        username='sharkTank', email='sharkTank@aa.io', password='password')
+    wickedCichlid = User(
+        username='wickedCichlid', email='wickedCichlid@aa.io', password='password')
+    redFishBlueFish = User(
+        username='redFishBlueFish', email='redFishBlueFish@aa.io', password='password')
 
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
+    db.session.add(fatherFish)
+    db.session.add(guppyGal)
+    db.session.add(postMaloney)
+    db.session.add(finDoctor)
+    db.session.add(sharkTank)
+    db.session.add(wickedCichlid)
+    db.session.add(redFishBlueFish)
     db.session.commit()
 
 
@@ -28,5 +49,5 @@ def undo_users():
         db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM users"))
-        
+
     db.session.commit()
