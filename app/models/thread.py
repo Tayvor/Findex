@@ -12,7 +12,7 @@ class Thread(db.Model):
   description = db.Column(db.Text, nullable=False)
   user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
 
-  user = db.relationship('User', back_populates='threads', lazy=True)
+  user = db.relationship('User', back_populates='threads')
 
   def to_dict(self):
     return {

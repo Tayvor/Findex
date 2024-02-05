@@ -14,8 +14,8 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
-    threads = db.relationship('Thread', back_populates='user', lazy='subquery')
-    comments = db.relationship('Comment', back_populates='user', lazy='subquery')
+    threads = db.relationship('Thread', back_populates='user')
+    comments = db.relationship('Comment', back_populates='user')
 
 
     @property

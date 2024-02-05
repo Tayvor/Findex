@@ -31,6 +31,11 @@ User can...
 * bookmark a thread
 * remove a bookmark
 
+## Feature 6: Likes
+User can...
+* like a thread / comment
+* unlike a thread / comment
+
 ## Bonus: Profile
 User can...
 * customize their profile in various ways

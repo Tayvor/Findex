@@ -9,8 +9,23 @@ comment_routes = Blueprint('comment', __name__)
 @comment_routes.route('/<int:thread_id>')
 def get_thread_comments(thread_id):
   comments = Comment.query.filter(Comment.thread_id == thread_id)
+  comment_list = []
 
-  return jsonify([comment.to_dict() for comment in comments])
+  for comment in comments:
+    comm = {
+      'id': comment.id,
+      'content': comment.content,
+      'user_id': comment.user_id,
+      'thread_id': comment.thread_id,
+      'user' : comment.user.to_dict(),
+    }
+    comment_list.append(comm)
+
+    # for com in comments:
+    #   print('User: ', com.user.to_dict())
+
+  # return jsonify([comment.to_dict() for comment in comments])
+  return jsonify(comment_list)
 
 
 # CREATE

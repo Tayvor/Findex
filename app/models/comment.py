@@ -13,7 +13,7 @@ class Comment(db.Model):
   thread_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('threads.id')), nullable=False)
   parent_id = db.Column(db.Integer)
 
-  user = db.relationship('User', back_populates='comments', lazy=False)
+  user = db.relationship('User', back_populates='comments')
 
   def to_dict(self):
     return {
