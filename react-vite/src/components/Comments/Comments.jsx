@@ -19,7 +19,7 @@ function Comments({ threadId }) {
           className='commentBox'
           key={'comment' + comment.id}
         >
-          <div>UserId: {comment.user_id}</div>
+          <div className='username'>{comment.user.username}</div>
           <div>{comment.content}</div>
         </div>
       )}

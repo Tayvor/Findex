@@ -21,10 +21,6 @@ def get_thread_comments(thread_id):
     }
     comment_list.append(comm)
 
-    # for com in comments:
-    #   print('User: ', com.user.to_dict())
-
-  # return jsonify([comment.to_dict() for comment in comments])
   return jsonify(comment_list)
 
 

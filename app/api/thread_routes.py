@@ -10,8 +10,19 @@ thread_routes = Blueprint('thread', __name__)
 @thread_routes.route('')
 def get_threads():
   threads = Thread.query.all()
+  thread_list = []
 
-  return jsonify([thread.to_dict() for thread in threads])
+  for thread in threads:
+    item = {
+			'id': thread.id,
+			'title': thread.title,
+      'description': thread.description,
+			'user_id': thread.user_id,
+      'user': thread.user.to_dict()
+		}
+    thread_list.append(item)
+
+  return jsonify(thread_list)
 
 
 # CREATE
