@@ -1,7 +1,10 @@
+// import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import './ThreadDetails.css';
 import Comments from "../../Comments";
+import OpenModalButton from "../../OpenModalButton/OpenModalButton";
+import CreateCommentModal from '../../Comments/CreateComment/CreateCommentModal';
 
 
 function ThreadDetails() {
@@ -12,27 +15,6 @@ function ThreadDetails() {
   const currUser = useSelector((state) => state.session.user)
   const back = '<'
 
-  const checkUserId = (user) => {
-    if (user.id === thread.user_id) {
-      return (
-        <button
-          className="threadDetails-EditBtn clickable"
-          onClick={() => navigate(`/threads/${threadId}/edit`)}
-        >:</button>
-      )
-    } else {
-      return (
-        <button
-          className="threadDetails-ReplyBtn clickable"
-        >+</button>
-      )
-    }
-  }
-
-  // Bug with refresh clearing redux state.
-  // Could dispatch(thunkGetThread(threadId))
-  // then force re-render.
-  // or look into persistent storage in the browser, w18
 
   return (thread &&
     <>
@@ -47,18 +29,25 @@ function ThreadDetails() {
             className="threadDetails-Title"
           >{thread.title}</div>
 
-          {
-            currUser !== null ? checkUserId(currUser)
-              :
-              <button
-                className="hiddenBtn"
-              ></button>
-          }
+          < OpenModalButton
+            modalComponent={CreateCommentModal}
+            buttonText='+'
+            className='threadDetails-ReplyBtn clickable'
+          />
         </div >
 
         <div className="threadDetails-Desc">
           <p>{thread.description}</p>
         </div>
+
+        {currUser?.id === thread.user_id ?
+          <button
+            className="threadDetails-EditBtn clickable"
+            onClick={() => navigate(`/threads/${threadId}/edit`)}
+          >:</button>
+          :
+          ''
+        }
 
       </div >
       <Comments threadId={threadId} />

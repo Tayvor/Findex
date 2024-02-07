@@ -28,6 +28,10 @@ export const router = createBrowserRouter([
         element: <EditThread />,
       },
       // {
+      //   path: "/threads/:threadId/reply",
+      //   element: <EditThread />,
+      // },
+      // {
       //   path: "login",
       //   element: <LoginFormPage />,
       // },
