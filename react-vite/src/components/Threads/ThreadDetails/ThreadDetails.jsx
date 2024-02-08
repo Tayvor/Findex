@@ -1,4 +1,4 @@
-// import { useEffect, useState } from "react";
+// import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import './ThreadDetails.css';
@@ -29,11 +29,15 @@ function ThreadDetails() {
             className="threadDetails-Title"
           >{thread.title}</div>
 
-          < OpenModalButton
-            modalComponent={CreateCommentModal}
-            buttonText='+'
-            className='threadDetails-ReplyBtn clickable'
-          />
+          {currUser && (
+            < OpenModalButton
+              modalComponent={<CreateCommentModal />}
+              buttonText='+'
+              className='threadDetails-ReplyBtn clickable'
+            />
+          )}
+
+          {!currUser && <button className="hiddenBtn"></button>}
         </div >
 
         <div className="threadDetails-Desc">
@@ -48,7 +52,6 @@ function ThreadDetails() {
           :
           ''
         }
-
       </div >
       <Comments threadId={threadId} />
     </>
