@@ -35,6 +35,17 @@ export const thunkCreateComment = (info) => async (dispatch) => {
   dispatch(storeComment(data));
 }
 
+export const thunkEditComment = (info, commentId) => async (dispatch) => {
+  const res = await fetch(`/api/comments/${commentId}/edit`, {
+    method: 'PUT',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(info),
+  });
+
+  const data = await res.json();
+  dispatch(storeComment(data));
+}
+
 
 // REDUCER
 const initialState = {};

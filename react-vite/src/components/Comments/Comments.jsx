@@ -2,8 +2,10 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { thunkGetComments } from '../../redux/comments';
 import './Comments.css';
+import OpenModalButton from '../OpenModalButton/OpenModalButton';
+import EditCommentModal from './EditComment/EditCommentModal';
 
-function Comments({ threadId }) {
+function Comments({ threadId, currUser }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,6 +23,19 @@ function Comments({ threadId }) {
         >
           <div className='username'>{comment.user.username}</div>
           <div>{comment.content}</div>
+
+          {currUser?.id === comment.user_id && (
+            < OpenModalButton
+              modalComponent={
+                <EditCommentModal
+                  threadId={threadId}
+                  content={comment.content}
+                  commentId={comment.id} />
+              }
+              buttonText=':'
+              className='commentBox-EditBtn clickable'
+            />
+          )}
         </div>
       )}
     </div>

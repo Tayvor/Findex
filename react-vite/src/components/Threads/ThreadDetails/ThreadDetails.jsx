@@ -53,7 +53,7 @@ function ThreadDetails() {
           ''
         }
       </div >
-      <Comments threadId={threadId} />
+      <Comments threadId={threadId} currUser={currUser} />
     </>
   )
 }

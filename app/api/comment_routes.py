@@ -53,10 +53,31 @@ def create_comment():
 
 
 # EDIT
-# @comment_routes.route('/<int:comment_id>/edit', methods=['PUT'])
-# def edit_comment(comment_id):
+@comment_routes.route('/<int:comment_id>/edit', methods=['PUT'])
+def edit_comment(comment_id):
+  form = CommentForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
 
-#   return jsonify()
+  if form.validate_on_submit():
+    old_comment = Comment.query.get(comment_id)
+    content = form.data['content']
+
+    setattr(old_comment, 'content', content)
+
+    db.session.commit()
+
+    comm_with_user = {
+      'id': old_comment.id,
+      'content': old_comment.content,
+      'user_id': old_comment.user_id,
+      'thread_id': old_comment.thread_id,
+      'user': old_comment.user.to_dict()
+    }
+
+    return jsonify(comm_with_user)
+
+  return jsonify('Bad Data')
+
 
 
 # DELETE
