@@ -31,7 +31,7 @@ function ThreadDetails() {
 
           {currUser && (
             < OpenModalButton
-              modalComponent={<CreateCommentModal />}
+              modalComponent={<CreateCommentModal threadId={threadId} />}
               buttonText='+'
               className='threadDetails-ReplyBtn clickable'
             />

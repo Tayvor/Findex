@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from app.models import Comment, db
 from flask_login import current_user
+from app.forms.comment_form import CommentForm
 
 comment_routes = Blueprint('comment', __name__)
 
@@ -25,10 +26,30 @@ def get_thread_comments(thread_id):
 
 
 # CREATE
-# @comment_routes.route('/create', methods=['POST'])
-# def create_comment():
+@comment_routes.route('/new', methods=['POST'])
+def create_comment():
+  form = CommentForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
 
-#   return jsonify()
+  if form.validate_on_submit():
+    new_comment = Comment(
+      content = form.data['content'],
+      thread_id = form.data['thread_id'],
+      user_id = current_user.id,
+    )
+
+  db.session.add(new_comment)
+  db.session.commit()
+
+  comm_with_user = {
+    'id': new_comment.id or 1,
+    'content': new_comment.content,
+    'user_id': new_comment.user_id,
+    'thread_id': new_comment.thread_id,
+    'user': new_comment.user.to_dict()
+  }
+
+  return jsonify(comm_with_user)
 
 
 # EDIT

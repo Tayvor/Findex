@@ -1,18 +1,27 @@
 import { useState } from "react";
 import './CreateCommentModal.css'
+import { useDispatch, useSelector } from "react-redux";
+import { thunkCreateComment, thunkGetComments } from "../../../redux/comments";
 
 
-function CreateCommentModal() {
+function CreateCommentModal({ threadId }) {
+  const dispatch = useDispatch();
   const [comment, setComment] = useState('');
+
+  const currUser = useSelector((state) => state.session.user);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const formInfo = {
-      'comment': comment,
+      'content': comment,
+      'user_id': currUser.id,
+      'thread_id': Number(threadId),
     }
 
-    console.log('clicked')
+    dispatch(thunkCreateComment(formInfo))
+      .then(() => thunkGetComments(threadId))
   }
 
   return (
