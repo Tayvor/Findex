@@ -11,23 +11,22 @@ function EditThread() {
   const dispatch = useDispatch();
 
   const thread = useSelector((state) => state.threads[threadId]);
-  const currUser = useSelector((state) => state.session.user)
-  const back = '<'
+  const currUser = useSelector((state) => state.session.user);
 
   const [title, setTitle] = useState(thread.title);
   const [description, setDesc] = useState(thread.description);
   const [errors, setErrors] = useState({});
 
-  const checkUserId = (user) => {
-    if (user.id === thread.user_id) {
-      return (
-        <button
-          className="editThread-SubmitBtn clickable"
-          type="submit"
-        >=</button>
-      )
-    }
-  }
+  // const checkUserId = (user) => {
+  //   if (user.id === thread.user_id) {
+  //     return (
+  //       <button
+  //         className="editThread-SubmitBtn clickable"
+  //         type="submit"
+  //       ><i className="fa-solid fa-check"></i></button>
+  //     )
+  //   }
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,7 +44,7 @@ function EditThread() {
     } else {
       navigate('/');
     }
-  }
+  };
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -65,7 +64,7 @@ function EditThread() {
           <button
             className="editThread-BackBtn clickable"
             onClick={() => navigate(`/threads/${threadId}`)}
-          >{back}</button>
+          ><i className="fa-solid fa-chevron-up fa-rotate-270"></i></button>
 
           <input
             value={title}
@@ -74,7 +73,12 @@ function EditThread() {
             name="title"
           ></input>
 
-          {currUser !== null ? checkUserId(currUser) : ''}
+          {currUser?.id === thread.user_id &&
+            <button
+              className="editThread-SubmitBtn clickable"
+              type="submit"
+            ><i className="fa-solid fa-check"></i></button>
+          }
         </div>
 
         <textarea
@@ -90,7 +94,7 @@ function EditThread() {
           <button
             className="editThread-DeleteBtn clickable"
             onClick={handleDelete}
-          >X</button>
+          ><i className="fa-regular fa-trash-can"></i></button>
         </div>
       </div>
     </>

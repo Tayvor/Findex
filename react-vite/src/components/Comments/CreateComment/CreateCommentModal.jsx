@@ -39,7 +39,7 @@ function CreateCommentModal({ threadId }) {
       <button
         className="createComment-SubmitBtn clickable"
         type="submit"
-      >=</button>
+      ><i className="fa-solid fa-check"></i></button>
 
     </form>
   );

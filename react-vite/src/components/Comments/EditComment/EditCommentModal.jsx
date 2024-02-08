@@ -35,24 +35,25 @@ function EditCommentModal({ threadId, content, commentId }) {
 
   return (
     <form className="editComment-Form" onSubmit={handleSubmit}>
-      <h2>Edit Your Comment</h2>
+      <div className="editComment-Header">
+        <button
+          className="editComment-DeleteBtn clickable"
+          onClick={handleDelete}
+        ><i className="fa-regular fa-trash-can"></i></button>
+
+        <div className="editComment-Title">Edit Your Comment</div>
+
+        <button
+          className="editComment-SubmitBtn clickable"
+          type="submit"
+        ><i className="fa-solid fa-check"></i></button>
+      </div>
 
       <textarea
         value={comment}
         onChange={(e) => setComment(e.target.value)}
         className="editComment-Textarea"
       ></textarea>
-
-      <button
-        className="editComment-DeleteBtn clickable"
-        onClick={handleDelete}
-      >X</button>
-
-      <button
-        className="editComment-SubmitBtn clickable"
-        type="submit"
-      >=</button>
-
     </form>
   );
 }

@@ -33,7 +33,7 @@ function Threads() {
           className="newThreadBtn clickable"
           onClick={() => navigate('/create-thread')}
           hidden={user ? false : true}
-        >+</button>
+        ><i className="fa-solid fa-plus"></i></button>
       </div>
 
       {threads.map((thread) =>

@@ -32,7 +32,7 @@ function Comments({ threadId, currUser }) {
                   content={comment.content}
                   commentId={comment.id} />
               }
-              buttonText=':'
+              buttonText={<i className="fa-regular fa-pen-to-square"></i>}
               className='commentBox-EditBtn clickable'
             />
           )}

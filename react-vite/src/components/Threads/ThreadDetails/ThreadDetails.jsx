@@ -1,10 +1,9 @@
-// import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import './ThreadDetails.css';
 import Comments from "../../Comments";
 import OpenModalButton from "../../OpenModalButton/OpenModalButton";
 import CreateCommentModal from '../../Comments/CreateComment/CreateCommentModal';
+import './ThreadDetails.css';
 
 
 function ThreadDetails() {
@@ -12,8 +11,7 @@ function ThreadDetails() {
   const { threadId } = useParams();
 
   const thread = useSelector((state) => state.threads[threadId]);
-  const currUser = useSelector((state) => state.session.user)
-  const back = '<'
+  const currUser = useSelector((state) => state.session.user);
 
 
   return (thread &&
@@ -23,7 +21,7 @@ function ThreadDetails() {
           <button
             className="threadDetails-BackBtn clickable"
             onClick={() => navigate('/')}
-          >{back}</button>
+          ><i className="fa-solid fa-chevron-up fa-rotate-270"></i></button>
 
           <div
             className="threadDetails-Title"
@@ -32,7 +30,7 @@ function ThreadDetails() {
           {currUser && (
             < OpenModalButton
               modalComponent={<CreateCommentModal threadId={threadId} />}
-              buttonText='+'
+              buttonText={<i className="fa-regular fa-comment"></i>}
               className='threadDetails-ReplyBtn clickable'
             />
           )}
@@ -48,7 +46,7 @@ function ThreadDetails() {
           <button
             className="threadDetails-EditBtn clickable"
             onClick={() => navigate(`/threads/${threadId}/edit`)}
-          >:</button>
+          ><i className="fa-regular fa-pen-to-square"></i></button>
           :
           ''
         }

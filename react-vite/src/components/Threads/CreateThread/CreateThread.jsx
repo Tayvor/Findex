@@ -13,7 +13,6 @@ function CreateThread() {
   const [description, setDesc] = useState("");
 
   const userId = useSelector((state) => state.session.user.id);
-  const back = '<'
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,7 +34,7 @@ function CreateThread() {
         <button
           className="createThread-BackBtn clickable"
           onClick={() => navigate('/')}
-        >{back}</button>
+        ><i className="fa-solid fa-chevron-up fa-rotate-270"></i></button>
 
         <input
           className="createThread-Title"
@@ -47,7 +46,7 @@ function CreateThread() {
         <button
           className="createThread-SubmitBtn clickable"
           type="submit"
-        >+</button>
+        ><i className="fa-solid fa-check"></i></button>
       </div>
 
       <textarea
