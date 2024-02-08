@@ -1,7 +1,7 @@
 import { useState } from "react";
 import './EditCommentModal.css'
 import { useDispatch, useSelector } from "react-redux";
-import { thunkEditComment } from "../../../redux/comments";
+import { thunkEditComment, thunkDeleteComment } from "../../../redux/comments";
 import { useModal } from "../../../context/Modal";
 
 
@@ -26,6 +26,13 @@ function EditCommentModal({ threadId, content, commentId }) {
       .then(() => closeModal())
   }
 
+  const handleDelete = (e) => {
+    e.preventDefault();
+
+    dispatch(thunkDeleteComment(commentId))
+      .then(() => closeModal())
+  }
+
   return (
     <form className="editComment-Form" onSubmit={handleSubmit}>
       <h2>Edit Your Comment</h2>
@@ -35,6 +42,11 @@ function EditCommentModal({ threadId, content, commentId }) {
         onChange={(e) => setComment(e.target.value)}
         className="editComment-Textarea"
       ></textarea>
+
+      <button
+        className="editComment-DeleteBtn clickable"
+        onClick={handleDelete}
+      >X</button>
 
       <button
         className="editComment-SubmitBtn clickable"

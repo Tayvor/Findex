@@ -39,7 +39,6 @@ export const thunkGetThreads = (id = 0) => async (dispatch) => {
   }
 };
 
-
 export const thunkCreateThread = (info) => async () => {
   const res = await fetch('/api/threads/create', {
     method: 'POST',
@@ -50,7 +49,6 @@ export const thunkCreateThread = (info) => async () => {
   const data = await res.json();
   return data
 }
-
 
 export const thunkEditThread = (info, threadId) => async (dispatch) => {
   const res = await fetch(`/api/threads/${threadId}/edit`, {
@@ -69,7 +67,6 @@ export const thunkEditThread = (info, threadId) => async (dispatch) => {
     return { server: "Something went wrong. Please try again" }
   }
 }
-
 
 export const thunkDeleteThread = (threadId) => async (dispatch) => {
   const res = await fetch(`/api/threads/${threadId}/delete`, {

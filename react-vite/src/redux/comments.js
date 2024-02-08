@@ -1,5 +1,6 @@
 const STORE_COMMENTS = 'STORE_COMMENTS';
 const STORE_COMMENT = 'STORE_COMMENT';
+const DELETE_COMMENT = 'DELETE_COMMENT';
 
 
 // ACTIONS
@@ -12,6 +13,11 @@ const storeComment = (comment) => ({
   type: STORE_COMMENT,
   comment
 })
+
+const deleteComment = (commentId) => ({
+  type: DELETE_COMMENT,
+  commentId
+});
 
 
 // THUNKS
@@ -46,6 +52,16 @@ export const thunkEditComment = (info, commentId) => async (dispatch) => {
   dispatch(storeComment(data));
 }
 
+export const thunkDeleteComment = (commentId) => async (dispatch) => {
+  const res = await fetch(`/api/comments/${commentId}/delete`, {
+    method: 'DELETE',
+  });
+
+  if (res.ok) {
+    dispatch(deleteComment(commentId));
+  }
+}
+
 
 // REDUCER
 const initialState = {};
@@ -59,6 +75,11 @@ function comments(state = initialState, action) {
 
     case STORE_COMMENT:
       newState = { ...state, [action.comment.id]: action.comment }
+      return newState;
+
+    case DELETE_COMMENT:
+      newState = { ...state };
+      delete newState[action.commentId];
       return newState;
 
     default:

@@ -81,7 +81,11 @@ def edit_comment(comment_id):
 
 
 # DELETE
-# @comment_routes.route('/<int:comment_id>/delete', methods=['DELETE'])
-# def delete_comment(comment_id):
+@comment_routes.route('/<int:comment_id>/delete', methods=['DELETE'])
+def delete_comment(comment_id):
+  comment = Comment.query.get(comment_id)
 
-#   return jsonify()
+  db.session.delete(comment)
+  db.session.commit()
+
+  return jsonify('Deleted')
