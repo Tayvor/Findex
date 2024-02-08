@@ -32,6 +32,23 @@
   font-size: 20px;
 }
 
+.threadDetails-Footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 50%;
+}
+
+.threadDetails-Likes {
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  height: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 
 /* Reply Button */
 .threadDetails-ReplyBtn {

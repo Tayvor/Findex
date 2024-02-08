@@ -16,8 +16,9 @@ function ThreadDetails() {
 
   return (thread &&
     <>
-      < div className="threadDetails-Container">
-        < div className="threadDetails-Header">
+      <div className="threadDetails-Container">
+
+        <div className="threadDetails-Header">
           <button
             className="threadDetails-BackBtn clickable"
             onClick={() => navigate('/')}
@@ -36,21 +37,29 @@ function ThreadDetails() {
           )}
 
           {!currUser && <button className="hiddenBtn"></button>}
-        </div >
+        </div>
 
         <div className="threadDetails-Desc">
           <p>{thread.description}</p>
         </div>
 
-        {currUser?.id === thread.user_id ?
-          <button
-            className="threadDetails-EditBtn clickable"
-            onClick={() => navigate(`/threads/${threadId}/edit`)}
-          ><i className="fa-regular fa-pen-to-square"></i></button>
-          :
-          ''
-        }
-      </div >
+        <div className="threadDetails-Footer">
+          {currUser?.id === thread.user_id ?
+            <button
+              className="threadDetails-EditBtn clickable"
+              onClick={() => navigate(`/threads/${threadId}/edit`)}
+            ><i className="fa-regular fa-pen-to-square"></i></button>
+            :
+            ''
+          }
+
+          <div className="threadDetails-Likes">
+            <i className="fa-solid fa-chevron-up fa-rotate-180"></i>
+            <div>987</div>
+            <i className="fa-solid fa-chevron-up"></i>
+          </div>
+        </div>
+      </div>
       <Comments threadId={threadId} currUser={currUser} />
     </>
   )
