@@ -2,6 +2,8 @@ from flask import Blueprint, request, jsonify
 from app.models import db, Thread, User
 from flask_login import current_user
 from app.forms.thread_form import ThreadForm
+from app.forms.image_form import ImageForm
+from app.api.s3_bucket import get_unique_filename, upload_file_to_s3
 
 thread_routes = Blueprint('thread', __name__)
 
@@ -74,3 +76,28 @@ def delete_thread(thread_id):
   db.session.commit()
 
   return jsonify('Deleted')
+
+
+# AWS Bucket upload
+@thread_routes.route("/images", methods=["POST"])
+def upload_image():
+    form = ImageForm()
+
+    if form.validate_on_submit():
+
+        image = form.data["image"]
+        image.filename = get_unique_filename(image.filename)
+        upload = upload_file_to_s3(image)
+        print(upload)
+
+        # if "url" not in upload:
+        # if the dictionary doesn't have a url key
+        # it means that there was an error when you tried to upload
+        # so you send back that error message (and you printed it above)
+            # return render_template("post_form.html", form=form, errors=[upload])
+
+        url = upload["url"]
+        # new_image = Image(image= url) # Image should be a model
+        # db.session.add(new_image)
+        # db.session.commit()
+        # return redirect("/posts/all")

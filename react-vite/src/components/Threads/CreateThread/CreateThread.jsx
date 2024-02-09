@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { thunkCreateThread } from "../../../redux/threads";
+import { thunkAddImage, thunkCreateThread } from "../../../redux/threads";
 import './CreateThread.css'
 
 
@@ -11,25 +11,36 @@ function CreateThread() {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
+  const [img1, setImg1] = useState(null);
+  const [imgLoading, setImgLoading] = useState(false);
 
   const userId = useSelector((state) => state.session.user.id);
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    if (img1) {
+      formData.append("image", img1);
+      setImgLoading(true);
+    }
+    await dispatch(thunkAddImage(formData));
+    navigate("/");
 
-    const formInfo = {
-      'title': title,
-      'description': description,
-      'user_id': userId,
-    };
 
-    dispatch(thunkCreateThread(formInfo))
-      .then(() => navigate('/'));
+    // const formInfo = {
+    //   'title': title,
+    //   'description': description,
+    //   'user_id': userId,
+    // };
+
+    // dispatch(thunkCreateThread(formInfo))
+    //   .then(() => navigate('/'));
   };
 
 
   return (
-    <form className="createThread-Form" onSubmit={handleSubmit}>
+    <form className="createThread-Form" onSubmit={handleSubmit} encType="multipart/form-data">
       <div className="createThread-Header">
         <button
           className="createThread-BackBtn clickable"
@@ -55,6 +66,12 @@ function CreateThread() {
         value={description}
         onChange={(e) => setDesc(e.target.value)}
       ></textarea>
+
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => setImg1(e.target.files[0])}
+      ></input>
     </form>
   )
 }
