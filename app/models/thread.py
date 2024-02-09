@@ -13,6 +13,8 @@ class Thread(db.Model):
   user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
 
   user = db.relationship('User', back_populates='threads')
+  images = db.relationship('Image')
+  likes = db.relationship('Like')
 
   def to_dict(self):
     return {

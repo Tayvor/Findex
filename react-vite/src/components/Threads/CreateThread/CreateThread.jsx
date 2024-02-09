@@ -11,7 +11,7 @@ function CreateThread() {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
-  const [img1, setImg1] = useState(null);
+  const [img, setImg] = useState(null);
   const [imgLoading, setImgLoading] = useState(false);
 
   const userId = useSelector((state) => state.session.user.id);
@@ -19,23 +19,23 @@ function CreateThread() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    if (img1) {
-      formData.append("image", img1);
+    if (img) {
+      const formData = new FormData();
+      formData.append("image", img);
       setImgLoading(true);
+      await dispatch(thunkAddImage(formData));
+      navigate("/");
+
+    } else {
+      const formInfo = {
+        'title': title,
+        'description': description,
+        'user_id': userId,
+      };
+
+      dispatch(thunkCreateThread(formInfo))
+        .then(() => navigate('/'));
     }
-    await dispatch(thunkAddImage(formData));
-    navigate("/");
-
-
-    // const formInfo = {
-    //   'title': title,
-    //   'description': description,
-    //   'user_id': userId,
-    // };
-
-    // dispatch(thunkCreateThread(formInfo))
-    //   .then(() => navigate('/'));
   };
 
 
@@ -70,7 +70,7 @@ function CreateThread() {
       <input
         type="file"
         accept="image/*"
-        onChange={(e) => setImg1(e.target.files[0])}
+        onChange={(e) => setImg(e.target.files[0])}
       ></input>
     </form>
   )

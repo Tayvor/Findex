@@ -16,6 +16,8 @@ class User(db.Model, UserMixin):
 
     threads = db.relationship('Thread', back_populates='user')
     comments = db.relationship('Comment', back_populates='user')
+    images = db.relationship('Image', back_populates='user')
+    likes = db.relationship('Like')
 
 
     @property
