@@ -7,6 +7,7 @@
 .threadBox {
   display: flex;
   justify-content: space-between;
+  border: 1px solid gray;
   border-radius: 10px;
   box-sizing: border-box;
   width: 100%;
@@ -18,7 +19,7 @@
 
 .threadBox:hover {
   border: 2px solid gray;
-  box-shadow: 5px 5px gray;
+  box-shadow: 3px 3px 3px rgba(128, 128, 128, 0.7);
 }
 
 .threadTitle {
