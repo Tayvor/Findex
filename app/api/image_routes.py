@@ -8,6 +8,25 @@ from app.api.s3_bucket import get_unique_filename, upload_file_to_s3
 image_routes = Blueprint('image', __name__)
 
 
+# GET IMAGES
+@image_routes.route('')
+def get_images():
+  images = Image.query.all()
+  image_list = []
+
+  for image in images:
+    img = {
+      'id': image.id,
+      'url': image.image_url,
+      'thread_id': image.thread_id,
+      'user_id': image.user_id,
+    }
+    image_list.append(img)
+
+  return jsonify(image_list)
+
+
+# ADD IMAGE
 @image_routes.route('/new', methods=['POST'])
 def upload_image():
   form = ImageForm(CombinedMultiDict((request.files, request.form)))

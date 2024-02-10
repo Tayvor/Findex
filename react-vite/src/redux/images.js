@@ -1,10 +1,16 @@
 const STORE_IMAGE = 'STORE_IMAGE';
+const STORE_IMAGES = 'STORE_IMAGES';
 
 
 // ACTIONS
-const storeImage = (imageUrl) => ({
+const storeImage = (image) => ({
   type: STORE_IMAGE,
-  imageUrl
+  image
+})
+
+const storeImages = (images) => ({
+  type: STORE_IMAGES,
+  images
 })
 
 
@@ -23,6 +29,17 @@ export const thunkUploadImage = (post) => async (dispatch) => {
   }
 };
 
+export const thunkGetImages = () => async (dispatch) => {
+  const res = await fetch('/api/images')
+
+  if (res.ok) {
+    const images = await res.json();
+    dispatch(storeImages(images));
+  } else {
+    console.log("There was an error making your post!")
+  }
+}
+
 
 // REDUCER
 const initialState = {};
@@ -30,8 +47,9 @@ const initialState = {};
 function images(state = initialState, action) {
   let newState = {};
   switch (action.type) {
-    case STORE_IMAGE:
-      const image = action.image
+    case STORE_IMAGES:
+      newState = { ...state }
+      action.images.map((image) => newState[image.id] = image);
       return newState;
 
     default:
