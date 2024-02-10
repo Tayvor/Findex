@@ -1,9 +1,16 @@
 /* site-wide styles */
 
-.clickable:hover {
-  cursor: pointer;
+body {
+  margin: 0;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-bottom: 50px;
 }
 
-* {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.clickable:hover {
+  cursor: pointer;
 }

@@ -2,10 +2,12 @@ import { createBrowserRouter } from 'react-router-dom';
 // import LoginFormPage from '../components/LoginFormPage';
 // import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
-import Threads from '../components/Threads';
 import CreateThread from '../components/Threads/CreateThread';
 import ThreadDetails from '../components/Threads/ThreadDetails';
 import EditThread from '../components/Threads/EditThread';
+import Home from '../components/Home';
+import Images from '../components/Images';
+import UploadImage from '../components/Images/UploadImage';
 
 export const router = createBrowserRouter([
   {
@@ -13,11 +15,15 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Threads />,
+        element: <Home />,
       },
       {
-        path: "/create-thread",
+        path: "/new-thread",
         element: <CreateThread />,
+      },
+      {
+        path: "/new-image",
+        element: <UploadImage />,
       },
       {
         path: "/threads/:threadId",

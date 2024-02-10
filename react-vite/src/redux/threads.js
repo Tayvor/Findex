@@ -20,11 +20,6 @@ const deleteThread = (threadId) => ({
   threadId
 });
 
-const addPost = (imgUrl) => ({
-  type: ADD_POST,
-  imgUrl
-})
-
 
 // THUNKS
 export const thunkGetThreads = (id = 0) => async (dispatch) => {
@@ -48,7 +43,7 @@ export const thunkGetThreads = (id = 0) => async (dispatch) => {
 export const thunkCreateThread = (info) => async () => {
   const res = await fetch('/api/threads/create', {
     method: 'POST',
-    headers: { "Content-Type": "multipart/form-data" },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(info),
   });
 
@@ -90,20 +85,6 @@ export const thunkDeleteThread = (threadId) => async (dispatch) => {
   }
 }
 
-export const thunkAddImage = (post) => async (dispatch) => {
-  const res = await fetch(`/api/threads/images`, {
-    method: "POST",
-    body: post
-  });
-
-  if (res.ok) {
-    const { resPost } = await res.json();
-    dispatch(addPost(resPost));
-  } else {
-    console.log("There was an error making your post!")
-  }
-};
-
 
 // REDUCER
 const initialState = {};
@@ -120,10 +101,6 @@ function threads(state = initialState, action) {
       newState = { ...state };
       delete newState[action.threadId];
       return newState;
-
-    case ADD_POST:
-      console.log('Made it to threads reducer');
-      return state;
 
     default:
       return state;

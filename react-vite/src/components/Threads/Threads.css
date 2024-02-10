@@ -2,70 +2,25 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* background-color: black; */
-}
-
-.threadsHeader {
-  display: flex;
-  justify-content: space-between;
-  width: 50%;
-  margin-top: 20px;
-}
-
-.threadsFilter {
-  border: 1px solid black;
-  border-radius: 10px;
-  width: 100px;
-  height: 40px;
-  font-size: 20px;
 }
 
 .threadBox {
   display: flex;
   justify-content: space-between;
-  border: 1px solid black;
   border-radius: 10px;
-  width: 50%;
+  box-sizing: border-box;
+  width: 100%;
   height: 85px;
   margin-top: 10px;
-  /* background-color: rgba(255, 255, 255, 1); */
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.threadBox:hover {
+  border: 2px solid gray;
+  box-shadow: 5px 5px gray;
 }
 
 .threadTitle {
-  margin: 10px;
   font-size: 20px;
 }
-
-.newThreadBtn {
-  border: 1px solid black;
-  border-radius: 10px;
-  width: 40px;
-  height: 40px;
-  font-size: 15px;
-  transition: all 1s;
-}
-
-.newThreadBtn:hover {
-  transition: all .5s;
-  width: 120px;
-  background-color: lightgreen;
-}
-
-.newThreadBtn:hover::after {
-  content: ' New Thread';
-}
-
-/* .newThreadBtn:hover {
-  animation: animate 2s;
-}
-
-@keyframes animate {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-    content: 'hello'
-  }
-} */

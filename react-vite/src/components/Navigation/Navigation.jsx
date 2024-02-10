@@ -7,7 +7,7 @@ function Navigation() {
 
 
   return (
-    <div className="navHeader">
+    <div className="navContainer">
       <h1
         onClick={() => navigate('/')}
         className="clickable"

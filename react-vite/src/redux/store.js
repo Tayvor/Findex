@@ -8,12 +8,14 @@ import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import threads from "./threads";
 import comments from "./comments";
+import images from "./images";
 
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   threads,
   comments,
+  images,
 });
 
 

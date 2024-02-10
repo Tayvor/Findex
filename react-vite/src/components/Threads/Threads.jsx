@@ -14,28 +14,10 @@ function Threads() {
   }, [dispatch]);
 
   const threads = Object.values(useSelector((state) => state.threads));
-  const user = useSelector((state) => state.session.user);
 
 
   return (
     <div className="threadsContainer">
-
-      <div className="threadsHeader">
-        <select className="threadsFilter clickable">
-          <option value='Threads' style={{ 'textAlign': 'center' }}
-          >Threads</option>
-
-          <option value='Photos' style={{ 'textAlign': 'center' }}
-          >Photos</option>
-        </select>
-
-        <button
-          className="newThreadBtn clickable"
-          onClick={() => navigate('/create-thread')}
-          hidden={user ? false : true}
-        ><i className="fa-solid fa-plus"></i></button>
-      </div>
-
       {threads.map((thread) =>
         <div
           key={thread.id}
