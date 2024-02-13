@@ -1,14 +1,11 @@
 // import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import Threads from "../Threads";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import './Home.css';
 import CreateThread from "../Threads/CreateThread";
 
 function Home() {
-  const navigate = useNavigate();
-
   const user = useSelector((state) => state.session.user);
 
 

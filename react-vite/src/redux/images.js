@@ -13,6 +13,11 @@ const storeImages = (images) => ({
   images
 })
 
+// const deleteImage = (image) => ({
+//   type: STORE_IMAGES,
+//   images
+// })
+
 
 // THUNKS
 export const thunkUploadImage = (post) => async (dispatch) => {
@@ -38,6 +43,12 @@ export const thunkGetImages = () => async (dispatch) => {
   } else {
     console.log("There was an error making your post!")
   }
+}
+
+export const thunkDeleteImage = () => async (dispatch) => {
+  const res = await fetch('/api/images/delete', {
+    method: 'DELETE',
+  })
 }
 
 

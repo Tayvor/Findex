@@ -3,7 +3,7 @@ from app.models import db, Image
 from flask_login import current_user
 from app.forms.image_form import ImageForm
 from werkzeug.datastructures import CombinedMultiDict
-from app.api.s3_bucket import get_unique_filename, upload_file_to_s3
+from app.api.s3_bucket import get_unique_filename, upload_file_to_s3, remove_file_from_s3
 
 image_routes = Blueprint('image', __name__)
 
@@ -53,3 +53,16 @@ def upload_image():
     db.session.add(new_image)
     db.session.commit()
     return jsonify(new_image.to_dict())
+
+
+# REMOVE IMAGE
+@image_routes.route('/delete', methods=['DELETE'])
+def remove_image():
+
+  # img = Image.query.get(1)
+  # print('******** ********* ******************')
+  # print('******** ********* ******************')
+  # print(img.to_dict())
+  # remove_file_from_s3('image_url')
+
+  return jsonify('hello')
