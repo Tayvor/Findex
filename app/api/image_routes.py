@@ -33,21 +33,23 @@ def upload_image():
   form['csrf_token'].data = request.cookies['csrf_token']
 
   if form.validate_on_submit():
-
+    # upload to s3 bucket
     image = form.data["image"]
     image.filename = get_unique_filename(image.filename)
     upload = upload_file_to_s3(image)
-    print(upload)
+    # print(upload)
 
     if "url" not in upload:
       return jsonify({'error': 'upload failed'}), 500
 
     url = upload["url"]
 
-    # create new image in table
-    new_image = Image(image_url=url, user_id=current_user.id)
+    # add image url and thread_id to table
+    new_image = Image(
+      image_url=url,
+      user_id=current_user.id,
+      thread_id=form.data['thread_id']
+    )
     db.session.add(new_image)
     db.session.commit()
-    result = new_image.to_dict()
-
-    return jsonify(result)
+    return jsonify(new_image.to_dict())

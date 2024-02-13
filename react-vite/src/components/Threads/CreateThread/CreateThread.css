@@ -2,24 +2,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 50vw;
 }
 
 .createThread-Header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
-  width: 50%;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 .createThread-Title {
   border: 1px solid black;
   border-radius: 10px;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   font-size: 25px;
   width: 500px;
-  height: 35px;
+  height: 40px;
   background-color: rgba(173, 216, 230, .5);
   text-align: center;
 }
@@ -28,11 +30,10 @@
   border: 1px solid black;
   border-radius: 10px;
   box-sizing: border-box;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 150px;
   font-size: 20px;
-  width: 50%;
-  min-height: 85px;
-  height: auto;
-  margin: 10px 0;
   background-color: rgba(173, 216, 230, .5);
   padding: 10px;
 }
@@ -53,7 +54,7 @@
 }
 
 .createThread-BackBtn:hover::after {
-  content: ' Back';
+  content: ' Close';
 }
 
 

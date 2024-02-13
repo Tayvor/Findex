@@ -15,7 +15,6 @@
 .homeHeader-Left {
   width: 50%;
   display: flex;
-  justify-content: space-around;
   align-items: center;
 }
 
@@ -42,27 +41,6 @@
 
 .homeHeader-NewThreadBtn:hover::after {
   content: ' New Thread';
-}
-
-
-/* New Image Button */
-.homeHeader-NewImageBtn {
-  border: 1px solid black;
-  border-radius: 10px;
-  width: 40px;
-  height: 40px;
-  font-size: 15px;
-  transition: all 1s;
-}
-
-.homeHeader-NewImageBtn:hover {
-  transition: all .5s;
-  width: 120px;
-  background-color: lightgreen;
-}
-
-.homeHeader-NewImageBtn:hover::after {
-  content: ' New Image';
 }
 
 
