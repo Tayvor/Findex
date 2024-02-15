@@ -37,21 +37,25 @@ def upload_image():
     image = form.data["image"]
     image.filename = get_unique_filename(image.filename)
     upload = upload_file_to_s3(image)
-    # print(upload)
+    print(upload)
+    print('**********************                *****************************')
+    print('**********************                *****************************')
 
     if "url" not in upload:
       return jsonify({'error': 'upload failed'}), 500
 
     url = upload["url"]
 
-    # add image url and thread_id to table
+    # add image url and thread_id to Images table
     new_image = Image(
       image_url=url,
       user_id=current_user.id,
       thread_id=form.data['thread_id']
     )
+
     db.session.add(new_image)
     db.session.commit()
+
     return jsonify(new_image.to_dict())
 
 

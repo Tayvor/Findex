@@ -12,6 +12,7 @@ function CreateThread() {
   const dispatch = useDispatch();
   // const navigate = useNavigate();
   const { closeModal } = useModal();
+
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
   const [image, setImage] = useState(null);
@@ -32,7 +33,7 @@ function CreateThread() {
     const res = await dispatch(thunkCreateThread(formInfo));
 
     // Second, grab new thread id, and post the image.
-    if (res.id && image) {
+    if (res && image) {
       const threadId = res.id;
 
       const formData = new FormData();

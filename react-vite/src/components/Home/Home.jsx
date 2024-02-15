@@ -16,11 +16,13 @@ function Home() {
           <div>THREADS</div>
         </div>
 
-        <OpenModalButton
-          modalComponent={<CreateThread />}
-          buttonText={<i className="fa-solid fa-plus"></i>}
-          className='homeHeader-NewThreadBtn clickable'
-        />
+        {user &&
+          <OpenModalButton
+            modalComponent={<CreateThread />}
+            buttonText={<i className="fa-solid fa-plus"></i>}
+            className='homeHeader-NewThreadBtn clickable'
+          />
+        }
       </div>
 
       <div className="homeContent">

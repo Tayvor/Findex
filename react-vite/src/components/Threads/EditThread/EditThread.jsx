@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { thunkDeleteThread, thunkEditThread } from "../../../redux/threads";
+import { thunkDeleteImages } from "../../../redux/images";
 import './EditThread.css'
 
 
@@ -13,20 +14,10 @@ function EditThread() {
   const thread = useSelector((state) => state.threads[threadId]);
   const currUser = useSelector((state) => state.session.user);
 
-  const [title, setTitle] = useState(thread.title);
-  const [description, setDesc] = useState(thread.description);
+  const [title, setTitle] = useState(thread?.title);
+  const [description, setDesc] = useState(thread?.description);
   const [errors, setErrors] = useState({});
 
-  // const checkUserId = (user) => {
-  //   if (user.id === thread.user_id) {
-  //     return (
-  //       <button
-  //         className="editThread-SubmitBtn clickable"
-  //         type="submit"
-  //       ><i className="fa-solid fa-check"></i></button>
-  //     )
-  //   }
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,8 +40,9 @@ function EditThread() {
   const handleDelete = (e) => {
     e.preventDefault();
 
-    dispatch(thunkDeleteThread(threadId));
-    navigate('/');
+    dispatch(thunkDeleteThread(threadId))
+      .then(() => dispatch(thunkDeleteImages(threadId)))
+      .then(() => navigate('/'));
   };
 
 

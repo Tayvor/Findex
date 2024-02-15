@@ -1,14 +1,14 @@
 from flask import Blueprint, request, jsonify
-from app.models import db, Thread, User
+from app.models import db, Thread, User, Image
 from flask_login import current_user
 from app.forms.thread_form import ThreadForm
 from app.forms.image_form import ImageForm
-from app.api.s3_bucket import get_unique_filename, upload_file_to_s3
+from app.api.s3_bucket import get_unique_filename, upload_file_to_s3, remove_file_from_s3
 
 thread_routes = Blueprint('thread', __name__)
 
 
-# GET ALL
+# GET ALL THREADS
 @thread_routes.route('')
 def get_threads():
   threads = Thread.query.all()
@@ -27,7 +27,7 @@ def get_threads():
   return jsonify(thread_list)
 
 
-# CREATE
+# CREATE THREAD
 @thread_routes.route('/create', methods=['POST'])
 def create_thread():
   thread_form = ThreadForm()
@@ -46,14 +46,14 @@ def create_thread():
   return jsonify(new_thread.to_dict())
 
 
-# EDIT
-@thread_routes.route('/<int:thread_id>/edit', methods=['PUT'])
-def edit_thread(thread_id):
+# EDIT THREAD
+@thread_routes.route('/<int:thread_id_num>/edit', methods=['PUT'])
+def edit_thread(thread_id_num):
   form = ThreadForm()
   form['csrf_token'].data = request.cookies['csrf_token']
 
   if form.validate_on_submit():
-    thread = Thread.query.get(thread_id)
+    thread = Thread.query.get(thread_id_num)
     title = form.data['title']
     description = form.data['description']
 
@@ -67,10 +67,16 @@ def edit_thread(thread_id):
   return jsonify('Bad Data')
 
 
-# DELETE
-@thread_routes.route('/<int:thread_id>/delete', methods=['DELETE'])
-def delete_thread(thread_id):
-  thread = Thread.query.get(thread_id)
+# DELETE THREAD
+@thread_routes.route('/<int:thread_id_num>/delete', methods=['DELETE'])
+def delete_thread(thread_id_num):
+  thread = Thread.query.get(thread_id_num)
+  images = Image.query.filter_by(thread_id=thread_id_num).all()
+
+  # Delete images from s3 bucket
+  for image in images:
+    url = image.image_url
+    remove_file_from_s3(url)
 
   db.session.delete(thread)
   db.session.commit()

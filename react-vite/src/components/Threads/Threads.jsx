@@ -25,7 +25,9 @@ function Threads() {
           onClick={() => navigate(`/threads/${thread.id}`)}
         >
           <div className="threadTitle">{thread.title}</div>
-          <div className="threadUsername">{thread.user.username}</div>
+          {thread.user &&
+            <div className="threadUsername">{thread.user.username}</div>
+          }
 
           <div>IMG</div>
         </div>
