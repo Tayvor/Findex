@@ -15,7 +15,6 @@
 .threadDetails-Title {
   display: flex;
   align-items: center;
-  border: 2px solid gray;
   border-radius: 10px;
   box-shadow: 3px 3px 3px rgba(128, 128, 128, 0.7);
   padding-left: 8px;
@@ -27,7 +26,6 @@
 }
 
 .threadDetails-Desc {
-  border: 2px solid gray;
   border-radius: 10px;
   box-sizing: border-box;
   box-shadow: 3px 3px 3px rgba(128, 128, 128, 0.7);
@@ -52,17 +50,18 @@
 .threadDetails-Likes {
   display: flex;
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid gray;
   border-radius: 10px;
   height: 40px;
   padding-left: 10px;
   padding-right: 10px;
+  background-color: rgba(240, 240, 240, 1);
 }
 
 
 /* Reply Button */
 .threadDetails-ReplyBtn {
-  border: 1px solid black;
+  border: 1px solid gray;
   border-radius: 10px;
   width: 40px;
   height: 40px;
@@ -83,7 +82,7 @@
 
 /* Edit Button */
 .threadDetails-EditBtn {
-  border: 1px solid black;
+  border: 1px solid gray;
   border-radius: 10px;
   width: 40px;
   height: 40px;
@@ -104,7 +103,7 @@
 
 /* Back Button */
 .threadDetails-BackBtn {
-  border: 1px solid black;
+  border: 1px solid gray;
   border-radius: 10px;
   width: 40px;
   height: 40px;
