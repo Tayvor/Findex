@@ -50,7 +50,7 @@
 }
 
 .editComment-SubmitBtn:hover::after {
-  content: ' Submit';
+  content: ' Done';
 }
 
 

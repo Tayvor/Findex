@@ -28,19 +28,26 @@ function CreateCommentModal({ threadId }) {
 
   return (
     <form className="createComment-Form" onSubmit={handleSubmit}>
-      <h2>Create a Comment</h2>
+      <div className="createComment-Header">
+        <button
+          className="createComment-BackBtn clickable"
+          onClick={() => closeModal()}
+        ><i className="fa-solid fa-x"></i></button>
+
+        <div className="createComment-Title">Create a Comment</div>
+
+        <button
+          className="createComment-SubmitBtn clickable"
+          type="submit"
+        ><i className="fa-solid fa-check"></i></button>
+      </div>
 
       <textarea
+        className="createComment-Textarea"
         value={comment}
         onChange={(e) => setComment(e.target.value)}
-        className="createComment-Textarea"
+        placeholder="Hmm..."
       ></textarea>
-
-      <button
-        className="createComment-SubmitBtn clickable"
-        type="submit"
-      ><i className="fa-solid fa-check"></i></button>
-
     </form>
   );
 }
