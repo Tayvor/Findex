@@ -8,10 +8,10 @@ from app.api.s3_bucket import get_unique_filename, upload_file_to_s3, remove_fil
 image_routes = Blueprint('image', __name__)
 
 
-# GET IMAGES
-@image_routes.route('')
-def get_images():
-  images = Image.query.all()
+# GET IMAGES BY THREAD ID
+@image_routes.route('/<int:thread_id_num>')
+def get_images(thread_id_num):
+  images = Image.query.filter_by(thread_id=thread_id_num).all()
   image_list = []
 
   for image in images:
@@ -37,9 +37,9 @@ def upload_image():
     image = form.data["image"]
     image.filename = get_unique_filename(image.filename)
     upload = upload_file_to_s3(image)
-    print(upload)
-    print('**********************                *****************************')
-    print('**********************                *****************************')
+    # print(upload)
+    # print('**********************                *****************************')
+    # print('**********************                *****************************')
 
     if "url" not in upload:
       return jsonify({'error': 'upload failed'}), 500

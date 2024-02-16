@@ -9,9 +9,10 @@ const storeImage = (image) => ({
   image
 })
 
-const storeImages = (images) => ({
+const storeImages = (images, threadId) => ({
   type: STORE_IMAGES,
-  images
+  images,
+  threadId
 })
 
 const deleteThreadImages = (threadId) => ({
@@ -28,19 +29,19 @@ export const thunkUploadImage = (post) => async (dispatch) => {
   });
 
   if (res.ok) {
-    const image = await res.json();
-    dispatch(storeImage(image));
+    // const image = await res.json();
+    // dispatch(storeImage(image));
   } else {
     console.log("There was an error making your post!")
   }
 };
 
-export const thunkGetImages = () => async (dispatch) => {
-  const res = await fetch('/api/images')
+export const thunkGetThreadImages = (threadId) => async (dispatch) => {
+  const res = await fetch(`/api/images/${threadId}`)
 
   if (res.ok) {
     const images = await res.json();
-    dispatch(storeImages(images));
+    dispatch(storeImages(images, threadId));
   } else {
     console.log("There was an error making your post!")
   }
@@ -62,12 +63,17 @@ function images(state = initialState, action) {
   switch (action.type) {
     case STORE_IMAGE:
       newState = { ...state };
-      newState[action.image.id] = action.image;
+      if (newState[action.image.thread_id]) {
+        newState[action.image.thread_id].push(action.image);
+      } else {
+        newState[action.image.thread_id] = [];
+        newState[action.image.thread_id].push(action.image);
+      }
       return newState;
 
     case STORE_IMAGES:
       newState = { ...state };
-      action.images.map((image) => newState[image.id] = image);
+      newState[action.threadId] = action.images;
       return newState;
 
     case DELETE_IMAGES:

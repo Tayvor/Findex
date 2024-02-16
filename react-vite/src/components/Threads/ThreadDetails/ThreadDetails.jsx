@@ -1,5 +1,7 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { thunkGetThreadImages } from "../../../redux/images";
 import Comments from "../../Comments";
 import OpenModalButton from "../../OpenModalButton/OpenModalButton";
 import CreateCommentModal from '../../Comments/CreateComment/CreateCommentModal';
@@ -8,10 +10,15 @@ import './ThreadDetails.css';
 
 function ThreadDetails() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { threadId } = useParams();
 
   const thread = useSelector((state) => state.threads[threadId]);
   const currUser = useSelector((state) => state.session.user);
+
+  useEffect(() => {
+    dispatch(thunkGetThreadImages(threadId));
+  }, [dispatch])
 
 
   return (thread &&
