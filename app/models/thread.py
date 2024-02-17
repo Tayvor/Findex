@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .utcnow import UtcNow
 
 
 class Thread(db.Model):
@@ -11,6 +12,8 @@ class Thread(db.Model):
   title = db.Column(db.String(50), nullable=False)
   description = db.Column(db.Text, nullable=False)
   user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
+
+  created_at = db.Column(db.DateTime, server_default=UtcNow())
 
   user = db.relationship('User', back_populates='threads')
   images = db.relationship('Image', cascade='all, delete-orphan')
