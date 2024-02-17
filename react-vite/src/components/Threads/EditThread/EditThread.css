@@ -1,3 +1,7 @@
+* {
+  font-family: Arial;
+}
+
 .editThread-Form {
   display: flex;
   flex-direction: column;

@@ -47,7 +47,13 @@ function ThreadDetails() {
         </div>
 
         <div className="threadDetails-Desc">
-          <p>{thread.description}</p>
+          {thread.description}
+
+          <div className="threadDetails-Info">
+            <span>{thread.user.username}</span>
+            <span> &bull; 3h ago</span>
+            <span> &bull; <i className="fa-regular fa-comment"></i> 9</span>
+          </div>
         </div>
 
         <div className="threadDetails-Footer">

@@ -24,10 +24,15 @@ function Threads() {
           className="threadBox clickable"
           onClick={() => navigate(`/threads/${thread.id}`)}
         >
-          <div className="threadTitle">{thread.title}</div>
-          {thread.user &&
-            <div className="threadUsername">{thread.user.username}</div>
-          }
+          <div className="threadTitle">{thread.title}
+            {thread.user &&
+              <div className="threadInfo">
+                <span>{thread.user.username}</span>
+                <span> &bull; 3h ago</span>
+                <span> &bull; <i className="fa-regular fa-comment"></i> 9</span>
+              </div>
+            }
+          </div>
 
           <div>IMG</div>
         </div>

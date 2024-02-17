@@ -1,3 +1,7 @@
+* {
+  font-family: Arial;
+}
+
 .createComment-Form {
   display: flex;
   flex-direction: column;

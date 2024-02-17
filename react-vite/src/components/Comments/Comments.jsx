@@ -21,7 +21,11 @@ function Comments({ threadId, currUser }) {
           className='commentBox'
           key={'comment' + comment.id}
         >
-          <div className='username'>{comment.user.username}</div>
+          <div className="commentInfo">
+            <span>{comment.user.username}</span>
+            <span className='commentInfo-Timestamp'> &bull; 3h ago</span>
+          </div>
+
           <div>{comment.content}</div>
 
           {currUser?.id === comment.user_id && (
