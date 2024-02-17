@@ -1,5 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from .utcnow import UtcNow
+from pytz import timezone
+import datetime
 
 
 class Thread(db.Model):
@@ -13,7 +14,7 @@ class Thread(db.Model):
   description = db.Column(db.Text, nullable=False)
   user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
 
-  created_at = db.Column(db.DateTime, server_default=UtcNow())
+  created_at = db.Column(db.DateTime, default=datetime.datetime.now())
 
   user = db.relationship('User', back_populates='threads')
   images = db.relationship('Image', cascade='all, delete-orphan')
@@ -26,3 +27,8 @@ class Thread(db.Model):
       'description': self.description,
 			'user_id': self.user_id
 		}
+
+  UTC = timezone('UTC')
+
+  def time_now():
+    return datetime.datetime.utcnow()
