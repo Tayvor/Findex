@@ -29,7 +29,12 @@ function Threads() {
               <div className="threadInfo">
                 <span>{thread.user.username}</span>
                 <span> &bull; 3h ago</span>
-                <span> &bull; <i className="fa-regular fa-comment"></i> 9</span>
+                <span> &bull;
+                  {" "}
+                  <i className="fa-regular fa-comment"></i>
+                  {" "}
+                  {thread.num_comments}
+                </span>
               </div>
             }
           </div>

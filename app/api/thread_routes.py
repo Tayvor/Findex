@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.models import db, Thread, User, Image
+from app.models import db, Thread, User, Image, Comment
 from flask_login import current_user
 from app.forms.thread_form import ThreadForm
 from app.forms.image_form import ImageForm
@@ -14,13 +14,17 @@ def get_threads():
   threads = Thread.query.all()
   thread_list = []
 
+
   for thread in threads:
+    num_comments = Comment.query.filter(Comment.thread_id == thread.id).count()
+
     item = {
 			'id': thread.id,
 			'title': thread.title,
       'description': thread.description,
 			'user_id': thread.user_id,
-      'user': thread.user.to_dict()
+      'user': thread.user.to_dict(),
+      'num_comments': num_comments
 		}
     thread_list.append(item)
 
