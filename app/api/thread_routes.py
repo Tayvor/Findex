@@ -4,6 +4,7 @@ from flask_login import current_user
 from app.forms.thread_form import ThreadForm
 from app.forms.image_form import ImageForm
 from app.api.s3_bucket import get_unique_filename, upload_file_to_s3, remove_file_from_s3
+from datetime import datetime
 
 thread_routes = Blueprint('thread', __name__)
 
@@ -24,7 +25,8 @@ def get_threads():
       'description': thread.description,
 			'user_id': thread.user_id,
       'user': thread.user.to_dict(),
-      'num_comments': num_comments
+      'num_comments': num_comments,
+      'created_at': thread.created_at
 		}
     thread_list.append(item)
 
@@ -38,10 +40,13 @@ def create_thread():
   thread_form['csrf_token'].data = request.cookies['csrf_token']
 
   if thread_form.validate_on_submit():
+    curr_date = datetime.utcnow()
+
     new_thread = Thread(
       title = thread_form.data['title'],
       description = thread_form.data['description'],
-      user_id = current_user.id
+      user_id = current_user.id,
+      created_at = curr_date
     )
 
   db.session.add(new_thread)

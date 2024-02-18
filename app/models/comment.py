@@ -12,6 +12,7 @@ class Comment(db.Model):
   user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
   thread_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('threads.id')), nullable=False)
   parent_id = db.Column(db.Integer)
+  created_at = db.Column(db.String, nullable=False)
 
   user = db.relationship('User', back_populates='comments')
   likes = db.relationship('Like')
@@ -22,5 +23,6 @@ class Comment(db.Model):
       'content': self.content,
 			'user_id': self.user_id,
       'thread_id': self.thread_id or 0,
-      'parent_id': self.parent_id or 0
+      'parent_id': self.parent_id or 0,
+      'created_at': self.created_at
 		}
