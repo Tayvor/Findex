@@ -50,7 +50,9 @@ function ThreadDetails() {
           {thread.description}
 
           <div className="threadDetails-Info">
-            <span>{thread.user.username}</span>
+            <span
+              className="threadDetails-Username clickable"
+            >{thread.user.username}</span>
             <span> &bull; 3h ago</span>
             <span> &bull;
               {" "}

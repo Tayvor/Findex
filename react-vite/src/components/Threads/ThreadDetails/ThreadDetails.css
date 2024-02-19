@@ -40,6 +40,11 @@
   margin-top: 10px;
 }
 
+.threadDetails-Username:hover {
+  color: black;
+  text-decoration: underline;
+}
+
 .threadDetails-Footer {
   display: flex;
   flex-direction: row;

@@ -72,13 +72,19 @@ function Threads() {
       {threads.map((thread) =>
         <div
           key={thread.id}
-          className="threadBox clickable"
-          onClick={() => navigate(`/threads/${thread.id}`)}
+          className="threadBox"
         >
-          <div className="threadTitle">{thread.title}
+          <div className="threadBox-Left">
+            <div
+              className="threadTitle clickable"
+              onClick={() => navigate(`/threads/${thread.id}`)}
+            >{thread.title}</div>
+
             {thread.user &&
               <div className="threadInfo">
-                <span>{thread.user.username}</span>
+                <span
+                  className="threadInfo-Username clickable"
+                >{thread.user.username}</span>
                 <span> &bull; {getTime(thread.created_at)}</span>
                 <span> &bull;
                   {" "}

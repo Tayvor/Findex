@@ -22,8 +22,10 @@ function Comments({ threadId, currUser }) {
           key={'comment' + comment.id}
         >
           <div className="commentInfo">
-            <span>{comment.user.username}</span>
-            <span className='commentInfo-Timestamp'> &bull; 3h ago</span>
+            <span
+              className='commentInfo-Username clickable'
+            >{comment.user.username}</span>
+            <span> &bull; 3h ago</span>
           </div>
 
           <div>{comment.content}</div>

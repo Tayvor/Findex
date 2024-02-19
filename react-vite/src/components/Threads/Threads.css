@@ -18,9 +18,10 @@
   background-color: rgba(255, 255, 255, 0.7);
 }
 
-.threadBox:hover {
-  border: 2px solid gray;
-  box-shadow: 3px 3px 3px rgba(128, 128, 128, 0.7);
+.threadBox-Left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .threadTitle {
@@ -30,7 +31,16 @@
   font-size: 25px;
 }
 
+.threadTitle:hover {
+  text-decoration: underline;
+}
+
 .threadInfo {
   color: gray;
   font-size: 17px;
+}
+
+.threadInfo-Username:hover {
+  color: black;
+  text-decoration: underline;
 }
