@@ -52,7 +52,17 @@ def create_thread():
   db.session.add(new_thread)
   db.session.commit()
 
-  return jsonify(new_thread.to_dict())
+  thread_with_user = {
+		'id': new_thread.id,
+		'title': new_thread.title,
+    'description': new_thread.description,
+		'user_id': new_thread.user_id,
+    'user': new_thread.user.to_dict(),
+    'num_comments': 0,
+    'created_at': new_thread.created_at
+	}
+
+  return jsonify(thread_with_user)
 
 
 # EDIT THREAD
