@@ -59,7 +59,7 @@ function CreateThread() {
         <button
           className="createThread-BackBtn clickable"
           onClick={() => closeModal()}
-        ><i className="fa-solid fa-x"></i></button>
+        ><i className="fa-solid fa-chevron-up fa-rotate-270"></i></button>
 
         <input
           className="createThread-Title"

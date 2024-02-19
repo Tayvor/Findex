@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from app.models import Comment, db
 from flask_login import current_user
 from app.forms.comment_form import CommentForm
+from datetime import datetime
 
 comment_routes = Blueprint('comment', __name__)
 
@@ -19,6 +20,7 @@ def get_thread_comments(thread_id):
       'user_id': comment.user_id,
       'thread_id': comment.thread_id,
       'user' : comment.user.to_dict(),
+      'created_at': comment.created_at,
     }
     comment_list.append(comm)
 
@@ -32,10 +34,13 @@ def create_comment():
   form['csrf_token'].data = request.cookies['csrf_token']
 
   if form.validate_on_submit():
+    curr_date = datetime.utcnow()
+
     new_comment = Comment(
       content = form.data['content'],
       thread_id = form.data['thread_id'],
       user_id = current_user.id,
+      created_at = curr_date
     )
 
   db.session.add(new_comment)
@@ -46,6 +51,7 @@ def create_comment():
     'content': new_comment.content,
     'user_id': new_comment.user_id,
     'thread_id': new_comment.thread_id,
+    'created_at': new_comment.created_at,
     'user': new_comment.user.to_dict()
   }
 
@@ -71,6 +77,7 @@ def edit_comment(comment_id):
       'content': old_comment.content,
       'user_id': old_comment.user_id,
       'thread_id': old_comment.thread_id,
+      'created_at': old_comment.created_at,
       'user': old_comment.user.to_dict()
     }
 

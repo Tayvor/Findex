@@ -15,11 +15,28 @@
 }
 
 .commentInfo {
-  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
   color: gray;
 }
 
 .commentInfo-Username:hover {
   color: black;
   text-decoration: underline;
+}
+
+
+/* Edit Button */
+.commentBox-EditBtn {
+  border: 1px solid gray;
+  border-radius: 5px;
+  width: 28px;
+  height: 28px;
+  font-size: 15px;
+  transition: all 1s;
+}
+
+.commentBox-EditBtn:hover {
+  transition: all .5s;
+  background-color: lightblue;
 }

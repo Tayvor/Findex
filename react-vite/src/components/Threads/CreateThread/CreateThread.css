@@ -49,13 +49,13 @@
 
 .createThread-BackBtn:hover {
   transition: all .5s;
-  width: 70px;
+  /* width: 70px; */
   background-color: lightgoldenrodyellow;
 }
 
-.createThread-BackBtn:hover::after {
+/* .createThread-BackBtn:hover::after {
   content: ' Close';
-}
+} */
 
 
 /* Submit Button */
@@ -68,10 +68,10 @@
 
 .createThread-SubmitBtn:hover {
   transition: all .5s;
-  width: 70px;
+  /* width: 70px; */
   background-color: lightgreen;
 }
 
-.createThread-SubmitBtn:hover::after {
+/* .createThread-SubmitBtn:hover::after {
   content: ' Create';
-}
+} */

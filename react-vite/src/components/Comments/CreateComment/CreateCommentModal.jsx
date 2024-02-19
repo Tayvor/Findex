@@ -32,7 +32,7 @@ function CreateCommentModal({ threadId }) {
         <button
           className="createComment-BackBtn clickable"
           onClick={() => closeModal()}
-        ><i className="fa-solid fa-x"></i></button>
+        ><i className="fa-solid fa-chevron-up fa-rotate-270"></i></button>
 
         <div className="createComment-Title">Create a Comment</div>
 
