@@ -2,8 +2,8 @@
 import { useSelector } from "react-redux";
 import Threads from "../Threads";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
-import './Home.css';
 import CreateThread from "../Threads/CreateThread";
+import './Home.css';
 
 function Home() {
   const user = useSelector((state) => state.session.user);
