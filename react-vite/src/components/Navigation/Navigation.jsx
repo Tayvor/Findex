@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
-import "./Navigation.css";
 import LoginFormModal from "../LoginFormModal";
+import "./Navigation.css";
 
 function Navigation() {
   const navigate = useNavigate();
@@ -16,18 +16,21 @@ function Navigation() {
         className="clickable"
       >FINDEX</h1>
 
-      {currUser &&
-        <div className="profileBtn">
-          <ProfileButton />
-        </div>
-      }
+      {currUser ?
+        <ProfileButton />
+        :
+        <div>
+          <span
+            className="signup clickable"
+            onClick={() => navigate('/signup')}
+          >Sign Up!</span>
 
-      {!currUser &&
-        <OpenModalButton
-          modalComponent={<LoginFormModal />}
-          buttonText={'Login'}
-          className='homeHeader-LoginBtn clickable'
-        />
+          <OpenModalButton
+            modalComponent={<LoginFormModal />}
+            buttonText={'Login'}
+            className='loginBtn clickable'
+          />
+        </div>
       }
     </div>
   );

@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkLogout } from "../../redux/session";
-import OpenModalMenuItem from "./OpenModalMenuItem";
-import LoginFormModal from "../LoginFormModal";
-import SignupFormModal from "../SignupFormModal";
+// import OpenModalMenuItem from "./OpenModalMenuItem";
+// import LoginFormModal from "../LoginFormModal";
+// import SignupFormModal from "../SignupFormModal";
 import { useNavigate } from "react-router-dom";
 
 function ProfileButton() {
@@ -51,7 +51,16 @@ function ProfileButton() {
       </button>
       {showMenu && (
         <ul className={"profile-dropdown"} ref={ulRef}>
-          {user ? (
+          {user && (
+            <>
+              <li>{user.username}</li>
+              <li>{user.email}</li>
+              <li>
+                <button onClick={logout}>Log Out</button>
+              </li>
+            </>
+          )}
+          {/* {user ? (
             <>
               <li>{user.username}</li>
               <li>{user.email}</li>
@@ -72,7 +81,7 @@ function ProfileButton() {
                 modalComponent={<SignupFormModal />}
               />
             </>
-          )}
+          )} */}
         </ul>
       )}
     </>

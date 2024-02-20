@@ -36,12 +36,7 @@
 .homeHeader-NewThreadBtn:hover {
   transition: all .5s;
   background-color: lightgreen;
-  /* width: 120px; */
 }
-
-/* .homeHeader-NewThreadBtn:hover::after {
-  content: ' New Thread';
-} */
 
 
 /* Content */
