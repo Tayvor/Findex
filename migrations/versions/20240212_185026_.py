@@ -27,6 +27,9 @@ def upgrade():
                existing_type=sa.INTEGER(),
                nullable=False)
 
+    if environment == "production":
+        op.execute(f"ALTER TABLE images SET SCHEMA {SCHEMA};")
+
     # ### end Alembic commands ###
 
 

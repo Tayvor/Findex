@@ -27,6 +27,9 @@ def upgrade():
                existing_type=sa.BOOLEAN(),
                nullable=True)
 
+    if environment == "production":
+        op.execute(f"ALTER TABLE likes SET SCHEMA {SCHEMA};")
+
     # ### end Alembic commands ###
 
 

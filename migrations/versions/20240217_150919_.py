@@ -25,6 +25,8 @@ def upgrade():
     with op.batch_alter_table('threads', schema=None) as batch_op:
         batch_op.add_column(sa.Column('created_at', sa.DateTime(), nullable=True))
 
+    if environment == "production":
+        op.execute(f"ALTER TABLE threads SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 

@@ -34,6 +34,10 @@ def upgrade():
                type_=sa.String(),
                nullable=False)
 
+    if environment == "production":
+        op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE threads SET SCHEMA {SCHEMA};")
+
     # ### end Alembic commands ###
 
 
