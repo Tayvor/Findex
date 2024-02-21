@@ -1,0 +1,30 @@
+.loginForm-Wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginForm-Wrapper>form {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginForm-Wrapper>form>input {
+  border: 1px solid gray;
+  border-radius: 10px;
+  width: 200px;
+  height: 40px;
+  font-size: 15px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+
+/* login btn */
+.loginForm-LoginBtn {
+  border: 1px solid gray;
+  border-radius: 10px;
+  width: 80px;
+  height: 40px;
+  transition: all 1s;
+}

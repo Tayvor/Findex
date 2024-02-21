@@ -121,7 +121,7 @@ function ThreadDetails() {
               onClick={() => navigate(`/threads/${threadId}/edit`)}
             ><i className="fa-regular fa-pen-to-square"></i></button>
             :
-            ''
+            <button className="hiddenBtn"></button>
           }
 
           <div className="threadDetails-Likes">

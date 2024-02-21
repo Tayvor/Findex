@@ -14,3 +14,14 @@ body::-webkit-scrollbar {
 .clickable:hover {
   cursor: pointer;
 }
+
+
+.error {
+  color: rgb(207, 0, 0);
+}
+
+
+.gGlow:hover {
+  transition: all .5s;
+  background-color: lightgreen;
+}

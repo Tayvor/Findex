@@ -79,12 +79,7 @@
 .threadDetails-ReplyBtn:hover {
   transition: all .5s;
   background-color: lightgreen;
-  /* width: 80px; */
 }
-
-/* .threadDetails-ReplyBtn:hover::after {
-  content: ' Reply';
-} */
 
 
 /* Edit Button */
@@ -100,12 +95,7 @@
 .threadDetails-EditBtn:hover {
   transition: all .5s;
   background-color: lightblue;
-  /* width: 70px; */
 }
-
-/* .threadDetails-EditBtn:hover::after {
-  content: ' Edit';
-} */
 
 
 /* Back Button */
@@ -121,12 +111,7 @@
 .threadDetails-BackBtn:hover {
   transition: all .5s;
   background-color: lightgoldenrodyellow;
-  /* width: 70px; */
 }
-
-/* .threadDetails-BackBtn:hover::after {
-  content: ' Back';
-} */
 
 
 /* Hidden Btn for layout purposes */

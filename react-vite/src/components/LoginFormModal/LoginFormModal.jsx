@@ -29,32 +29,37 @@ function LoginFormModal() {
   };
 
   return (
-    <>
+    <div className="loginForm-Wrapper">
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
+        <input
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          required
+        />
         {errors.email && <p>{errors.email}</p>}
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
+
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          required
+        />
         {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
+
+        <button
+          type="submit"
+          className={email && password ? "loginForm-LoginBtn clickable gGlow"
+            :
+            "loginForm-LoginBtn"
+          }
+          disabled={email && password ? false : true}
+        >Log In</button>
       </form>
-    </>
+    </div>
   );
 }
 

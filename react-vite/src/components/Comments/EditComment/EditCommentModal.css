@@ -41,16 +41,12 @@
   border-radius: 10px;
   width: 40px;
   height: 40px;
+  transition: all 1s;
 }
 
 .editComment-SubmitBtn:hover {
   transition: all .5s;
-  width: 70px;
   background-color: lightgreen;
-}
-
-.editComment-SubmitBtn:hover::after {
-  content: ' Done';
 }
 
 
@@ -60,14 +56,10 @@
   border-radius: 10px;
   width: 40px;
   height: 40px;
+  transition: all 1s;
 }
 
 .editComment-DeleteBtn:hover {
   transition: all .5s;
-  width: 70px;
   background-color: rgb(255, 125, 125);
-}
-
-.editComment-DeleteBtn:hover::after {
-  content: ' Delete';
 }
