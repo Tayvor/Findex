@@ -47,6 +47,7 @@ function CreateCommentModal({ threadId }) {
         value={comment}
         onChange={(e) => setComment(e.target.value)}
         placeholder="Hmm..."
+        required
       ></textarea>
     </form>
   );

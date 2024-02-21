@@ -63,6 +63,7 @@ function EditThread() {
             onChange={(e) => setTitle(e.target.value)}
             className="editThread-Title"
             name="title"
+            required
           ></input>
 
           {currUser?.id === thread.user_id &&
@@ -78,6 +79,7 @@ function EditThread() {
           onChange={(e) => setDesc(e.target.value)}
           className="editThread-Desc"
           name="desc"
+          required
         ></textarea>
       </form >
 

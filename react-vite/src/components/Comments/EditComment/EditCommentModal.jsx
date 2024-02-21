@@ -53,6 +53,7 @@ function EditCommentModal({ threadId, content, commentId }) {
         value={comment}
         onChange={(e) => setComment(e.target.value)}
         className="editComment-Textarea"
+        required
       ></textarea>
     </form>
   );

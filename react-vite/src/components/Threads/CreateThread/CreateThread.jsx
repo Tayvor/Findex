@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { useNavigate } from "react-router-dom";
 import { thunkCreateThread } from "../../../redux/threads";
@@ -7,16 +7,14 @@ import { useModal } from "../../../context/Modal";
 import './CreateThread.css';
 
 
-
 function CreateThread() {
   const dispatch = useDispatch();
   // const navigate = useNavigate();
   const { closeModal } = useModal();
-
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
   const [image, setImage] = useState(null);
-
+  const [errors, setErrors] = useState({});
   const userId = useSelector((state) => state.session.user.id);
 
 
@@ -55,6 +53,7 @@ function CreateThread() {
       onSubmit={handleSubmit}
       encType="multipart/form-data"
     >
+
       <div className="createThread-Header">
         <button
           className="createThread-BackBtn clickable"
@@ -66,7 +65,9 @@ function CreateThread() {
           placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          required
         ></input>
+        {errors.title && <p>{errors.title}</p>}
 
         <button
           className="createThread-SubmitBtn clickable"
@@ -79,7 +80,9 @@ function CreateThread() {
         placeholder="Description"
         value={description}
         onChange={(e) => setDesc(e.target.value)}
+        required
       ></textarea>
+      {errors.description && <p>{errors.description}</p>}
 
       <input
         type="file"
