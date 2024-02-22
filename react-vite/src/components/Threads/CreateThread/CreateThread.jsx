@@ -84,11 +84,17 @@ function CreateThread() {
       ></textarea>
       {errors.description && <p>{errors.description}</p>}
 
-      <input
-        type="file"
-        accept="image/*"
-        onChange={(e) => setImage(e.target.files[0])}
-      />
+      Add Image
+      <label
+        className="uploadImageBtn clickable"
+      ><i className="fa-regular fa-image"></i>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setImage(e.target.files[0])}
+          hidden
+        />
+      </label>
 
     </form>
   )

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { thunkGetThreadImages } from "../../../redux/images";
@@ -12,9 +12,11 @@ function ThreadDetails() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { threadId } = useParams();
+  // const [image, setImage] = useState([]);
 
   const thread = useSelector((state) => state.threads[threadId]);
   const currUser = useSelector((state) => state.session.user);
+  const threadImages = useSelector((state) => state.images[threadId]);
 
   useEffect(() => {
     dispatch(thunkGetThreadImages(threadId));
@@ -69,13 +71,12 @@ function ThreadDetails() {
     } else {
       return 'A moment ago';
     }
-  }
+  };
 
 
   return (thread &&
     <>
       <div className="threadDetails-Container">
-
         <div className="threadDetails-Header">
           <button
             className="threadDetails-BackBtn clickable"
@@ -114,6 +115,7 @@ function ThreadDetails() {
           </div>
         </div>
 
+
         <div className="threadDetails-Footer">
           {currUser?.id === thread.user_id ?
             <button
@@ -122,6 +124,13 @@ function ThreadDetails() {
             ><i className="fa-regular fa-pen-to-square"></i></button>
             :
             <button className="hiddenBtn"></button>
+          }
+
+          {threadImages &&
+            <img
+              src={threadImages[0]?.url}
+              className="threadDetails-Image"
+            ></img>
           }
 
           <div className="threadDetails-Likes">

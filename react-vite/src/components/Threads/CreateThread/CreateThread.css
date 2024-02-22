@@ -36,6 +36,7 @@
   font-size: 20px;
   background-color: rgba(173, 216, 230, .5);
   padding: 10px;
+  margin-bottom: 10px;
 }
 
 
@@ -66,4 +67,11 @@
 .createThread-SubmitBtn:hover {
   transition: all .5s;
   background-color: lightgreen;
+}
+
+
+/* Image Button */
+.uploadImageBtn {
+  font-size: 45px;
+  color: gray;
 }

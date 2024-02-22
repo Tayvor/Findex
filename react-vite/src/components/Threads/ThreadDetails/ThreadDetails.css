@@ -54,6 +54,11 @@
   padding-bottom: 10px;
 }
 
+.threadDetails-Image {
+  border-radius: 10px;
+  width: 300px;
+}
+
 .threadDetails-Likes {
   display: flex;
   align-items: center;
