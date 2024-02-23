@@ -9,13 +9,15 @@ function CreateCommentModal({ threadId }) {
   const dispatch = useDispatch();
   const [comment, setComment] = useState('');
   const { closeModal } = useModal();
-
   const currUser = useSelector((state) => state.session.user);
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Validations
+
+    // Form Submission
     const formInfo = {
       'content': comment,
       'user_id': currUser.id,

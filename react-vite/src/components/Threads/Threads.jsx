@@ -95,8 +95,6 @@ function Threads() {
               </div>
             }
           </div>
-
-          <div>IMG</div>
         </div>
       )}
     </div>

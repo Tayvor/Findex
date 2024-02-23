@@ -10,10 +10,8 @@ function EditThread() {
   const { threadId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const thread = useSelector((state) => state.threads[threadId]);
   const currUser = useSelector((state) => state.session.user);
-
   const [title, setTitle] = useState(thread?.title);
   const [description, setDesc] = useState(thread?.description);
   const [errors, setErrors] = useState({});
@@ -21,6 +19,26 @@ function EditThread() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors({});
+    const errors = {};
+
+    // Validations
+    if (title.length < 10 || title.length > 30) {
+      errors.title = 'Title must be between 10 and 30 characters.'
+    } else if (!title.trim()) {
+      errors.title = 'Title must not contain entirely whitespace.'
+    }
+
+    if (description.length < 10) {
+      errors.description = 'Description must be at least 10 characters.'
+    }
+
+    if (Object.values(errors).length) {
+      return setErrors(errors);
+    }
+
+
+    // Form Submission
     const formInfo = {
       'title': title,
       'description': description,
@@ -73,7 +91,9 @@ function EditThread() {
             ><i className="fa-solid fa-check"></i></button>
           }
         </div>
+        {errors.title && <p className="error">{errors.title}</p>}
 
+        {errors.description && <p className="error">{errors.description}</p>}
         <textarea
           value={description}
           onChange={(e) => setDesc(e.target.value)}

@@ -4,6 +4,10 @@
   align-items: center;
 }
 
+.signupPage>h1 {
+  margin-bottom: 5px;
+}
+
 
 /* Submit Btn */
 .signupForm-BtnDiv {
@@ -18,4 +22,14 @@
   height: 40px;
   font-size: 16px;
   transition: all 1s;
+  margin-top: 10px;
+}
+
+.cellRight {
+  text-align: right;
+}
+
+.signupErrors>p {
+  margin: 0;
+  margin-bottom: 5px;
 }

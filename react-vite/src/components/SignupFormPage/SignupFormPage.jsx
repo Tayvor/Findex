@@ -18,12 +18,38 @@ function SignupFormPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors({});
+    const errors = {};
 
-    if (password !== confirmPassword) {
-      return setErrors({
-        confirmPassword:
-          "Confirm Password field must be the same as the Password field",
-      });
+    if (email) {
+      const emailFormat = email.split('@');
+      if (!email.includes('@') ||
+        email.length < 3 ||
+        !emailFormat[0] ||
+        !emailFormat[1]
+      ) {
+        errors.email = 'Please provide a valid email.'
+      }
+    }
+
+    if (username) {
+      if (username.length < 4) {
+        errors.username = 'Username must be at least 4 characters.'
+      } else if (username.includes('@')) {
+        errors.username = 'Username must not be an email.'
+      }
+    }
+
+    if (password) {
+      if (password.length < 8) {
+        errors.password = 'Password must be at least 8 characters.'
+      } else if (password !== confirmPassword) {
+        errors.confirmPassword = 'Passwords do not match.'
+      }
+    }
+
+    if (Object.values(errors).length) {
+      return setErrors(errors);
     }
 
     const serverResponse = await dispatch(
@@ -44,12 +70,18 @@ function SignupFormPage() {
   return (
     <div className="signupPage">
       <h1>Sign Up</h1>
-      {errors.server && <p className="error">{errors.server}</p>}
+      <div className="signupErrors">
+        {errors.server && <p className="error">{errors.server}</p>}
+        {errors.email && <p className="error">{errors.email}</p>}
+        {errors.username && <p className="error">{errors.username}</p>}
+        {errors.password && <p className="error">{errors.password}</p>}
+        {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
+      </div>
 
       <form onSubmit={handleSubmit} className="signupForm">
         <table>
           <tr>
-            <td>
+            <td className="cellRight">
               Email:
             </td>
             <td>
@@ -61,10 +93,9 @@ function SignupFormPage() {
               />
             </td>
           </tr>
-          {errors.email && <p className="error">{errors.email}</p>}
 
           <tr>
-            <td>
+            <td className="cellRight">
               Username:
             </td>
             <td>
@@ -76,10 +107,9 @@ function SignupFormPage() {
               />
             </td>
           </tr>
-          {errors.username && <p className="error">{errors.username}</p>}
 
           <tr>
-            <td>
+            <td className="cellRight">
               Password:
             </td>
             <td>
@@ -91,10 +121,9 @@ function SignupFormPage() {
               />
             </td>
           </tr>
-          {errors.password && <tr className="error">{errors.password}</tr>}
 
           <tr>
-            <td>
+            <td className="cellRight">
               Confirm Password:
             </td>
             <td>
@@ -106,9 +135,14 @@ function SignupFormPage() {
               />
             </td>
           </tr>
-          {errors.confirmPassword && <tr className="error">{errors.confirmPassword}</tr>}
-
         </table>
+
+        {/* <div className="signupErrors">
+          {errors.email && <p className="error">{errors.email}</p>}
+          {errors.username && <p className="error">{errors.username}</p>}
+          {errors.password && <p className="error">{errors.password}</p>}
+          {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
+        </div> */}
 
         <div className="signupForm-BtnDiv">
           <button
