@@ -100,4 +100,5 @@ def delete_thread(thread_id_num):
   db.session.delete(thread)
   db.session.commit()
 
-  return jsonify('Deleted')
+  # return jsonify('Deleted')
+  return
