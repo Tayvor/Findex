@@ -9,7 +9,6 @@ function EditCommentModal({ threadId, content, commentId }) {
   const dispatch = useDispatch();
   const [comment, setComment] = useState(content);
   const { closeModal } = useModal();
-
   const currUser = useSelector((state) => state.session.user);
 
 

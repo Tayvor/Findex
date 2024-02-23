@@ -32,6 +32,7 @@ function LoginFormModal() {
     <div className="loginForm-Wrapper">
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
+        {errors.email && <p className="loginError error">{errors.email}</p>}
         <input
           type="text"
           value={email}
@@ -39,8 +40,8 @@ function LoginFormModal() {
           placeholder="Email"
           required
         />
-        {errors.email && <p>{errors.email}</p>}
 
+        {errors.password && <p className="loginError error">{errors.password}</p>}
         <input
           type="password"
           value={password}
@@ -48,7 +49,6 @@ function LoginFormModal() {
           placeholder="Password"
           required
         />
-        {errors.password && <p>{errors.password}</p>}
 
         <button
           type="submit"

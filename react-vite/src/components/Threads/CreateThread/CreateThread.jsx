@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
 import { thunkCreateThread } from "../../../redux/threads";
 import { thunkUploadImage } from "../../../redux/images";
 import { useModal } from "../../../context/Modal";
@@ -9,18 +8,38 @@ import './CreateThread.css';
 
 function CreateThread() {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
   const { closeModal } = useModal();
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
   const userId = useSelector((state) => state.session.user.id);
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors({});
+    setLoading(false);
+    const errors = {};
 
+    // Validations
+    if (title.length < 10 || title.length > 30) {
+      errors.title = 'Title must be between 10 and 30 characters.'
+    } else if (!title.trim()) {
+      errors.title = 'Title must not contain entirely whitespace.'
+    }
+
+    if (description.length < 10) {
+      errors.description = 'Description must be at least 10 characters.'
+    }
+
+    if (Object.values(errors).length) {
+      return setErrors(errors);
+    }
+
+
+    // Form Submission
     // First, create a new thread.
     const formInfo = {
       'title': title,
@@ -32,6 +51,7 @@ function CreateThread() {
 
     // Second, grab new thread id, and post the image.
     if (res && image) {
+      setLoading(true);
       const threadId = res.id;
 
       const formData = new FormData();
@@ -53,11 +73,11 @@ function CreateThread() {
       onSubmit={handleSubmit}
       encType="multipart/form-data"
     >
-
       <div className="createThread-Header">
         <button
           className="createThread-BackBtn clickable"
           onClick={() => closeModal()}
+          disabled={loading}
         ><i className="fa-solid fa-chevron-up fa-rotate-270"></i></button>
 
         <input
@@ -67,14 +87,16 @@ function CreateThread() {
           onChange={(e) => setTitle(e.target.value)}
           required
         ></input>
-        {errors.title && <p>{errors.title}</p>}
 
         <button
           className="createThread-SubmitBtn clickable"
           type="submit"
+          disabled={loading}
         ><i className="fa-solid fa-check"></i></button>
       </div>
-
+      {errors.title && <p className="error">{errors.title}</p>}
+      {loading && <p>Loading... please wait.</p>}
+      {errors.description && <p className="error">{errors.description}</p>}
       <textarea
         className="createThread-Desc"
         placeholder="Description"
@@ -82,7 +104,6 @@ function CreateThread() {
         onChange={(e) => setDesc(e.target.value)}
         required
       ></textarea>
-      {errors.description && <p>{errors.description}</p>}
 
       Add Image
       <label
@@ -95,6 +116,7 @@ function CreateThread() {
           hidden
         />
       </label>
+      {image && <p>Image Attached!</p>}
 
     </form>
   )

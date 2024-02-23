@@ -5,6 +5,11 @@
   width: 50vw;
 }
 
+.createThread-Form>p {
+  margin: 0;
+  margin-bottom: 5px;
+}
+
 .createThread-Header {
   display: flex;
   justify-content: space-between;

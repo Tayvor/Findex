@@ -8,11 +8,17 @@
   align-items: center;
 }
 
+.editThread-Form>p {
+  margin: 0;
+  margin-bottom: 5px;
+}
+
 .editThread-Header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
+  margin-bottom: 10px;
   width: 50%;
 }
 
@@ -35,7 +41,7 @@
   font-size: 20px;
   width: 50%;
   min-height: 85px;
-  margin: 10px 0;
+  margin-bottom: 10px;
   background-color: rgba(173, 216, 230, .5);
   padding: 10px;
 }
