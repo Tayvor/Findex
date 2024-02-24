@@ -4,8 +4,8 @@ from sqlalchemy.sql import text
 
 def seed_threads():
   demo = Thread(
-    title = "Help! What's wrong with my fish!?",
-    description = "Last night my fish were fine. This morning I wake up to find them all laying on the bottom of the tank..",
+    title = "What's going on with my fish?",
+    description = "Fish have been acting lethargic, and not eating very much. It seems like they aren't feeling well. What can I do?",
     created_at = '2024-02-17 22:40:10.813655',
     user_id = 1
   )
@@ -32,8 +32,8 @@ def seed_threads():
   )
 
   guppyGal = Thread(
-    title = "I need a quiet airstone!",
-    description = "My airstone is way to loud. I've tried cleaning it but that doesn't work. Any suggestions?",
+    title = "I need a quiet airpump!",
+    description = "My airpump is way to loud. I've tried cleaning it but that doesn't work. Any suggestions?",
     created_at = '2024-02-17 03:40:10.813655',
     user_id = 5
   )

@@ -4,10 +4,10 @@ const DELETE_IMAGES = 'DELETE_IMAGES';
 
 
 // ACTIONS
-const storeImage = (image) => ({
-  type: STORE_IMAGE,
-  image
-})
+// const storeImage = (image) => ({
+//   type: STORE_IMAGE,
+//   image
+// })
 
 const storeImages = (images, threadId) => ({
   type: STORE_IMAGES,
@@ -22,7 +22,7 @@ const deleteThreadImages = (threadId) => ({
 
 
 // THUNKS
-export const thunkUploadImage = (post) => async (dispatch) => {
+export const thunkUploadImage = (post) => async () => {
   const res = await fetch(`/api/images/new`, {
     method: "POST",
     body: post

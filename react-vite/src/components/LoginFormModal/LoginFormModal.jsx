@@ -28,6 +28,23 @@ function LoginFormModal() {
     }
   };
 
+  const demoLogin = async (e) => {
+    e.preventDefault();
+
+    const serverResponse = await dispatch(
+      thunkLogin({
+        'email': 'demo@aa.io',
+        'password': 'password',
+      })
+    );
+
+    if (serverResponse) {
+      setErrors(serverResponse);
+    } else {
+      closeModal();
+    }
+  }
+
   return (
     <div className="loginForm-Wrapper">
       <h1>Log In</h1>
@@ -50,14 +67,21 @@ function LoginFormModal() {
           required
         />
 
-        <button
-          type="submit"
-          className={email && password ? "loginForm-LoginBtn clickable gGlow"
-            :
-            "loginForm-LoginBtn"
-          }
-          disabled={email && password ? false : true}
-        >Log In</button>
+        <div className="loginLayout">
+          <span
+            className="demoLogin clickable"
+            onClick={demoLogin}
+          >Demo Login</span>
+
+          <button
+            type="submit"
+            className={email && password ? "loginForm-LoginBtn clickable gGlow"
+              :
+              "loginForm-LoginBtn"
+            }
+            disabled={email && password ? false : true}
+          >Log In</button>
+        </div>
       </form>
     </div>
   );

@@ -76,7 +76,7 @@ function Comments({ threadId, currUser }) {
           <div className="commentInfo">
             <div>
               <span
-                className='commentInfo-Username clickable'
+              // className='commentInfo-Username clickable'
               >{comment.user.username}</span>
               <span> &bull; {getTime(comment.created_at)}</span>
             </div>

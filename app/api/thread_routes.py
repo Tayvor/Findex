@@ -1,9 +1,8 @@
 from flask import Blueprint, request, jsonify
-from app.models import db, Thread, User, Image, Comment
+from app.models import db, Thread, Image, Comment
 from flask_login import current_user
 from app.forms.thread_form import ThreadForm
-from app.forms.image_form import ImageForm
-from app.api.s3_bucket import get_unique_filename, upload_file_to_s3, remove_file_from_s3
+from app.api.s3_bucket import remove_file_from_s3
 from datetime import datetime
 
 thread_routes = Blueprint('thread', __name__)
@@ -91,14 +90,18 @@ def edit_thread(thread_id_num):
 def delete_thread(thread_id_num):
   thread = Thread.query.get(thread_id_num)
   images = Image.query.filter_by(thread_id=thread_id_num).all()
+  comments = Comment.query.filter_by(thread_id=thread_id_num).all()
 
   # Delete images from s3 bucket
   for image in images:
     url = image.image_url
     remove_file_from_s3(url)
 
+  # Delete comments
+  for comment in comments:
+    db.session.delete(comment)
+
   db.session.delete(thread)
   db.session.commit()
 
-  # return jsonify('Deleted')
-  return
+  return jsonify(''), 204

@@ -40,3 +40,19 @@
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
+
+.loginLayout {
+  display: flex;
+  justify-content: space-between;
+}
+
+.demoLogin {
+  align-self: center;
+  color: gray;
+}
+
+.demoLogin:hover {
+  text-decoration: underline;
+  color: black;
+}

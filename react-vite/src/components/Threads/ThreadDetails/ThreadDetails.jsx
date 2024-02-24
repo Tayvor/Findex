@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { thunkGetThreadImages } from "../../../redux/images";
@@ -12,7 +12,6 @@ function ThreadDetails() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { threadId } = useParams();
-  // const [image, setImage] = useState([]);
 
   const thread = useSelector((state) => state.threads[threadId]);
   const currUser = useSelector((state) => state.session.user);
@@ -20,7 +19,7 @@ function ThreadDetails() {
 
   useEffect(() => {
     dispatch(thunkGetThreadImages(threadId));
-  }, [dispatch]);
+  }, [dispatch, threadId]);
 
   const getTime = (created_at) => {
     const dateCreated = String(created_at).split(' ')[0].split('-');
@@ -103,7 +102,7 @@ function ThreadDetails() {
 
           <div className="threadDetails-Info">
             <span
-              className="threadDetails-Username clickable"
+            // className="threadDetails-Username clickable"
             >{thread.user.username}</span>
             <span> &bull; {getTime(thread.created_at)}</span>
             <span> &bull;
@@ -126,18 +125,12 @@ function ThreadDetails() {
             <button className="hiddenBtn"></button>
           }
 
-          {threadImages &&
+          {threadImages && threadImages[0] &&
             <img
               src={threadImages[0]?.url}
               className="threadDetails-Image"
             ></img>
           }
-
-          <div className="threadDetails-Likes">
-            <i className="fa-solid fa-chevron-up fa-rotate-180"></i>
-            <div>987</div>
-            <i className="fa-solid fa-chevron-up"></i>
-          </div>
         </div>
       </div>
       <Comments threadId={threadId} currUser={currUser} />

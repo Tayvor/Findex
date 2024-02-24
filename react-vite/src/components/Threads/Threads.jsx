@@ -83,7 +83,7 @@ function Threads() {
             {thread.user &&
               <div className="threadInfo">
                 <span
-                  className="threadInfo-Username clickable"
+                // className="threadInfo-Username clickable"
                 >{thread.user.username}</span>
                 <span> &bull; {getTime(thread.created_at)}</span>
                 <span> &bull;
