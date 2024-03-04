@@ -101,30 +101,31 @@ function ThreadDetails() {
           {thread.description}
 
           <div className="threadDetails-Info">
-            <span
-            // className="threadDetails-Username clickable"
-            >{thread.user.username}</span>
-            <span> &bull; {getTime(thread.created_at)}</span>
-            <span> &bull;
-              {" "}
-              <i className="fa-regular fa-comment"></i>
-              {" "}
-              {thread.num_comments}
-            </span>
+            <div>
+              <span
+              // className="threadDetails-Username clickable"
+              >{thread.user.username}</span>
+              <span> &bull; {getTime(thread.created_at)}</span>
+              <span> &bull;
+                {" "}
+                <i className="fa-regular fa-comment"></i>
+                {" "}
+                {thread.num_comments}
+              </span>
+            </div>
+
+            {currUser?.id === thread.user_id ?
+              <div
+                className="threadDetails-Edit clickable"
+                onClick={() => navigate(`/threads/${threadId}/edit`)}
+              >edit</div>
+              : ''
+            }
           </div>
         </div>
 
 
         <div className="threadDetails-Footer">
-          {currUser?.id === thread.user_id ?
-            <button
-              className="threadDetails-EditBtn clickable"
-              onClick={() => navigate(`/threads/${threadId}/edit`)}
-            ><i className="fa-regular fa-pen-to-square"></i></button>
-            :
-            <button className="hiddenBtn"></button>
-          }
-
           {threadImages && threadImages[0] &&
             <img
               src={threadImages[0]?.url}

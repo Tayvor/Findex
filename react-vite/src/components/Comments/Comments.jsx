@@ -68,11 +68,13 @@ function Comments({ threadId, currUser }) {
 
   return (
     <div className='commentsContainer'>
+
       {comments.map((comment) =>
         <div
           className='commentBox'
           key={'comment' + comment.id}
         >
+
           <div className="commentInfo">
             <div>
               <span
@@ -89,14 +91,13 @@ function Comments({ threadId, currUser }) {
                     content={comment.content}
                     commentId={comment.id} />
                 }
-                buttonText={<i className="fa-regular fa-pen-to-square"></i>}
+                buttonText='edit'
                 className='commentBox-EditBtn clickable'
               />
             )}
           </div>
 
           <div>{comment.content}</div>
-
         </div>
       )}
     </div>

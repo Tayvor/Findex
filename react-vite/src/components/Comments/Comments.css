@@ -17,7 +17,10 @@
 .commentInfo {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   color: gray;
+  font-size: 17px;
+  height: 25px;
 }
 
 .commentInfo-Username:hover {
@@ -28,15 +31,18 @@
 
 /* Edit Button */
 .commentBox-EditBtn {
-  border: 1px solid gray;
+  border: none;
   border-radius: 5px;
-  width: 28px;
-  height: 28px;
-  font-size: 15px;
+  width: 50px;
+  height: 25px;
+  font-size: 17px;
+  background: none;
+  color: gray;
   transition: all 1s;
 }
 
 .commentBox-EditBtn:hover {
   transition: all .5s;
   background-color: lightblue;
+  color: black;
 }

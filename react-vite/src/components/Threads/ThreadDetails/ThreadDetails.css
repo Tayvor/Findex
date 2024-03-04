@@ -35,6 +35,9 @@
 }
 
 .threadDetails-Info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   color: gray;
   font-size: 17px;
   margin-top: 10px;
@@ -88,18 +91,20 @@
 
 
 /* Edit Button */
-.threadDetails-EditBtn {
-  border: 1px solid gray;
-  border-radius: 10px;
-  width: 40px;
-  height: 40px;
-  font-size: 15px;
+.threadDetails-Edit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  width: 50px;
+  height: 25px;
   transition: all 1s;
 }
 
-.threadDetails-EditBtn:hover {
+.threadDetails-Edit:hover {
   transition: all .5s;
   background-color: lightblue;
+  color: black;
 }
 
 
