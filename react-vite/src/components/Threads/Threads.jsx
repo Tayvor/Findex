@@ -92,6 +92,12 @@ function Threads() {
                   {" "}
                   {thread.num_comments}
                 </span>
+                <span> &bull;
+                  {" "}
+                  <i className="fa-solid fa-arrow-up"></i>
+                  {" "}
+                  {thread.num_likes}
+                </span>
               </div>
             }
           </div>

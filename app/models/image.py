@@ -13,7 +13,6 @@ class Image(db.Model):
   thread_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('threads.id')), nullable=False)
 
   user = db.relationship('User', back_populates='images')
-  likes = db.relationship('Like')
 
   def to_dict(self):
     return {

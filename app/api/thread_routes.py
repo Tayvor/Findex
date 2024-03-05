@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.models import db, Thread, Image, Comment
+from app.models import db, Thread, Image, Comment, Like
 from flask_login import current_user
 from app.forms.thread_form import ThreadForm
 from app.api.s3_bucket import remove_file_from_s3
@@ -14,9 +14,9 @@ def get_threads():
   threads = Thread.query.all()
   thread_list = []
 
-
   for thread in threads:
     num_comments = Comment.query.filter(Comment.thread_id == thread.id).count()
+    num_likes = Like.query.filter(Like.thread_id == thread.id).count()
 
     item = {
 			'id': thread.id,
@@ -25,6 +25,7 @@ def get_threads():
 			'user_id': thread.user_id,
       'user': thread.user.to_dict(),
       'num_comments': num_comments,
+      'num_likes': num_likes,
       'created_at': thread.created_at
 		}
     thread_list.append(item)

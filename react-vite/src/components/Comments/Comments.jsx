@@ -81,6 +81,12 @@ function Comments({ threadId, currUser }) {
               // className='commentInfo-Username clickable'
               >{comment.user.username}</span>
               <span> &bull; {getTime(comment.created_at)}</span>
+              <span> &bull;
+                {" "}
+                <i className="fa-solid fa-arrow-up"></i>
+                {" "}
+                {comment.num_likes}
+              </span>
             </div>
 
             {currUser?.id === comment.user_id && (

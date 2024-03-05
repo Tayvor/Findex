@@ -101,17 +101,27 @@ function ThreadDetails() {
           {thread.description}
 
           <div className="threadDetails-Info">
-            <div>
-              <span
-              // className="threadDetails-Username clickable"
-              >{thread.user.username}</span>
-              <span> &bull; {getTime(thread.created_at)}</span>
-              <span> &bull;
-                {" "}
+            <div className="threadDetails-InfoLeft">
+              <div
+                className="threadDetails-Username"
+              >{thread.user.username}</div> &bull;
+
+              <div>{getTime(thread.created_at)}</div> &bull;
+
+              <div>
                 <i className="fa-regular fa-comment"></i>
                 {" "}
                 {thread.num_comments}
-              </span>
+              </div> &bull;
+
+              <div
+                onClick={() => console.log('clicked!!')}
+                className="threadDetails-Likes clickable"
+              >
+                <i className="fa-solid fa-arrow-up"></i>
+                &nbsp;
+                {thread.num_likes}
+              </div>
             </div>
 
             {currUser?.id === thread.user_id ?
