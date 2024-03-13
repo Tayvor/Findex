@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { thunkGetThreads } from "../../redux/threads";
+import { thunkGetUserLikes } from "../../redux/likes";
 import './Threads.css'
 
 
@@ -9,11 +10,15 @@ function Threads() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const threads = Object.values(useSelector((state) => state.threads));
+  const currUserLikes = Object.values(useSelector((state) => state.currUserLikes));
+
+
   useEffect(() => {
-    dispatch(thunkGetThreads())
+    dispatch(thunkGetThreads());
+    dispatch(thunkGetUserLikes());
   }, [dispatch]);
 
-  const threads = Object.values(useSelector((state) => state.threads));
 
   const getTime = (created_at) => {
     const dateCreated = String(created_at).split(' ')[0].split('-');
@@ -94,7 +99,10 @@ function Threads() {
                 </span>
                 <span> &bull;
                   {" "}
-                  <i className="fa-solid fa-arrow-up"></i>
+                  <i
+                    className="fa-solid fa-arrow-up"
+                    style={{ color: 'rgb(91, 190, 91)' }}
+                  ></i>
                   {" "}
                   {thread.num_likes}
                 </span>

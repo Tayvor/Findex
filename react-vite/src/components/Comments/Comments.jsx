@@ -13,6 +13,7 @@ function Comments({ threadId, currUser }) {
   }, [dispatch, threadId])
 
   const comments = Object.values(useSelector((state) => state.comments));
+  const currUserLikes = useSelector((state) => state.currUserLikes);
 
   const getTime = (created_at) => {
     const dateCreated = String(created_at).split(' ')[0].split('-');
@@ -83,7 +84,11 @@ function Comments({ threadId, currUser }) {
               <span> &bull; {getTime(comment.created_at)}</span>
               <span> &bull;
                 {" "}
-                <i className="fa-solid fa-arrow-up"></i>
+                {currUserLikes.commentLikes[comment.id] ?
+                  <i className="fa-solid fa-arrow-up liked"></i>
+                  :
+                  <i className="fa-solid fa-arrow-up"></i>
+                }
                 {" "}
                 {comment.num_likes}
               </span>

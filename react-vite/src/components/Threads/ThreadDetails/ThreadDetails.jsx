@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { thunkGetThreadImages } from "../../../redux/images";
+import { thunkCreateLike } from "../../../redux/likes";
 import Comments from "../../Comments";
 import OpenModalButton from "../../OpenModalButton/OpenModalButton";
 import CreateCommentModal from '../../Comments/CreateComment/CreateCommentModal';
@@ -16,6 +17,7 @@ function ThreadDetails() {
   const thread = useSelector((state) => state.threads[threadId]);
   const currUser = useSelector((state) => state.session.user);
   const threadImages = useSelector((state) => state.images[threadId]);
+  const currUserLikes = useSelector((state) => state.currUserLikes);
 
   useEffect(() => {
     dispatch(thunkGetThreadImages(threadId));
@@ -115,10 +117,15 @@ function ThreadDetails() {
               </div> &bull;
 
               <div
-                onClick={() => console.log('clicked!!')}
+                onClick={() => dispatch(thunkCreateLike('thread', thread.id))}
                 className="threadDetails-Likes clickable"
               >
-                <i className="fa-solid fa-arrow-up"></i>
+                {currUserLikes.threadLikes[thread.id] ?
+                  <i className="fa-solid fa-arrow-up liked"></i>
+                  :
+                  <i className="fa-solid fa-arrow-up"></i>
+                }
+                {/* <i className="fa-solid fa-arrow-up"></i> */}
                 &nbsp;
                 {thread.num_likes}
               </div>
