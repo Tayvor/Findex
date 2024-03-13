@@ -84,7 +84,7 @@ function Comments({ threadId, currUser }) {
               <span> &bull; {getTime(comment.created_at)}</span>
               <span> &bull;
                 {" "}
-                {currUserLikes.commentLikes[comment.id] ?
+                {currUser && currUserLikes.commentLikes[comment.id] ?
                   <i className="fa-solid fa-arrow-up liked"></i>
                   :
                   <i className="fa-solid fa-arrow-up"></i>

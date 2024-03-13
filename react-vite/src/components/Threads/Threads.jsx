@@ -11,8 +11,8 @@ function Threads() {
   const navigate = useNavigate();
 
   const threads = Object.values(useSelector((state) => state.threads));
+  const currUser = useSelector((state) => state.session.user);
   const currUserLikes = useSelector((state) => state.currUserLikes);
-
 
   useEffect(() => {
     dispatch(thunkGetThreads());
@@ -99,7 +99,7 @@ function Threads() {
                 </span>
                 <span> &bull;
                   {" "}
-                  {currUserLikes.threadLikes[thread.id] ?
+                  {currUser && currUserLikes.threadLikes[thread.id] ?
                     <i className="fa-solid fa-arrow-up liked"></i>
                     :
                     <i className="fa-solid fa-arrow-up"></i>

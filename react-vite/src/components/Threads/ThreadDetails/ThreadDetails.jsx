@@ -116,18 +116,28 @@ function ThreadDetails() {
                 {thread.num_comments}
               </div> &bull;
 
-              <div
-                onClick={() => dispatch(thunkCreateLike('thread', thread.id))}
-                className="threadDetails-Likes clickable"
-              >
-                {currUserLikes.threadLikes[thread.id] ?
-                  <i className="fa-solid fa-arrow-up liked"></i>
-                  :
+              {currUser && currUser.id !== thread.user_id ?
+                <div
+                  onClick={() => dispatch(thunkCreateLike('thread', thread.id))}
+                  className="threadDetails-Likes clickable"
+                >
+                  {currUserLikes.threadLikes[thread.id] ?
+                    <i className="fa-solid fa-arrow-up liked"></i>
+                    :
+                    <i className="fa-solid fa-arrow-up"></i>
+                  }
+                  &nbsp;
+                  {thread.num_likes}
+                </div>
+                :
+                <div
+                  className="threadDetails-Likes"
+                >
                   <i className="fa-solid fa-arrow-up"></i>
-                }
-                &nbsp;
-                {thread.num_likes}
-              </div>
+                  &nbsp;
+                  {thread.num_likes}
+                </div>
+              }
             </div>
 
             {currUser?.id === thread.user_id ?

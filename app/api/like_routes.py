@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from app.models import db, Like
-from flask_login import current_user
+from flask_login import current_user, login_required
 # from app.forms.like_form import LikeForm
 
 like_routes = Blueprint('like', __name__)
@@ -8,6 +8,7 @@ like_routes = Blueprint('like', __name__)
 
 # GET USER LIKES
 @like_routes.route('')
+@login_required
 def get_user_likes():
   user_likes = Like.query.filter_by(user_id=current_user.id).all()
   arr = []
@@ -15,7 +16,7 @@ def get_user_likes():
   for like in user_likes:
     arr.append(like.to_dict())
 
-  return jsonify(arr), 200
+  return arr
 
 
 # CREATE A LIKE
