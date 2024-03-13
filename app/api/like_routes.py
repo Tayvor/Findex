@@ -21,8 +21,8 @@ def get_user_likes():
 
 # CREATE A LIKE
 @like_routes.route('', methods=['POST'])
+@login_required
 def create_like():
-  if current_user:
     req = request.get_json()
     type = req['type']
     id = req['id']
@@ -43,12 +43,11 @@ def create_like():
     db.session.add(new_like)
     db.session.commit()
     return jsonify(new_like.to_dict()), 201
-  else:
-    return jsonify({'error': 'No current user.'})
 
 
 # DELETE LIKE
 @like_routes.route('/<int:like_id>', methods=['DELETE'])
+@login_required
 def delete_like(like_id):
   like = Like.query.get(like_id)
 

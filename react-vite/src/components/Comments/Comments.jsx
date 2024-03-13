@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { thunkGetComments } from '../../redux/comments';
+import { thunkCreateLike } from '../../redux/likes';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import EditCommentModal from './EditComment/EditCommentModal';
 import './Comments.css';
@@ -77,21 +78,38 @@ function Comments({ threadId, currUser }) {
         >
 
           <div className="commentInfo">
-            <div>
-              <span
-              // className='commentInfo-Username clickable'
-              >{comment.user.username}</span>
-              <span> &bull; {getTime(comment.created_at)}</span>
-              <span> &bull;
-                {" "}
-                {currUser && currUserLikes.commentLikes[comment.id] ?
-                  <i className="fa-solid fa-arrow-up liked"></i>
-                  :
+            <div className='commentInfo-Left'>
+              <div
+                className='commentInfo-Username'
+              >{comment.user.username}</div> &bull;
+
+              <div>{getTime(comment.created_at)}</div> &bull;
+
+              {currUser && currUser.id !== comment.user_id ?
+                <div
+                  onClick={() => {
+                    comment.num_likes += 1;
+                    dispatch(thunkCreateLike('comment', comment.id));
+                  }}
+                  className="commentInfo-Likes clickable"
+                >
+                  {currUserLikes.commentLikes[comment.id] ?
+                    <i className="fa-solid fa-arrow-up liked"></i>
+                    :
+                    <i className="fa-solid fa-arrow-up"></i>
+                  }
+                  &nbsp;
+                  {comment.num_likes}
+                </div>
+                :
+                <div
+                  className="commentInfo-Likes"
+                >
                   <i className="fa-solid fa-arrow-up"></i>
-                }
-                {" "}
-                {comment.num_likes}
-              </span>
+                  &nbsp;
+                  {comment.num_likes}
+                </div>
+              }
             </div>
 
             {currUser?.id === comment.user_id && (

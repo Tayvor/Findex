@@ -118,7 +118,10 @@ function ThreadDetails() {
 
               {currUser && currUser.id !== thread.user_id ?
                 <div
-                  onClick={() => dispatch(thunkCreateLike('thread', thread.id))}
+                  onClick={() => {
+                    dispatch(thunkCreateLike('thread', thread.id));
+                    thread.num_likes += 1;
+                  }}
                   className="threadDetails-Likes clickable"
                 >
                   {currUserLikes.threadLikes[thread.id] ?
