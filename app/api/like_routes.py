@@ -12,16 +12,8 @@ def get_user_likes():
   user_likes = Like.query.filter_by(user_id=current_user.id).all()
   arr = []
 
-  # print(user_likes, '*********************')
-  # print('********************************')
-  # print(current_user, '***** CURR USER ********')
-  # print('********************************')
-
   for like in user_likes:
     arr.append(like.to_dict())
-
-  # print(arr)
-  # print('*** USER LIKE ARRAY ***')
 
   return jsonify(arr), 200
 

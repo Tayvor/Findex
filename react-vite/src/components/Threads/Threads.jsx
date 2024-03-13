@@ -11,7 +11,7 @@ function Threads() {
   const navigate = useNavigate();
 
   const threads = Object.values(useSelector((state) => state.threads));
-  const currUserLikes = Object.values(useSelector((state) => state.currUserLikes));
+  const currUserLikes = useSelector((state) => state.currUserLikes);
 
 
   useEffect(() => {
@@ -99,10 +99,11 @@ function Threads() {
                 </span>
                 <span> &bull;
                   {" "}
-                  <i
-                    className="fa-solid fa-arrow-up"
-                    style={{ color: 'rgb(91, 190, 91)' }}
-                  ></i>
+                  {currUserLikes.threadLikes[thread.id] ?
+                    <i className="fa-solid fa-arrow-up liked"></i>
+                    :
+                    <i className="fa-solid fa-arrow-up"></i>
+                  }
                   {" "}
                   {thread.num_likes}
                 </span>

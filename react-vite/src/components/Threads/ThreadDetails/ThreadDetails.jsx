@@ -125,7 +125,6 @@ function ThreadDetails() {
                   :
                   <i className="fa-solid fa-arrow-up"></i>
                 }
-                {/* <i className="fa-solid fa-arrow-up"></i> */}
                 &nbsp;
                 {thread.num_likes}
               </div>
