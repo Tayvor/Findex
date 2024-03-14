@@ -93,7 +93,9 @@ function Comments({ threadId, currUser }) {
                 className='commentInfo-Username'
               >{comment.user.username}</div> &bull;
 
-              <div>{getTime(comment.created_at)}</div> &bull;
+              <div
+                className='commentInfo-Time'
+              >{getTime(comment.created_at)}</div> &bull;
 
               {currUser && currUser.id !== comment.user_id ?
                 <div

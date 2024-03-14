@@ -48,7 +48,11 @@
   align-items: center;
 }
 
-.threadDetails-InfoLeft>div {
+.threadDetails-Time {
+  padding: 0 10px;
+}
+
+.threadDetails-NumComments {
   padding: 0 10px;
 }
 
@@ -59,13 +63,8 @@
   align-items: center;
   height: 25px;
   border-radius: 5px;
-  padding: 0 5px;
+  padding-right: 10px;
 }
-
-/* .threadDetails-Username:hover {
-  background-color: lightblue;
-  color: black;
-} */
 
 
 .threadDetails-Footer {
@@ -87,16 +86,21 @@
 .threadDetails-Likes {
   display: flex;
   align-items: center;
-  padding: 0 5px;
   height: 25px;
   border-radius: 5px;
+  padding: 0 10px;
   transition: all 1s;
 }
 
-.threadDetails-Likes.clickable:hover {
+.threadDetails-Likes.clickable.notLiked:hover {
   transition: all .5s;
-  background-color: lightgreen;
-  /* change to red if user liked already */
+  box-shadow: inset 0px 0px 4px rgb(0, 167, 0);
+  color: black;
+}
+
+.threadDetails-Likes.clickable.isLiked:hover {
+  transition: all .5s;
+  box-shadow: inset 0px 0px 4px red;
   color: black;
 }
 

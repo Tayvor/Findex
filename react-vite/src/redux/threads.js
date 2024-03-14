@@ -81,20 +81,12 @@ export const thunkEditThread = (info, threadId) => async (dispatch) => {
 }
 
 export const thunkDeleteThread = (threadId) => async (dispatch) => {
-  const res = await fetch(`/api/threads/${threadId}/delete`, {
+  await fetch(`/api/threads/${threadId}/delete`, {
     method: 'DELETE',
   });
 
-  // if (res.ok) {
   dispatch(deleteThread(threadId));
   return;
-  // }
-  // else if (res.status < 500) {
-  //   const errors = await res.json();
-  //   return errors
-  // } else {
-  //   return { server: "Something went wrong. Please try again" }
-  // }
 }
 
 

@@ -87,17 +87,26 @@ function Threads() {
 
             {thread.user &&
               <div className="threadInfo">
-                <span
-                // className="threadInfo-Username clickable"
-                >{thread.user.username}</span>
-                <span> &bull; {getTime(thread.created_at)}</span>
-                <span> &bull;
+                <div
+                  className="threadInfo-Username"
+                >{thread.user.username}</div> &bull;
+
+                <div
+                  className="threadInfo-Time"
+                >{getTime(thread.created_at)}</div> &bull;
+
+                <div
+                  className="threadInfo-NumComments"
+                >
                   {" "}
                   <i className="fa-regular fa-comment"></i>
                   {" "}
                   {thread.num_comments}
-                </span>
-                <span> &bull;
+                </div> &bull;
+
+                <div
+                  className="threadInfo-NumLikes"
+                >
                   {" "}
                   {currUser && currUserLikes.threadLikes[thread.id] ?
                     <i className="fa-solid fa-arrow-up liked"></i>
@@ -106,7 +115,7 @@ function Threads() {
                   }
                   {" "}
                   {thread.num_likes}
-                </span>
+                </div>
               </div>
             }
           </div>

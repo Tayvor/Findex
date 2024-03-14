@@ -37,11 +37,23 @@
 }
 
 .threadInfo {
+  display: flex;
   color: gray;
   font-size: 17px;
 }
 
-.threadInfo-Username:hover {
-  color: black;
-  text-decoration: underline;
+.threadInfo-Username {
+  padding-right: 10px;
+}
+
+.threadInfo-Time {
+  padding: 0 10px;
+}
+
+.threadInfo-NumComments {
+  padding: 0 10px;
+}
+
+.threadInfo-NumLikes {
+  padding: 0 10px;
 }

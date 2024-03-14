@@ -44,16 +44,12 @@ export const thunkCreateLike = (type, id) => async (dispatch) => {
 };
 
 export const thunkDeleteLike = (like) => async (dispatch) => {
-  const res = await fetch(`/api/likes/${like.id}`, {
+  await fetch(`/api/likes/${like.id}`, {
     method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
-    // body: JSON.stringify(id),
   });
 
-  // if (res.ok) {
-  //   const data = await res.json();
   dispatch(deleteLike(like));
-  // }
+  return;
 };
 
 

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { thunkGetThreadImages } from "../../../redux/images";
-import { thunkCreateLike } from "../../../redux/likes";
+import { thunkCreateLike, thunkDeleteLike } from "../../../redux/likes";
 import Comments from "../../Comments";
 import OpenModalButton from "../../OpenModalButton/OpenModalButton";
 import CreateCommentModal from '../../Comments/CreateComment/CreateCommentModal';
@@ -74,6 +74,15 @@ function ThreadDetails() {
     }
   };
 
+  const handleLike = (thread) => {
+    if (!currUserLikes.threadLikes[thread.id]) {
+      thread.num_likes += 1;
+      dispatch(thunkCreateLike('thread', thread.id));
+    } else {
+      thread.num_likes -= 1;
+      dispatch(thunkDeleteLike(currUserLikes.threadLikes[thread.id]));
+    }
+  }
 
   return (thread &&
     <>
@@ -108,9 +117,11 @@ function ThreadDetails() {
                 className="threadDetails-Username"
               >{thread.user.username}</div> &bull;
 
-              <div>{getTime(thread.created_at)}</div> &bull;
+              <div
+                className="threadDetails-Time"
+              >{getTime(thread.created_at)}</div> &bull;
 
-              <div>
+              <div className="threadDetails-NumComments">
                 <i className="fa-regular fa-comment"></i>
                 {" "}
                 {thread.num_comments}
@@ -118,11 +129,10 @@ function ThreadDetails() {
 
               {currUser && currUser.id !== thread.user_id ?
                 <div
-                  onClick={() => {
-                    dispatch(thunkCreateLike('thread', thread.id));
-                    thread.num_likes += 1;
-                  }}
-                  className="threadDetails-Likes clickable"
+                  className={currUserLikes.threadLikes[thread.id] ?
+                    "threadDetails-Likes isLiked clickable" : "threadDetails-Likes notLiked clickable"
+                  }
+                  onClick={() => handleLike(thread)}
                 >
                   {currUserLikes.threadLikes[thread.id] ?
                     <i className="fa-solid fa-arrow-up liked"></i>

@@ -29,7 +29,11 @@
   align-items: center;
 }
 
-.commentInfo-Left>div {
+.commentInfo-Username {
+  padding-right: 10px;
+}
+
+.commentInfo-Time {
   padding: 0 10px;
 }
 
@@ -41,6 +45,7 @@
   height: 25px;
   border-radius: 5px;
   transition: all 1s;
+  padding: 0 10px;
 }
 
 .commentInfo-Likes.clickable.notLiked:hover {
