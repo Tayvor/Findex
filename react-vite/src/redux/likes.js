@@ -14,9 +14,9 @@ const storeLike = (like) => ({
   like,
 });
 
-const deleteLike = (likeId) => ({
+const deleteLike = (like) => ({
   type: DELETE_LIKE,
-  likeId,
+  like,
 });
 
 
@@ -43,15 +43,17 @@ export const thunkCreateLike = (type, id) => async (dispatch) => {
   }
 };
 
-export const thunkDeleteLike = (id) => async (dispatch) => {
-  const res = await fetch(`/api/likes/${id}`, {
+export const thunkDeleteLike = (like) => async (dispatch) => {
+  const res = await fetch(`/api/likes/${like.id}`, {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
     // body: JSON.stringify(id),
   });
 
-  const like = await res.json();
+  // if (res.ok) {
+  //   const data = await res.json();
   dispatch(deleteLike(like));
+  // }
 };
 
 
@@ -60,6 +62,7 @@ const initialState = { threadLikes: {}, commentLikes: {} };
 
 function currUserLikes(state = initialState, action) {
   let newState = { ...state };
+  const like = action.like;
   switch (action.type) {
 
     case STORE_USER_LIKES:
@@ -74,8 +77,6 @@ function currUserLikes(state = initialState, action) {
       return newState;
 
     case STORE_LIKE:
-      const like = action.like;
-
       if (like.thread_id) {
         newState.threadLikes[like.thread_id] = like;
       } else {
@@ -84,7 +85,11 @@ function currUserLikes(state = initialState, action) {
       return newState;
 
     case DELETE_LIKE:
-      delete newState[action.like.id];
+      if (like.thread_id) {
+        delete newState.threadLikes[like.thread_id];
+      } else {
+        delete newState.commentLikes[like.comment_id];
+      }
       return newState;
 
     default:

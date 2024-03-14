@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { thunkGetComments } from '../../redux/comments';
-import { thunkCreateLike } from '../../redux/likes';
+import { thunkCreateLike, thunkDeleteLike } from '../../redux/likes';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import EditCommentModal from './EditComment/EditCommentModal';
 import './Comments.css';
@@ -88,8 +88,16 @@ function Comments({ threadId, currUser }) {
               {currUser && currUser.id !== comment.user_id ?
                 <div
                   onClick={() => {
-                    comment.num_likes += 1;
-                    dispatch(thunkCreateLike('comment', comment.id));
+                    if (!currUserLikes.commentLikes[comment.id]) {
+                      comment.num_likes += 1;
+                      dispatch(thunkCreateLike('comment', comment.id));
+                      comment['isLiked'] = true;
+                      console.log(comment)
+                    } else {
+                      comment.num_likes -= 1;
+                      dispatch(thunkDeleteLike(currUserLikes.commentLikes[comment.id]))
+                      console.log(currUserLikes.commentLikes);
+                    }
                   }}
                   className="commentInfo-Likes clickable"
                 >
@@ -128,8 +136,9 @@ function Comments({ threadId, currUser }) {
 
           <div>{comment.content}</div>
         </div>
-      )}
-    </div>
+      )
+      }
+    </div >
   )
 }
 
