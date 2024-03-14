@@ -67,6 +67,16 @@ function Comments({ threadId, currUser }) {
     }
   }
 
+  const handleLike = (comment) => {
+    if (!currUserLikes.commentLikes[comment.id]) {
+      comment.num_likes += 1;
+      dispatch(thunkCreateLike('comment', comment.id));
+    } else {
+      comment.num_likes -= 1;
+      dispatch(thunkDeleteLike(currUserLikes.commentLikes[comment.id]));
+    }
+  }
+
 
   return (
     <div className='commentsContainer'>
@@ -87,19 +97,10 @@ function Comments({ threadId, currUser }) {
 
               {currUser && currUser.id !== comment.user_id ?
                 <div
-                  onClick={() => {
-                    if (!currUserLikes.commentLikes[comment.id]) {
-                      comment.num_likes += 1;
-                      dispatch(thunkCreateLike('comment', comment.id));
-                      comment['isLiked'] = true;
-                      console.log(comment)
-                    } else {
-                      comment.num_likes -= 1;
-                      dispatch(thunkDeleteLike(currUserLikes.commentLikes[comment.id]))
-                      console.log(currUserLikes.commentLikes);
-                    }
-                  }}
-                  className="commentInfo-Likes clickable"
+                  className={currUserLikes.commentLikes[comment.id] ?
+                    "commentInfo-Likes isLiked clickable" : "commentInfo-Likes notLiked clickable"
+                  }
+                  onClick={() => handleLike(comment)}
                 >
                   {currUserLikes.commentLikes[comment.id] ?
                     <i className="fa-solid fa-arrow-up liked"></i>
