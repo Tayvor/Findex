@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.models import Comment, db
+from app.models import db, Comment, Like
 from flask_login import current_user
 from app.forms.comment_form import CommentForm
 from datetime import datetime
@@ -14,12 +14,15 @@ def get_thread_comments(thread_id):
   comment_list = []
 
   for comment in comments:
+    num_likes = Like.query.filter(Like.comment_id == comment.id).count()
+
     comm = {
       'id': comment.id,
       'content': comment.content,
       'user_id': comment.user_id,
       'thread_id': comment.thread_id,
       'user' : comment.user.to_dict(),
+      'num_likes': num_likes,
       'created_at': comment.created_at,
     }
     comment_list.append(comm)

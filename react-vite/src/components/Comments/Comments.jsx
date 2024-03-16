@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { thunkGetComments } from '../../redux/comments';
+import { thunkCreateLike, thunkDeleteLike } from '../../redux/likes';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import EditCommentModal from './EditComment/EditCommentModal';
 import './Comments.css';
@@ -13,6 +14,7 @@ function Comments({ threadId, currUser }) {
   }, [dispatch, threadId])
 
   const comments = Object.values(useSelector((state) => state.comments));
+  const currUserLikes = useSelector((state) => state.currUserLikes);
 
   const getTime = (created_at) => {
     const dateCreated = String(created_at).split(' ')[0].split('-');
@@ -65,20 +67,60 @@ function Comments({ threadId, currUser }) {
     }
   }
 
+  const handleLike = (comment) => {
+    if (!currUserLikes.commentLikes[comment.id]) {
+      comment.num_likes += 1;
+      dispatch(thunkCreateLike('comment', comment.id));
+    } else {
+      comment.num_likes -= 1;
+      dispatch(thunkDeleteLike(currUserLikes.commentLikes[comment.id]));
+    }
+  }
+
 
   return (
     <div className='commentsContainer'>
+
       {comments.map((comment) =>
         <div
           className='commentBox'
           key={'comment' + comment.id}
         >
+
           <div className="commentInfo">
-            <div>
-              <span
-              // className='commentInfo-Username clickable'
-              >{comment.user.username}</span>
-              <span> &bull; {getTime(comment.created_at)}</span>
+            <div className='commentInfo-Left'>
+              <div
+                className='commentInfo-Username'
+              >{comment.user.username}</div> &bull;
+
+              <div
+                className='commentInfo-Time'
+              >{getTime(comment.created_at)}</div> &bull;
+
+              {currUser && currUser.id !== comment.user_id ?
+                <div
+                  className={currUserLikes.commentLikes[comment.id] ?
+                    "commentInfo-Likes isLiked clickable" : "commentInfo-Likes notLiked clickable"
+                  }
+                  onClick={() => handleLike(comment)}
+                >
+                  {currUserLikes.commentLikes[comment.id] ?
+                    <i className="fa-solid fa-arrow-up liked"></i>
+                    :
+                    <i className="fa-solid fa-arrow-up"></i>
+                  }
+                  &nbsp;
+                  {comment.num_likes}
+                </div>
+                :
+                <div
+                  className="commentInfo-Likes"
+                >
+                  <i className="fa-solid fa-arrow-up"></i>
+                  &nbsp;
+                  {comment.num_likes}
+                </div>
+              }
             </div>
 
             {currUser?.id === comment.user_id && (
@@ -89,17 +131,17 @@ function Comments({ threadId, currUser }) {
                     content={comment.content}
                     commentId={comment.id} />
                 }
-                buttonText={<i className="fa-regular fa-pen-to-square"></i>}
+                buttonText='edit'
                 className='commentBox-EditBtn clickable'
               />
             )}
           </div>
 
           <div>{comment.content}</div>
-
         </div>
-      )}
-    </div>
+      )
+      }
+    </div >
   )
 }
 

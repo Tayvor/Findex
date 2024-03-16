@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { thunkGetThreadImages } from "../../../redux/images";
+import { thunkCreateLike, thunkDeleteLike } from "../../../redux/likes";
 import Comments from "../../Comments";
 import OpenModalButton from "../../OpenModalButton/OpenModalButton";
 import CreateCommentModal from '../../Comments/CreateComment/CreateCommentModal';
@@ -16,6 +17,7 @@ function ThreadDetails() {
   const thread = useSelector((state) => state.threads[threadId]);
   const currUser = useSelector((state) => state.session.user);
   const threadImages = useSelector((state) => state.images[threadId]);
+  const currUserLikes = useSelector((state) => state.currUserLikes);
 
   useEffect(() => {
     dispatch(thunkGetThreadImages(threadId));
@@ -72,6 +74,15 @@ function ThreadDetails() {
     }
   };
 
+  const handleLike = (thread) => {
+    if (!currUserLikes.threadLikes[thread.id]) {
+      thread.num_likes += 1;
+      dispatch(thunkCreateLike('thread', thread.id));
+    } else {
+      thread.num_likes -= 1;
+      dispatch(thunkDeleteLike(currUserLikes.threadLikes[thread.id]));
+    }
+  }
 
   return (thread &&
     <>
@@ -101,30 +112,59 @@ function ThreadDetails() {
           {thread.description}
 
           <div className="threadDetails-Info">
-            <span
-            // className="threadDetails-Username clickable"
-            >{thread.user.username}</span>
-            <span> &bull; {getTime(thread.created_at)}</span>
-            <span> &bull;
-              {" "}
-              <i className="fa-regular fa-comment"></i>
-              {" "}
-              {thread.num_comments}
-            </span>
+            <div className="threadDetails-InfoLeft">
+              <div
+                className="threadDetails-Username"
+              >{thread.user.username}</div> &bull;
+
+              <div
+                className="threadDetails-Time"
+              >{getTime(thread.created_at)}</div> &bull;
+
+              <div className="threadDetails-NumComments">
+                <i className="fa-regular fa-comment"></i>
+                {" "}
+                {thread.num_comments}
+              </div> &bull;
+
+              {currUser && currUser.id !== thread.user_id ?
+                <div
+                  className={currUserLikes.threadLikes[thread.id] ?
+                    "threadDetails-Likes isLiked clickable" : "threadDetails-Likes notLiked clickable"
+                  }
+                  onClick={() => handleLike(thread)}
+                >
+                  {currUserLikes.threadLikes[thread.id] ?
+                    <i className="fa-solid fa-arrow-up liked"></i>
+                    :
+                    <i className="fa-solid fa-arrow-up"></i>
+                  }
+                  &nbsp;
+                  {thread.num_likes}
+                </div>
+                :
+                <div
+                  className="threadDetails-Likes"
+                >
+                  <i className="fa-solid fa-arrow-up"></i>
+                  &nbsp;
+                  {thread.num_likes}
+                </div>
+              }
+            </div>
+
+            {currUser?.id === thread.user_id ?
+              <div
+                className="threadDetails-Edit clickable"
+                onClick={() => navigate(`/threads/${threadId}/edit`)}
+              >edit</div>
+              : ''
+            }
           </div>
         </div>
 
 
         <div className="threadDetails-Footer">
-          {currUser?.id === thread.user_id ?
-            <button
-              className="threadDetails-EditBtn clickable"
-              onClick={() => navigate(`/threads/${threadId}/edit`)}
-            ><i className="fa-regular fa-pen-to-square"></i></button>
-            :
-            <button className="hiddenBtn"></button>
-          }
-
           {threadImages && threadImages[0] &&
             <img
               src={threadImages[0]?.url}

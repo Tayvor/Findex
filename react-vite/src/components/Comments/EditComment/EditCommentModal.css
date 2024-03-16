@@ -20,7 +20,7 @@
 }
 
 .editComment-Textarea {
-  border: 1px solid black;
+  border: 1px solid gray;
   border-radius: 10px;
   box-sizing: border-box;
   width: 100%;
@@ -37,7 +37,7 @@
 
 /* Submit Button */
 .editComment-SubmitBtn {
-  border: 1px solid black;
+  border: 1px solid gray;
   border-radius: 10px;
   width: 40px;
   height: 40px;
@@ -52,7 +52,7 @@
 
 /* Delete Button */
 .editComment-DeleteBtn {
-  border: 1px solid black;
+  border: 1px solid gray;
   border-radius: 10px;
   width: 40px;
   height: 40px;

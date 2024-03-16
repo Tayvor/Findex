@@ -6,6 +6,7 @@
 
 .homeHeader {
   width: 50%;
+  height: 40px;
   display: flex;
   justify-content: space-between;
   font-size: 30px;
@@ -18,10 +19,6 @@
   align-items: center;
 }
 
-.notActive {
-  color: gray;
-}
-
 
 /* New Thread Button */
 .homeHeader-NewThreadBtn {
@@ -31,6 +28,7 @@
   height: 40px;
   font-size: 15px;
   transition: all 1s;
+  margin: 0;
 }
 
 .homeHeader-NewThreadBtn:hover {

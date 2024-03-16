@@ -7,12 +7,12 @@ const DELETE_COMMENT = 'DELETE_COMMENT';
 const storeComments = (comments) => ({
   type: STORE_COMMENTS,
   comments
-})
+});
 
 const storeComment = (comment) => ({
   type: STORE_COMMENT,
   comment
-})
+});
 
 const deleteComment = (commentId) => ({
   type: DELETE_COMMENT,
@@ -28,7 +28,7 @@ export const thunkGetComments = (threadId) => async (dispatch) => {
     const comments = await res.json();
     dispatch(storeComments(comments));
   }
-}
+};
 
 export const thunkCreateComment = (info) => async (dispatch) => {
   const res = await fetch(`/api/comments/new`, {
@@ -39,7 +39,7 @@ export const thunkCreateComment = (info) => async (dispatch) => {
 
   const data = await res.json();
   dispatch(storeComment(data));
-}
+};
 
 export const thunkEditComment = (info, commentId) => async (dispatch) => {
   const res = await fetch(`/api/comments/${commentId}/edit`, {
@@ -50,7 +50,7 @@ export const thunkEditComment = (info, commentId) => async (dispatch) => {
 
   const data = await res.json();
   dispatch(storeComment(data));
-}
+};
 
 export const thunkDeleteComment = (commentId) => async (dispatch) => {
   const res = await fetch(`/api/comments/${commentId}/delete`, {
@@ -60,7 +60,7 @@ export const thunkDeleteComment = (commentId) => async (dispatch) => {
   if (res.ok) {
     dispatch(deleteComment(commentId));
   }
-}
+};
 
 
 // REDUCER

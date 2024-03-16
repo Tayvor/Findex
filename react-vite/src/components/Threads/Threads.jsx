@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { thunkGetThreads } from "../../redux/threads";
+import { thunkGetUserLikes } from "../../redux/likes";
 import './Threads.css'
 
 
@@ -9,11 +10,15 @@ function Threads() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const threads = Object.values(useSelector((state) => state.threads));
+  const currUser = useSelector((state) => state.session.user);
+  const currUserLikes = useSelector((state) => state.currUserLikes);
+
   useEffect(() => {
-    dispatch(thunkGetThreads())
+    dispatch(thunkGetThreads());
+    dispatch(thunkGetUserLikes());
   }, [dispatch]);
 
-  const threads = Object.values(useSelector((state) => state.threads));
 
   const getTime = (created_at) => {
     const dateCreated = String(created_at).split(' ')[0].split('-');
@@ -82,16 +87,35 @@ function Threads() {
 
             {thread.user &&
               <div className="threadInfo">
-                <span
-                // className="threadInfo-Username clickable"
-                >{thread.user.username}</span>
-                <span> &bull; {getTime(thread.created_at)}</span>
-                <span> &bull;
+                <div
+                  className="threadInfo-Username"
+                >{thread.user.username}</div> &bull;
+
+                <div
+                  className="threadInfo-Time"
+                >{getTime(thread.created_at)}</div> &bull;
+
+                <div
+                  className="threadInfo-NumComments"
+                >
                   {" "}
                   <i className="fa-regular fa-comment"></i>
                   {" "}
                   {thread.num_comments}
-                </span>
+                </div> &bull;
+
+                <div
+                  className="threadInfo-NumLikes"
+                >
+                  {" "}
+                  {currUser && currUserLikes.threadLikes[thread.id] ?
+                    <i className="fa-solid fa-arrow-up liked"></i>
+                    :
+                    <i className="fa-solid fa-arrow-up"></i>
+                  }
+                  {" "}
+                  {thread.num_likes}
+                </div>
               </div>
             }
           </div>
