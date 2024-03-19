@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { thunkGetThreadImages } from "../../../redux/images";
 import { thunkCreateLike, thunkDeleteLike } from "../../../redux/likes";
-import Comments from "../../Comments";
+import Comments from './Comments'
 import OpenModalButton from "../../OpenModalButton/OpenModalButton";
-import CreateCommentModal from '../../Comments/CreateComment/CreateCommentModal';
+import CreateCommentModal from './Comments/CreateComment/CreateCommentModal';
 import './ThreadDetails.css';
 
 

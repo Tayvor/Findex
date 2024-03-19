@@ -1,7 +1,7 @@
-.threadsContainer {
+.threads {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .threadBox {
@@ -15,7 +15,7 @@
   height: 85px;
   margin-bottom: 15px;
   padding: 10px;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, .7);
 }
 
 .threadBox-Left {
@@ -44,6 +44,10 @@
 
 .threadInfo-Username {
   padding-right: 10px;
+}
+
+.threadInfo-Username:hover {
+  color: black;
 }
 
 .threadInfo-Time {

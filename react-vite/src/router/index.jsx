@@ -3,7 +3,7 @@ import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import ThreadDetails from '../components/Threads/ThreadDetails';
 import EditThread from '../components/Threads/EditThread';
-import Home from '../components/Home';
+import Base from '../components/Base';
 
 export const router = createBrowserRouter([
   {
@@ -11,7 +11,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <Base />,
       },
       {
         path: "/threads/:threadId",

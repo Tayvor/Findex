@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { thunkCreateComment } from "../../../redux/comments";
-import { useModal } from "../../../context/Modal";
+import { thunkCreateComment } from "../../../../../redux/comments";
+import { useModal } from "../../../../../context/Modal";
 import './CreateCommentModal.css';
 
 

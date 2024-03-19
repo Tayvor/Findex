@@ -31,12 +31,10 @@ def create_like():
       new_like = Like(
         user_id = current_user.id,
         thread_id = id,
-        # comment_id = 0,
       )
     else:
       new_like = Like(
         user_id = current_user.id,
-        # thread_id = 0,
         comment_id = id,
       )
 

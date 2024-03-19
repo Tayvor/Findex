@@ -1,14 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { thunkGetThreads } from "../../redux/threads";
 import { thunkGetUserLikes } from "../../redux/likes";
-import './Threads.css'
+import './Threads.css';
+import UserModal from "./UserModal";
+import { createPortal } from 'react-dom';
 
 
 function Threads() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [viewingUser, setViewingUser] = useState(-1);
 
   const threads = Object.values(useSelector((state) => state.threads));
   const currUser = useSelector((state) => state.session.user);
@@ -16,7 +19,9 @@ function Threads() {
 
   useEffect(() => {
     dispatch(thunkGetThreads());
-    dispatch(thunkGetUserLikes());
+    if (currUser) {
+      dispatch(thunkGetUserLikes());
+    }
   }, [dispatch]);
 
 
@@ -71,12 +76,14 @@ function Threads() {
     }
   }
 
-
   return (
-    <div className="threadsContainer">
+    <div className="threads">
+      {/* <div>THREADS</div> */}
+
       {threads.map((thread) =>
         <div
           key={thread.id}
+          id={`thread${thread.id}`}
           className="threadBox"
         >
           <div className="threadBox-Left">
@@ -89,6 +96,8 @@ function Threads() {
               <div className="threadInfo">
                 <div
                   className="threadInfo-Username"
+                  onMouseEnter={() => setViewingUser(thread.id)}
+                  onMouseLeave={() => setViewingUser(-1)}
                 >{thread.user.username}</div> &bull;
 
                 <div
@@ -119,9 +128,15 @@ function Threads() {
               </div>
             }
           </div>
+
+          {viewingUser === thread.id &&
+            createPortal(<UserModal user={thread.user} />,
+              document.getElementById('gridLeft'))
+          }
         </div>
-      )}
-    </div>
+      )
+      }
+    </div >
   )
 }
 
