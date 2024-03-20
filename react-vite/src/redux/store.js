@@ -10,6 +10,7 @@ import threads from "./threads";
 import comments from "./comments";
 import images from "./images";
 import currUserLikes from "./likes";
+import communities from "./communities";
 
 
 const rootReducer = combineReducers({
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   comments,
   images,
   currUserLikes,
+  communities,
 });
 
 
