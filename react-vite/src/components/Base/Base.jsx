@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import Threads from "../Threads";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
@@ -6,7 +7,9 @@ import './Base.css';
 
 
 function Base() {
-  const loggedIn = useSelector((state) => state.session.user);
+  const userLoggedIn = useSelector((state) => state.session.user);
+  const [communityId, setCommunityId] = useState(0);
+  const [threadId, setThreadId] = useState(0);
 
   return (
     <div className="grid" id="homeCtn">
@@ -17,7 +20,7 @@ function Base() {
       </div>
 
       <div className="gridRight">
-        {loggedIn &&
+        {userLoggedIn &&
           <OpenModalButton
             modalComponent={<CreateThread />}
             buttonText={<i className="fa-solid fa-plus"></i>}
