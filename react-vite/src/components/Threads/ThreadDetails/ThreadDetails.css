@@ -1,37 +1,19 @@
 .threadDetails-Container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
-
-.threadDetails-Header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 20px 0 10px 0;
-  width: 50%;
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px rgba(128, 128, 128, 0.7);
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 10px;
+  margin-bottom: 15px;
 }
 
 .threadDetails-Title {
-  display: flex;
-  align-items: center;
-  border-radius: 10px;
-  box-shadow: 3px 3px 3px rgba(128, 128, 128, 0.7);
-  padding: 0 10px;
   font-size: 30px;
-  height: 40px;
-  background-color: rgba(255, 255, 255, 0.7);
 }
 
 .threadDetails-Desc {
-  border-radius: 10px;
-  box-sizing: border-box;
-  box-shadow: 3px 3px 3px rgba(128, 128, 128, 0.7);
-  width: 50%;
-  margin-bottom: 10px;
-  padding: 10px;
   font-size: 20px;
-  background-color: rgba(255, 255, 255, 0.7);
 }
 
 .threadDetails-Info {
@@ -40,12 +22,6 @@
   color: gray;
   font-size: 17px;
   margin-top: 10px;
-}
-
-.threadDetails-InfoLeft {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
 }
 
 .threadDetails-Time {
@@ -71,9 +47,6 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 50%;
-  border-bottom: 1px solid gray;
-  padding-bottom: 10px;
 }
 
 .threadDetails-Image {
@@ -105,22 +78,6 @@
 }
 
 
-/* Reply Button */
-.threadDetails-ReplyBtn {
-  border: 1px solid gray;
-  border-radius: 10px;
-  width: 40px;
-  height: 40px;
-  font-size: 15px;
-  transition: all 1s;
-}
-
-.threadDetails-ReplyBtn:hover {
-  transition: all .5s;
-  background-color: lightgreen;
-}
-
-
 /* Edit Button */
 .threadDetails-Edit {
   display: flex;
@@ -136,28 +93,4 @@
   transition: all .5s;
   background-color: lightblue;
   color: black;
-}
-
-
-/* Back Button */
-.threadDetails-BackBtn {
-  border: 1px solid gray;
-  border-radius: 10px;
-  width: 40px;
-  height: 40px;
-  font-size: 15px;
-  transition: all 1s;
-}
-
-.threadDetails-BackBtn:hover {
-  transition: all .5s;
-  background-color: lightgoldenrodyellow;
-}
-
-
-/* Hidden Btn for layout purposes */
-.hiddenBtn {
-  visibility: hidden;
-  width: 40px;
-  height: 40px;
 }

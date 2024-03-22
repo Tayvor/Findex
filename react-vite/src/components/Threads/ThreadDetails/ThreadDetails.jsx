@@ -1,18 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
 import { thunkGetThreadImages } from "../../../redux/images";
 import { thunkCreateLike, thunkDeleteLike } from "../../../redux/likes";
-import Comments from './Comments'
-import OpenModalButton from "../../OpenModalButton/OpenModalButton";
-import CreateCommentModal from './Comments/CreateComment/CreateCommentModal';
+import Comments from "../../Comments";
 import './ThreadDetails.css';
 
 
-function ThreadDetails() {
-  const navigate = useNavigate();
+function ThreadDetails({ threadId }) {
   const dispatch = useDispatch();
-  const { threadId } = useParams();
 
   const thread = useSelector((state) => state.threads[threadId]);
   const currUser = useSelector((state) => state.session.user);
@@ -87,80 +82,58 @@ function ThreadDetails() {
   return (thread &&
     <>
       <div className="threadDetails-Container">
-        <div className="threadDetails-Header">
-          <button
-            className="threadDetails-BackBtn clickable"
-            onClick={() => navigate('/')}
-          ><i className="fa-solid fa-chevron-up fa-rotate-270"></i></button>
 
-          <div
-            className="threadDetails-Title"
-          >{thread.title}</div>
+        <div className="threadDetails-Title"
+        >{thread.title}</div>
 
-          {currUser && (
-            < OpenModalButton
-              modalComponent={<CreateCommentModal threadId={threadId} />}
-              buttonText={<i className="fa-regular fa-comment"></i>}
-              className='threadDetails-ReplyBtn clickable'
-            />
-          )}
+        <div className="threadDetails-Desc"
+        >{thread.description}</div>
 
-          {!currUser && <button className="hiddenBtn"></button>}
-        </div>
+        <div className="threadDetails-Info">
+          <div className="threadDetails-Username"
+          >{thread.user.username}</div> &bull;
 
-        <div className="threadDetails-Desc">
-          {thread.description}
+          <div className="threadDetails-Time"
+          >{getTime(thread.created_at)}</div> &bull;
 
-          <div className="threadDetails-Info">
-            <div className="threadDetails-InfoLeft">
-              <div
-                className="threadDetails-Username"
-              >{thread.user.username}</div> &bull;
+          <div className="threadDetails-NumComments">
+            <i className="fa-regular fa-comment"></i>
+            {" "}
+            {thread.num_comments}
+          </div> &bull;
 
-              <div
-                className="threadDetails-Time"
-              >{getTime(thread.created_at)}</div> &bull;
-
-              <div className="threadDetails-NumComments">
-                <i className="fa-regular fa-comment"></i>
-                {" "}
-                {thread.num_comments}
-              </div> &bull;
-
-              {currUser && currUser.id !== thread.user_id ?
-                <div
-                  className={currUserLikes.threadLikes[thread.id] ?
-                    "threadDetails-Likes isLiked clickable" : "threadDetails-Likes notLiked clickable"
-                  }
-                  onClick={() => handleLike(thread)}
-                >
-                  {currUserLikes.threadLikes[thread.id] ?
-                    <i className="fa-solid fa-arrow-up liked"></i>
-                    :
-                    <i className="fa-solid fa-arrow-up"></i>
-                  }
-                  &nbsp;
-                  {thread.num_likes}
-                </div>
+          {currUser && currUser.id !== thread.user_id ?
+            <div className={currUserLikes.threadLikes[thread.id] ?
+              "threadDetails-Likes isLiked clickable"
+              :
+              "threadDetails-Likes notLiked clickable"}
+              onClick={() => handleLike(thread)}
+            >
+              {currUserLikes.threadLikes[thread.id] ?
+                <i className="fa-solid fa-arrow-up liked"></i>
                 :
-                <div
-                  className="threadDetails-Likes"
-                >
-                  <i className="fa-solid fa-arrow-up"></i>
-                  &nbsp;
-                  {thread.num_likes}
-                </div>
+                <i className="fa-solid fa-arrow-up"></i>
               }
+              &nbsp;
+              {thread.num_likes}
             </div>
+            :
+            <div
+              className="threadDetails-Likes"
+            >
+              <i className="fa-solid fa-arrow-up"></i>
+              &nbsp;
+              {thread.num_likes}
+            </div>
+          }
 
-            {currUser?.id === thread.user_id ?
-              <div
-                className="threadDetails-Edit clickable"
-                onClick={() => navigate(`/threads/${threadId}/edit`)}
-              >edit</div>
-              : ''
-            }
-          </div>
+          {currUser?.id === thread.user_id ?
+            <div
+              className="threadDetails-Edit clickable"
+              onClick={() => navigate(`/threads/${threadId}/edit`)}
+            >edit</div>
+            : ''
+          }
         </div>
 
 
@@ -173,6 +146,7 @@ function ThreadDetails() {
           }
         </div>
       </div>
+
       <Comments threadId={threadId} currUser={currUser} />
     </>
   )

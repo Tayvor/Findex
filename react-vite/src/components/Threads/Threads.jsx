@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { thunkGetThreads } from "../../redux/threads";
 import { thunkGetUserLikes } from "../../redux/likes";
 import './Threads.css';
@@ -8,9 +7,8 @@ import UserModal from "./UserModal";
 import { createPortal } from 'react-dom';
 
 
-function Threads() {
+function Threads({ communityId, viewThread }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [viewingUser, setViewingUser] = useState(-1);
 
   const threads = Object.values(useSelector((state) => state.threads));
@@ -23,7 +21,6 @@ function Threads() {
       dispatch(thunkGetUserLikes());
     }
   }, [dispatch]);
-
 
   const getTime = (created_at) => {
     const dateCreated = String(created_at).split(' ')[0].split('-');
@@ -78,18 +75,17 @@ function Threads() {
 
   return (
     <div className="threads">
-      {/* <div>THREADS</div> */}
-
       {threads.map((thread) =>
         <div
           key={thread.id}
           id={`thread${thread.id}`}
           className="threadBox"
         >
+
           <div className="threadBox-Left">
             <div
               className="threadTitle clickable"
-              onClick={() => navigate(`/threads/${thread.id}`)}
+              onClick={() => viewThread(thread.id)}
             >{thread.title}</div>
 
             {thread.user &&

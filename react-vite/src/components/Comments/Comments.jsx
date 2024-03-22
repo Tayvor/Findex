@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { thunkGetComments } from '../../../../redux/comments';
-import { thunkCreateLike, thunkDeleteLike } from '../../../../redux/likes';
-import OpenModalButton from '../../../OpenModalButton/OpenModalButton';
+import { thunkGetComments } from '../../redux/comments';
+import { thunkCreateLike, thunkDeleteLike } from '../../redux/likes';
+import OpenModalButton from '../../components/OpenModalButton';
 import EditCommentModal from './EditComment/EditCommentModal';
 import './Comments.css';
 
