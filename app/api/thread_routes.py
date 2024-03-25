@@ -20,9 +20,9 @@ def get_threads():
 
     item = {
 			'id': thread.id,
+      'community_id': thread.community_id,
 			'title': thread.title,
       'description': thread.description,
-			'user_id': thread.user_id,
       'user': thread.user.to_dict(),
       'num_comments': num_comments,
       'num_likes': num_likes,
@@ -46,6 +46,7 @@ def create_thread():
       title = thread_form.data['title'],
       description = thread_form.data['description'],
       user_id = current_user.id,
+      community_id = thread_form.data['community_id'],
       created_at = curr_date
     )
 
@@ -56,7 +57,6 @@ def create_thread():
 		'id': new_thread.id,
 		'title': new_thread.title,
     'description': new_thread.description,
-		'user_id': new_thread.user_id,
     'user': new_thread.user.to_dict(),
     'num_comments': 0,
     'created_at': new_thread.created_at
@@ -75,13 +75,26 @@ def edit_thread(thread_id_num):
     thread = Thread.query.get(thread_id_num)
     title = form.data['title']
     description = form.data['description']
+    num_comments = Comment.query.filter(Comment.thread_id == thread.id).count()
+    num_likes = Like.query.filter(Like.thread_id == thread.id).count()
 
     setattr(thread, 'title', title)
     setattr(thread, 'description', description)
 
     db.session.commit()
 
-    return jsonify([thread.to_dict()])
+    thread_with_user = {
+      'id': thread.id,
+      'community_id': thread.community_id,
+      'title': thread.title,
+      'description': thread.description,
+      'num_comments': num_comments,
+      'num_likes': num_likes,
+      'user': thread.user.to_dict(),
+      'created_at': thread.created_at,
+    }
+
+    return jsonify(thread_with_user)
 
   return jsonify('Bad Data')
 

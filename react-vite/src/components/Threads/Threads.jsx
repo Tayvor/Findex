@@ -11,7 +11,9 @@ function Threads({ communityId, viewThread }) {
   const dispatch = useDispatch();
   const [viewingUser, setViewingUser] = useState(-1);
 
-  const threads = Object.values(useSelector((state) => state.threads));
+  const communityThreads = Object.values(useSelector((state) => state.threads)).filter(
+    (thread) => thread.community_id === communityId
+  );
   const currUser = useSelector((state) => state.session.user);
   const currUserLikes = useSelector((state) => state.currUserLikes);
 
@@ -73,67 +75,59 @@ function Threads({ communityId, viewThread }) {
     }
   }
 
-  return (
-    <div className="threads">
-      {threads.map((thread) =>
+  const threads = communityThreads.map((thread) =>
+    <div key={thread.id} className="threadBox">
+
+      <div className="threadBox-Left">
         <div
-          key={thread.id}
-          id={`thread${thread.id}`}
-          className="threadBox"
-        >
+          className="threadTitle clickable"
+          onClick={() => viewThread(thread.id)}
+        >{thread.title}</div>
 
-          <div className="threadBox-Left">
-            <div
-              className="threadTitle clickable"
-              onClick={() => viewThread(thread.id)}
-            >{thread.title}</div>
+        <div className="threadInfo">
+          <div
+            className="threadInfo-Username"
+            onMouseEnter={() => setViewingUser(thread.id)}
+            onMouseLeave={() => setViewingUser(-1)}
+          >{thread.user.username}</div> &bull;
 
-            {thread.user &&
-              <div className="threadInfo">
-                <div
-                  className="threadInfo-Username"
-                  onMouseEnter={() => setViewingUser(thread.id)}
-                  onMouseLeave={() => setViewingUser(-1)}
-                >{thread.user.username}</div> &bull;
+          <div
+            className="threadInfo-Time"
+          >{getTime(thread.created_at)}</div> &bull;
 
-                <div
-                  className="threadInfo-Time"
-                >{getTime(thread.created_at)}</div> &bull;
+          <div
+            className="threadInfo-NumComments"
+          >
+            {" "}
+            <i className="fa-regular fa-comment"></i>
+            {" "}
+            {thread.num_comments}
+          </div> &bull;
 
-                <div
-                  className="threadInfo-NumComments"
-                >
-                  {" "}
-                  <i className="fa-regular fa-comment"></i>
-                  {" "}
-                  {thread.num_comments}
-                </div> &bull;
-
-                <div
-                  className="threadInfo-NumLikes"
-                >
-                  {" "}
-                  {currUser && currUserLikes.threadLikes[thread.id] ?
-                    <i className="fa-solid fa-arrow-up liked"></i>
-                    :
-                    <i className="fa-solid fa-arrow-up"></i>
-                  }
-                  {" "}
-                  {thread.num_likes}
-                </div>
-              </div>
+          <div
+            className="threadInfo-NumLikes"
+          >
+            {" "}
+            {currUser && currUserLikes.threadLikes[thread.id] ?
+              <i className="fa-solid fa-arrow-up liked"></i>
+              :
+              <i className="fa-solid fa-arrow-up"></i>
             }
+            {" "}
+            {thread.num_likes}
           </div>
-
-          {viewingUser === thread.id &&
-            createPortal(<UserModal user={thread.user} />,
-              document.getElementById('gridLeft'))
-          }
         </div>
-      )
+      </div>
+
+      {viewingUser === thread.id &&
+        createPortal(<UserModal user={thread.user} />,
+          document.getElementById('gridLeft'))
       }
-    </div >
+    </div>
   )
+
+
+  return <>{threads}</>
 }
 
 export default Threads;

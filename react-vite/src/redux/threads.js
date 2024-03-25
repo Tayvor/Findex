@@ -7,7 +7,7 @@ const DELETE_THREAD = 'DELETE_THREAD';
 // ACTIONS
 const storeThreads = (threads) => ({
   type: STORE_THREADS,
-  threads: threads
+  threads
 });
 
 const storeThread = (thread) => ({
@@ -27,21 +27,12 @@ const deleteThread = (threadId) => ({
 
 
 // THUNKS
-export const thunkGetThreads = (id = 0) => async (dispatch) => {
-  if (id) {
-    const res = await fetch(`/api/threads/${id}`);
+export const thunkGetThreads = () => async (dispatch) => {
+  const res = await fetch('/api/threads');
 
-    if (res.ok) {
-      const data = await res.json();
-      dispatch(storeThreads(data));
-    }
-  } else {
-    const res = await fetch('/api/threads');
-
-    if (res.ok) {
-      const data = await res.json();
-      dispatch(storeThreads(data));
-    }
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(storeThreads(data));
   }
 };
 
@@ -96,14 +87,21 @@ const initialState = {};
 function threads(state = initialState, action) {
   let newState = {};
   switch (action.type) {
+    case STORE_THREADS:
+      let newObj = {};
+      action.threads.map((thread) => {
+        newObj[thread.id] = thread;
+      });
+      return newObj;
+
     case STORE_THREAD:
       newState = { ...state }
       newState[action.thread.id] = action.thread;
       return newState;
 
-    case STORE_THREADS:
+    case UPDATE_THREAD:
       newState = { ...state }
-      action.threads.map((thread) => newState[thread.id] = thread);
+      newState[action.thread.id] = action.thread;
       return newState;
 
     case DELETE_THREAD:

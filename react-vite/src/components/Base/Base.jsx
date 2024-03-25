@@ -13,7 +13,7 @@ function Base() {
   }, [dispatch]);
 
   return (
-    <div className="grid" id="homeCtn">
+    <div className="grid">
       <div className="gridLeft" id="gridLeft"></div>
 
       <div className="gridMiddle">

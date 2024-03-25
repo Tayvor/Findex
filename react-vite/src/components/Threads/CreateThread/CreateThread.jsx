@@ -6,15 +6,16 @@ import { useModal } from "../../../context/Modal";
 import './CreateThread.css';
 
 
-function CreateThread() {
+function CreateThread({ communityId }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
+  // const [commId, setCommunityId] = useState(communityId);
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const userId = useSelector((state) => state.session.user.id);
+  // const userId = useSelector((state) => state.session.user.id);
 
 
   const handleSubmit = async (e) => {
@@ -44,7 +45,7 @@ function CreateThread() {
     const formInfo = {
       'title': title,
       'description': description,
-      'user_id': userId,
+      'community_id': communityId,
     };
 
     const res = await dispatch(thunkCreateThread(formInfo));
@@ -94,9 +95,11 @@ function CreateThread() {
           disabled={loading}
         ><i className="fa-solid fa-check"></i></button>
       </div>
+
       {errors.title && <p className="error">{errors.title}</p>}
       {loading && <p>Loading... please wait.</p>}
       {errors.description && <p className="error">{errors.description}</p>}
+
       <textarea
         className="createThread-Desc"
         placeholder="Description"
@@ -105,7 +108,7 @@ function CreateThread() {
         required
       ></textarea>
 
-      Add Image
+      Add an Image
       <label
         className="uploadImageBtn clickable"
       ><i className="fa-regular fa-image"></i>

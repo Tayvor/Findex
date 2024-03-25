@@ -97,7 +97,7 @@ function Comments({ threadId, currUser }) {
                 className='commentInfo-Time'
               >{getTime(comment.created_at)}</div> &bull;
 
-              {currUser && currUser.id !== comment.user_id ?
+              {currUser && currUser.id !== comment.user.id ?
                 <div
                   className={currUserLikes.commentLikes[comment.id] ?
                     "commentInfo-Likes isLiked clickable" : "commentInfo-Likes notLiked clickable"
@@ -123,7 +123,7 @@ function Comments({ threadId, currUser }) {
               }
             </div>
 
-            {currUser?.id === comment.user_id && (
+            {currUser?.id === comment.user.id && (
               < OpenModalButton
                 modalComponent={
                   <EditCommentModal

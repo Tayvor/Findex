@@ -19,7 +19,6 @@ def get_thread_comments(thread_id):
     comm = {
       'id': comment.id,
       'content': comment.content,
-      'user_id': comment.user_id,
       'thread_id': comment.thread_id,
       'user' : comment.user.to_dict(),
       'num_likes': num_likes,

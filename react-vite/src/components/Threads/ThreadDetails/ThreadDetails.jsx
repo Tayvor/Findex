@@ -4,9 +4,11 @@ import { thunkGetThreadImages } from "../../../redux/images";
 import { thunkCreateLike, thunkDeleteLike } from "../../../redux/likes";
 import Comments from "../../Comments";
 import './ThreadDetails.css';
+import OpenModalButton from "../../OpenModalButton";
+import EditThread from '../EditThread';
 
 
-function ThreadDetails({ threadId }) {
+function ThreadDetails({ threadId, goBack }) {
   const dispatch = useDispatch();
 
   const thread = useSelector((state) => state.threads[threadId]);
@@ -79,7 +81,7 @@ function ThreadDetails({ threadId }) {
     }
   }
 
-  return (thread &&
+  return (
     <>
       <div className="threadDetails-Container">
 
@@ -102,7 +104,7 @@ function ThreadDetails({ threadId }) {
             {thread.num_comments}
           </div> &bull;
 
-          {currUser && currUser.id !== thread.user_id ?
+          {currUser && currUser.id !== thread.user.id ?
             <div className={currUserLikes.threadLikes[thread.id] ?
               "threadDetails-Likes isLiked clickable"
               :
@@ -127,12 +129,14 @@ function ThreadDetails({ threadId }) {
             </div>
           }
 
-          {currUser?.id === thread.user_id ?
-            <div
-              className="threadDetails-Edit clickable"
-              onClick={() => navigate(`/threads/${threadId}/edit`)}
-            >edit</div>
-            : ''
+          {currUser?.id === thread.user.id &&
+            < OpenModalButton
+              modalComponent={
+                <EditThread threadId={threadId} />
+              }
+              buttonText='edit'
+              className='commentBox-EditBtn clickable'
+            />
           }
         </div>
 

@@ -19,22 +19,25 @@ function Communities() {
   const viewCommunity = (name, id) => {
     setCommunityName(name);
     setCommunityId(id);
+    return;
   }
 
   const viewThread = (id) => {
     setThreadId(id);
     setCommunityName((name) => name + ' > Thread');
+    return;
   }
 
   const goBack = () => {
     if (threadId) {
       setThreadId(false);
-      const prevName = communityName.split(' ');
-      setCommunityName(prevName[0]);
+      const community = communityName.split(' ');
+      setCommunityName(community[0]);
     } else {
       setCommunityName('');
       setCommunityId(false);
     }
+    return;
   }
 
 
@@ -52,7 +55,9 @@ function Communities() {
 
         {communityName &&
           <OpenModalButton
-            modalComponent={!threadId ? <CreateThread /> :
+            modalComponent={!threadId ?
+              <CreateThread communityId={communityId} />
+              :
               <CreateCommentModal threadId={threadId} />
             }
             buttonText={!threadId ? <i className="fa-solid fa-plus"></i> :
@@ -83,7 +88,6 @@ function Communities() {
       {communityName && !threadId &&
         <Threads
           communityId={communityId}
-          threadId={threadId}
           viewThread={viewThread}
         />
       }
@@ -91,6 +95,7 @@ function Communities() {
       {threadId &&
         <ThreadDetails
           threadId={threadId}
+          goBack={goBack}
         />
       }
     </>

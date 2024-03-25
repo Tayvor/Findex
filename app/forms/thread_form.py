@@ -6,4 +6,4 @@ from wtforms.validators import DataRequired, ValidationError
 class ThreadForm(FlaskForm):
   title = StringField('title', validators=[DataRequired()])
   description = StringField('description', validators=[DataRequired()])
-  # user_id = IntegerField('user_id', validators=[DataRequired()])
+  community_id = IntegerField('community_id', validators=[DataRequired()])

@@ -1,17 +1,15 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
 import { thunkDeleteThread, thunkEditThread } from "../../../redux/threads";
 import { thunkDeleteImages } from "../../../redux/images";
-import './EditThread.css'
+import './EditThread.css';
+import { useModal } from "../../../context/Modal";
 
 
-function EditThread() {
-  const { threadId } = useParams();
-  const navigate = useNavigate();
+function EditThread({ threadId }) {
   const dispatch = useDispatch();
+  const { closeModal } = useModal();
   const thread = useSelector((state) => state.threads[threadId]);
-  const currUser = useSelector((state) => state.session.user);
   const [title, setTitle] = useState(thread?.title);
   const [description, setDesc] = useState(thread?.description);
   const [errors, setErrors] = useState({});
@@ -42,17 +40,11 @@ function EditThread() {
     const formInfo = {
       'title': title,
       'description': description,
+      'community_id': thread.community_id,
     };
 
-    const response = await dispatch(
-      thunkEditThread(formInfo, threadId)
-    );
-
-    if (response) {
-      setErrors(response);
-    } else {
-      navigate('/');
-    }
+    dispatch(thunkEditThread(formInfo, threadId))
+      .then(() => closeModal())
   };
 
   const handleDelete = (e) => {
@@ -60,11 +52,10 @@ function EditThread() {
 
     dispatch(thunkDeleteThread(threadId))
       .then(() => dispatch(thunkDeleteImages(threadId)))
-      .then(() => navigate('/'));
   };
 
 
-  return (thread &&
+  return (
     <>
       <form className="editThread-Form" onSubmit={handleSubmit}>
         {errors.length > 0 &&
@@ -72,28 +63,27 @@ function EditThread() {
 
         <div className="editThread-Header">
           <button
-            className="editThread-BackBtn clickable"
-            onClick={() => navigate(`/threads/${threadId}`)}
-          ><i className="fa-solid fa-chevron-up fa-rotate-270"></i></button>
+            className="editThread-DeleteBtn clickable"
+            onClick={handleDelete}
+          ><i className="fa-regular fa-trash-can"></i></button>
 
-          <input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="editThread-Title"
-            name="title"
-            required
-          ></input>
+          <div>Edit Thread</div>
 
-          {currUser?.id === thread.user_id &&
-            <button
-              className="editThread-SubmitBtn clickable"
-              type="submit"
-            ><i className="fa-solid fa-check"></i></button>
-          }
+          <button
+            className="editThread-SubmitBtn clickable"
+            type="submit"
+          ><i className="fa-solid fa-check"></i></button>
         </div>
+
+        <input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="editThread-Title"
+          name="title"
+          required
+        ></input>
         {errors.title && <p className="error">{errors.title}</p>}
 
-        {errors.description && <p className="error">{errors.description}</p>}
         <textarea
           value={description}
           onChange={(e) => setDesc(e.target.value)}
@@ -101,16 +91,8 @@ function EditThread() {
           name="desc"
           required
         ></textarea>
+        {errors.description && <p className="error">{errors.description}</p>}
       </form >
-
-      <div className="alignCenterDiv">
-        <div className="editThread-DeleteBtnDiv">
-          <button
-            className="editThread-DeleteBtn clickable"
-            onClick={handleDelete}
-          ><i className="fa-regular fa-trash-can"></i></button>
-        </div>
-      </div>
     </>
   )
 }
