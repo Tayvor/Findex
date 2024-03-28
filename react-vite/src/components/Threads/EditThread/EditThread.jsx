@@ -6,7 +6,7 @@ import './EditThread.css';
 import { useModal } from "../../../context/Modal";
 
 
-function EditThread({ threadId }) {
+function EditThread({ threadId, goBack }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const thread = useSelector((state) => state.threads[threadId]);
@@ -21,14 +21,14 @@ function EditThread({ threadId }) {
     const errors = {};
 
     // Validations
-    if (title.length < 10 || title.length > 30) {
-      errors.title = 'Title must be between 10 and 30 characters.'
+    if (title.length < 1 || title.length > 30) {
+      errors.title = 'Title must be between 1 and 30 characters.'
     } else if (!title.trim()) {
       errors.title = 'Title must not contain entirely whitespace.'
     }
 
-    if (description.length < 10) {
-      errors.description = 'Description must be at least 10 characters.'
+    if (description.length < 1) {
+      errors.description = 'Description must be at least 1 character.'
     }
 
     if (Object.values(errors).length) {
@@ -48,10 +48,12 @@ function EditThread({ threadId }) {
   };
 
   const handleDelete = (e) => {
-    e.preventDefault();
+    e.preventDefault()
+    goBack()
 
     dispatch(thunkDeleteThread(threadId))
       .then(() => dispatch(thunkDeleteImages(threadId)))
+      .then(() => closeModal())
   };
 
 
@@ -64,10 +66,10 @@ function EditThread({ threadId }) {
         <div className="editThread-Header">
           <button
             className="editThread-DeleteBtn clickable"
-            onClick={handleDelete}
+            onClick={(e) => handleDelete(e)}
           ><i className="fa-regular fa-trash-can"></i></button>
 
-          <div>Edit Thread</div>
+          <div style={{ 'font-size': 30 }}>Edit Your Thread</div>
 
           <button
             className="editThread-SubmitBtn clickable"

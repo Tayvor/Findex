@@ -55,10 +55,12 @@ def create_thread():
 
   thread_with_user = {
 		'id': new_thread.id,
+    'community_id': new_thread.community_id,
 		'title': new_thread.title,
     'description': new_thread.description,
     'user': new_thread.user.to_dict(),
     'num_comments': 0,
+    'num_likes': 0,
     'created_at': new_thread.created_at
 	}
 

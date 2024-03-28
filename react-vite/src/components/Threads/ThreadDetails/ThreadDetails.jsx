@@ -91,63 +91,62 @@ function ThreadDetails({ threadId, goBack }) {
         <div className="threadDetails-Desc"
         >{thread.description}</div>
 
+        {threadImages && threadImages[0] &&
+          <img
+            src={threadImages[0]?.url}
+            className="threadDetails-Image"
+          ></img>
+        }
+
         <div className="threadDetails-Info">
-          <div className="threadDetails-Username"
-          >{thread.user.username}</div> &bull;
+          <div className="infoLeft">
+            <div className="threadDetails-Username"
+            >{thread.user.username}</div> &bull;
 
-          <div className="threadDetails-Time"
-          >{getTime(thread.created_at)}</div> &bull;
+            <div className="threadDetails-Time"
+            >{getTime(thread.created_at)}</div> &bull;
 
-          <div className="threadDetails-NumComments">
-            <i className="fa-regular fa-comment"></i>
-            {" "}
-            {thread.num_comments}
-          </div> &bull;
+            <div className="threadDetails-NumComments">
+              <i className="fa-regular fa-comment"></i>
+              {" "}
+              {thread.num_comments}
+            </div> &bull;
 
-          {currUser && currUser.id !== thread.user.id ?
-            <div className={currUserLikes.threadLikes[thread.id] ?
-              "threadDetails-Likes isLiked clickable"
-              :
-              "threadDetails-Likes notLiked clickable"}
-              onClick={() => handleLike(thread)}
-            >
-              {currUserLikes.threadLikes[thread.id] ?
-                <i className="fa-solid fa-arrow-up liked"></i>
+            {currUser && currUser.id !== thread.user.id ?
+              <div className={currUserLikes.threadLikes[thread.id] ?
+                "threadDetails-Likes isLiked clickable"
                 :
+                "threadDetails-Likes notLiked clickable"}
+                onClick={() => handleLike(thread)}
+              >
+                {currUserLikes.threadLikes[thread.id] ?
+                  <i className="fa-solid fa-arrow-up liked"></i>
+                  :
+                  <i className="fa-solid fa-arrow-up"></i>
+                }
+                &nbsp;
+                {thread.num_likes}
+              </div>
+              :
+              <div
+                className="threadDetails-Likes"
+              >
                 <i className="fa-solid fa-arrow-up"></i>
-              }
-              &nbsp;
-              {thread.num_likes}
-            </div>
-            :
-            <div
-              className="threadDetails-Likes"
-            >
-              <i className="fa-solid fa-arrow-up"></i>
-              &nbsp;
-              {thread.num_likes}
-            </div>
-          }
+                &nbsp;
+                {thread.num_likes}
+              </div>
+            }
+          </div>
 
-          {currUser?.id === thread.user.id &&
-            < OpenModalButton
-              modalComponent={
-                <EditThread threadId={threadId} />
-              }
-              buttonText='edit'
-              className='commentBox-EditBtn clickable'
-            />
-          }
-        </div>
-
-
-        <div className="threadDetails-Footer">
-          {threadImages && threadImages[0] &&
-            <img
-              src={threadImages[0]?.url}
-              className="threadDetails-Image"
-            ></img>
-          }
+          <div className="infoRight">
+            {currUser?.id === thread.user.id &&
+              < OpenModalButton
+                modalComponent={<EditThread threadId={threadId} goBack={goBack} />}
+                buttonText='edit'
+                className='editThreadBtn clickable'
+              />
+            }
+          </div>
         </div>
       </div>
 

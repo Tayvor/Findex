@@ -22,7 +22,7 @@ function Threads({ communityId, viewThread }) {
     if (currUser) {
       dispatch(thunkGetUserLikes());
     }
-  }, [dispatch]);
+  }, [dispatch, currUser]);
 
   const getTime = (created_at) => {
     const dateCreated = String(created_at).split(' ')[0].split('-');
@@ -75,7 +75,7 @@ function Threads({ communityId, viewThread }) {
     }
   }
 
-  const threads = communityThreads.map((thread) =>
+  const displayThreads = communityThreads.map((thread) =>
     <div key={thread.id} className="threadBox">
 
       <div className="threadBox-Left">
@@ -127,7 +127,7 @@ function Threads({ communityId, viewThread }) {
   )
 
 
-  return <>{threads}</>
+  return <>{displayThreads}</>
 }
 
 export default Threads;

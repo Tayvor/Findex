@@ -54,6 +54,7 @@ def create_comment():
     'user_id': new_comment.user_id,
     'thread_id': new_comment.thread_id,
     'created_at': new_comment.created_at,
+    'num_likes': 0,
     'user': new_comment.user.to_dict()
   }
 

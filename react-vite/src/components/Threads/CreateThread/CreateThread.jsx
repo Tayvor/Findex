@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { thunkCreateThread } from "../../../redux/threads";
 import { thunkUploadImage } from "../../../redux/images";
 import { useModal } from "../../../context/Modal";
@@ -11,11 +11,9 @@ function CreateThread({ communityId }) {
   const { closeModal } = useModal();
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
-  // const [commId, setCommunityId] = useState(communityId);
   const [image, setImage] = useState(null);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  // const userId = useSelector((state) => state.session.user.id);
 
 
   const handleSubmit = async (e) => {
@@ -25,14 +23,14 @@ function CreateThread({ communityId }) {
     const errors = {};
 
     // Validations
-    if (title.length < 10 || title.length > 30) {
-      errors.title = 'Title must be between 10 and 30 characters.'
+    if (title.length < 1 || title.length > 30) {
+      errors.title = 'Title must be between 1 and 30 characters.'
     } else if (!title.trim()) {
       errors.title = 'Title must not contain entirely whitespace.'
     }
 
-    if (description.length < 10) {
-      errors.description = 'Description must be at least 10 characters.'
+    if (description.length < 1) {
+      errors.description = 'Description must be at least 1 character.'
     }
 
     if (Object.values(errors).length) {

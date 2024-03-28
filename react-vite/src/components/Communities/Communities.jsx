@@ -15,6 +15,7 @@ function Communities() {
   const [communityName, setCommunityName] = useState('');
   const [communityId, setCommunityId] = useState(false);
   const [threadId, setThreadId] = useState(false);
+  const [test, setTest] = useState(false);
 
   const viewCommunity = (name, id) => {
     setCommunityName(name);
@@ -63,27 +64,32 @@ function Communities() {
             buttonText={!threadId ? <i className="fa-solid fa-plus"></i> :
               <i className="fa-regular fa-comment"></i>
             }
-            className='createBtn clickable'
+            className={userLoggedIn ? 'createBtn clickable' : 'createBtnDisabled'}
             disabled={userLoggedIn ? false : true}
           />
         }
       </div>
 
 
-      {!communityName && communities.map((community) =>
-        <div
-          key={community.id}
-          className='communityBox'
-        >
-          <div
-            onClick={() => viewCommunity(community.name, community.id)}
-            className='clickable uLine'
-          >{community.name}
-          </div>
+      {!communityName &&
+        <div className="discussionsWrapper">
+          {communities.map((community) =>
+            <div
+              key={community.id}
+              className='communityBox'
+            >
+              <div
+                onClick={() => viewCommunity(community.name, community.id)}
+                className='communityTitle clickable uLine'
+              >{community.name}
+              </div>
 
-          <div>{community.description}</div>
+              <div>{community.description}</div>
+            </div>
+          )}
         </div>
-      )}
+      }
+
 
       {communityName && !threadId &&
         <Threads
@@ -91,6 +97,7 @@ function Communities() {
           viewThread={viewThread}
         />
       }
+
 
       {threadId &&
         <ThreadDetails

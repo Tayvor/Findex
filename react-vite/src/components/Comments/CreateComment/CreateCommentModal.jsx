@@ -15,8 +15,6 @@ function CreateCommentModal({ threadId }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validations
-
     // Form Submission
     const formInfo = {
       'content': comment,

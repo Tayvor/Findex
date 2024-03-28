@@ -14,7 +14,16 @@
 
 .threadDetails-Desc {
   font-size: 20px;
+  margin-bottom: 10px;
+  word-wrap: break-word;
 }
+
+.threadDetails-Image {
+  border-radius: 10px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
 
 .threadDetails-Info {
   display: flex;
@@ -24,16 +33,12 @@
   margin-top: 10px;
 }
 
-.threadDetails-Time {
-  padding: 0 10px;
+.infoLeft {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.threadDetails-NumComments {
-  padding: 0 10px;
-}
-
-
-/* Username */
 .threadDetails-Username {
   display: flex;
   align-items: center;
@@ -42,16 +47,13 @@
   padding-right: 10px;
 }
 
-
-.threadDetails-Footer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+.threadDetails-Time {
+  padding: 0 10px;
 }
 
-.threadDetails-Image {
-  border-radius: 10px;
-  width: 300px;
+.threadDetails-NumComments {
+  padding: 0 10px;
+  align-self: center;
 }
 
 
@@ -79,17 +81,18 @@
 
 
 /* Edit Button */
-.threadDetails-Edit {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.editThreadBtn {
+  border: none;
   border-radius: 5px;
   width: 50px;
   height: 25px;
+  font-size: 17px;
+  background: none;
+  color: gray;
   transition: all 1s;
 }
 
-.threadDetails-Edit:hover {
+.editThreadBtn:hover {
   transition: all .5s;
   background-color: lightblue;
   color: black;

@@ -15,9 +15,28 @@
   margin-bottom: 15px;
 }
 
+
+.discussionsWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 15px;
+}
+
+
+/* Community name inside navBar */
 .communityName {
+  display: flex;
+  justify-content: center;
+  width: 100%;
   font-size: 30px;
 }
+
+/* Community 'title' inside communityBox */
+.communityTitle {
+  width: fit-content;
+  font-size: 25px;
+}
+
 
 /* Back Button */
 .backBtn {
@@ -43,10 +62,17 @@
   height: 40px;
   font-size: 15px;
   transition: all 1s;
-
 }
 
 .createBtn:hover {
   transition: all .5s;
   background-color: lightgreen;
+}
+
+.createBtnDisabled {
+  border: 1px solid gray;
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  font-size: 15px;
 }

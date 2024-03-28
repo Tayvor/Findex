@@ -88,15 +88,13 @@ function threads(state = initialState, action) {
   let newState = {};
   switch (action.type) {
     case STORE_THREADS:
-      let newObj = {};
       action.threads.map((thread) => {
-        newObj[thread.id] = thread;
+        newState[thread.id] = thread;
       });
-      return newObj;
+      return newState;
 
     case STORE_THREAD:
-      newState = { ...state }
-      newState[action.thread.id] = action.thread;
+      newState = { ...state, [action.thread.id]: action.thread }
       return newState;
 
     case UPDATE_THREAD:
