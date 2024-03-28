@@ -15,7 +15,6 @@ function Communities() {
   const [communityName, setCommunityName] = useState('');
   const [communityId, setCommunityId] = useState(false);
   const [threadId, setThreadId] = useState(false);
-  const [test, setTest] = useState(false);
 
   const viewCommunity = (name, id) => {
     setCommunityName(name);
