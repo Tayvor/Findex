@@ -75,7 +75,7 @@ function Threads({ communityId, viewThread }) {
     }
   }
 
-  const displayThreads = communityThreads.map((thread) =>
+  const displayThreads = communityThreads.toReversed().map((thread) =>
     <div key={thread.id} className="threadBox">
 
       <div className="threadBox-Left">
