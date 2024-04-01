@@ -6,6 +6,8 @@ Hosted on Render: [Findex](https://findex-9g4t.onrender.com)
 
 ## Technologies
 Findex was build using the following technologies:
+<br>
+<br>
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-plain.svg" style="width:75px;" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original-wordmark.svg" style="width:75px;background-color:white" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original-wordmark.svg" style="width:75px;" />
