@@ -119,10 +119,10 @@ function Threads({ communityId, viewThread }) {
         </div>
       </div>
 
-      {viewingUser === thread.id &&
+      {/* {viewingUser === thread.id &&
         createPortal(<UserModal user={thread.user} />,
           document.getElementById('gridLeft'))
-      }
+      } */}
     </div>
   )
 
