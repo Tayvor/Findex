@@ -1,8 +1,5 @@
 # Findex - A Fish Forum.
-Findex is a forum for fish hobbyists to learn, get help, and share information.
-
-## Link to live site
-Hosted on Render: [Findex](https://findex-9g4t.onrender.com)
+[Findex](https://findex-9g4t.onrender.com) is a forum for fish hobbyists to learn, get help, and share information.
 
 ## Technologies
 Findex was build using the following technologies:
