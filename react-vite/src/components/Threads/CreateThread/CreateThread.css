@@ -38,6 +38,7 @@
   min-width: 100%;
   max-width: 100%;
   min-height: 150px;
+  max-height: 75vh;
   font-size: 20px;
   background-color: rgba(173, 216, 230, .5);
   padding: 10px;
