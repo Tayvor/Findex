@@ -5,7 +5,7 @@ from app.models import User
 user_routes = Blueprint('users', __name__)
 
 
-@user_routes.route('/')
+@user_routes.get('/')
 @login_required
 def users():
     """
@@ -15,7 +15,7 @@ def users():
     return {'users': [user.to_dict() for user in users]}
 
 
-@user_routes.route('/<int:id>')
+@user_routes.get('/<int:id>')
 @login_required
 def user(id):
     """

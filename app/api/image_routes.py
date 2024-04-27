@@ -9,7 +9,7 @@ image_routes = Blueprint('image', __name__)
 
 
 # GET IMAGES BY THREAD ID
-@image_routes.route('/<int:thread_id_num>')
+@image_routes.get('/<int:thread_id_num>')
 def get_images(thread_id_num):
   images = Image.query.filter_by(thread_id=thread_id_num).all()
   image_list = []
@@ -27,7 +27,7 @@ def get_images(thread_id_num):
 
 
 # ADD IMAGE
-@image_routes.route('/new', methods=['POST'])
+@image_routes.post('/new')
 def upload_image():
   form = ImageForm(CombinedMultiDict((request.files, request.form)))
   form['csrf_token'].data = request.cookies['csrf_token']
@@ -37,9 +37,6 @@ def upload_image():
     image = form.data["image"]
     image.filename = get_unique_filename(image.filename)
     upload = upload_file_to_s3(image)
-    # print(upload)
-    # print('**********************                *****************************')
-    # print('**********************                *****************************')
 
     if "url" not in upload:
       return jsonify({'error': 'upload failed'}), 500
@@ -60,7 +57,7 @@ def upload_image():
 
 
 # REMOVE IMAGE
-@image_routes.route('/delete', methods=['DELETE'])
+@image_routes.delete('/delete')
 def remove_image():
 
   # img = Image.query.get(1)

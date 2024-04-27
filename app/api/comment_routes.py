@@ -8,7 +8,7 @@ comment_routes = Blueprint('comment', __name__)
 
 
 # GET COMMENTS BY THREAD ID
-@comment_routes.route('/<int:thread_id>')
+@comment_routes.get('/<int:thread_id>')
 def get_thread_comments(thread_id):
   comments = Comment.query.filter(Comment.thread_id == thread_id)
   comment_list = []
@@ -30,7 +30,7 @@ def get_thread_comments(thread_id):
 
 
 # CREATE
-@comment_routes.route('/new', methods=['POST'])
+@comment_routes.post('/new')
 def create_comment():
   form = CommentForm()
   form['csrf_token'].data = request.cookies['csrf_token']
@@ -62,7 +62,7 @@ def create_comment():
 
 
 # EDIT
-@comment_routes.route('/<int:comment_id>/edit', methods=['PUT'])
+@comment_routes.put('/<int:comment_id>/edit')
 def edit_comment(comment_id):
   form = CommentForm()
   form['csrf_token'].data = request.cookies['csrf_token']
@@ -89,9 +89,8 @@ def edit_comment(comment_id):
   return jsonify('Bad Data')
 
 
-
 # DELETE
-@comment_routes.route('/<int:comment_id>/delete', methods=['DELETE'])
+@comment_routes.delete('/<int:comment_id>/delete')
 def delete_comment(comment_id):
   comment = Comment.query.get(comment_id)
 

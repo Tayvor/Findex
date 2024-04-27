@@ -6,7 +6,7 @@ community_routes = Blueprint('community', __name__)
 
 
 # GET COMMUNITIES
-@community_routes.route('')
+@community_routes.get('')
 def get_communities():
   communities = Community.query.all()
   lst = []
