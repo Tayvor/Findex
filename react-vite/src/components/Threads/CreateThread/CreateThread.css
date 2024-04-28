@@ -18,6 +18,10 @@
   margin-bottom: 10px;
 }
 
+.createThread-HeaderTitle {
+  font-size: 30px;
+}
+
 .createThread-Title {
   border: 1px solid black;
   border-radius: 10px;
@@ -25,10 +29,11 @@
   display: flex;
   align-items: center;
   font-size: 25px;
-  width: 500px;
+  width: 100%;
   height: 40px;
   background-color: rgba(173, 216, 230, .5);
   text-align: center;
+  margin-bottom: 10px;
 }
 
 .createThread-Desc {
@@ -80,4 +85,30 @@
 .uploadImageBtn {
   font-size: 45px;
   color: gray;
+}
+
+
+/* Image Preview */
+.createThread-ImageCtn {
+  border: 2px solid orange;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.createThread-ImagePreview {
+  border-radius: 10px;
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+}
+
+.createThread-ImagePreview:hover {
+  transition: .5s;
+  opacity: .5;
+}
+
+.removeImage {
+  position: absolute;
 }

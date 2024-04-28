@@ -28,6 +28,7 @@ function CreateCommentModal({ threadId }) {
 
   return (
     <form className="createComment-Form" onSubmit={handleSubmit}>
+
       <div className="createComment-Header">
         <button
           className="createComment-BackBtn clickable"

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { thunkCreateThread } from "../../../redux/threads";
 import { thunkUploadImage } from "../../../redux/images";
@@ -12,8 +12,19 @@ function CreateThread({ communityId }) {
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
   const [image, setImage] = useState(null);
+  const [imageSRC, setImageSRC] = useState("");
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
+
+  const [hoveringImage, setHoveringImage] = useState(false);
+
+  useEffect(() => {
+    if (image) {
+      setImageSRC(() => URL.createObjectURL(image))
+    }
+
+    return () => URL.revokeObjectURL(imageSRC)
+  }, [image, imageSRC])
 
 
   const handleSubmit = async (e) => {
@@ -65,6 +76,12 @@ function CreateThread({ communityId }) {
     }
   };
 
+  const removeImage = () => {
+    setImage(null);
+    setImageSRC("");
+    return;
+  }
+
 
   return (
     <form
@@ -79,13 +96,7 @@ function CreateThread({ communityId }) {
           disabled={loading}
         ><i className="fa-solid fa-chevron-up fa-rotate-270"></i></button>
 
-        <input
-          className="createThread-Title"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        ></input>
+        <div className="createThread-HeaderTitle">Create a Thread</div>
 
         <button
           className="createThread-SubmitBtn clickable"
@@ -98,6 +109,14 @@ function CreateThread({ communityId }) {
       {loading && <p>Loading... please wait.</p>}
       {errors.description && <p className="error">{errors.description}</p>}
 
+      <input
+        className="createThread-Title"
+        placeholder="Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        required
+      ></input>
+
       <textarea
         className="createThread-Desc"
         placeholder="Description"
@@ -106,19 +125,38 @@ function CreateThread({ communityId }) {
         required
       ></textarea>
 
-      Add an Image
-      <label
-        className="uploadImageBtn clickable"
-      ><i className="fa-regular fa-image"></i>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setImage(e.target.files[0])}
-          hidden
-        />
-      </label>
-      {image && <p>Image Attached!</p>}
+      {imageSRC ? '' : <div>Add an Image</div>}
+      {imageSRC ? '' :
+        <label
+          className="uploadImageBtn clickable"
+        >
+          <i className="fa-regular fa-image"></i>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
+            hidden
+          />
+        </label>
+      }
 
+      {imageSRC &&
+        <div
+          className="createThread-ImageCtn"
+          onMouseEnter={() => setHoveringImage(true)}
+          onMouseLeave={() => setHoveringImage(false)}
+        >
+          <img
+            className='createThread-ImagePreview clickable'
+            src={imageSRC}
+            onClick={removeImage}
+          ></img>
+
+          <div
+            className="removeImage"
+          >Remove Image</div>
+        </div>
+      }
     </form>
   )
 }
