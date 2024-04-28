@@ -16,13 +16,10 @@ function CreateThread({ communityId }) {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const [hoveringImage, setHoveringImage] = useState(false);
-
   useEffect(() => {
     if (image) {
       setImageSRC(() => URL.createObjectURL(image))
     }
-
     return () => URL.revokeObjectURL(imageSRC)
   }, [image, imageSRC])
 
@@ -125,35 +122,34 @@ function CreateThread({ communityId }) {
         required
       ></textarea>
 
-      {imageSRC ? '' : <div>Add an Image</div>}
-      {imageSRC ? '' :
-        <label
-          className="uploadImageBtn clickable"
-        >
-          <i className="fa-regular fa-image"></i>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImage(e.target.files[0])}
-            hidden
-          />
-        </label>
+      {!image &&
+        <div className="addImage">Upload Image
+          <label
+            className="uploadImageBtn clickable"
+          >
+            <i className="fa-regular fa-image"></i>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setImage(e.target.files[0])}
+              hidden
+            />
+          </label>
+        </div>
       }
 
-      {imageSRC &&
+      {image &&
         <div
           className="createThread-ImageCtn"
-          onMouseEnter={() => setHoveringImage(true)}
-          onMouseLeave={() => setHoveringImage(false)}
+          onClick={removeImage}
         >
           <img
-            className='createThread-ImagePreview clickable'
+            className='createThread-ImagePreview'
             src={imageSRC}
-            onClick={removeImage}
           ></img>
 
           <div
-            className="removeImage"
+            className="removeImageText"
           >Remove Image</div>
         </div>
       }
