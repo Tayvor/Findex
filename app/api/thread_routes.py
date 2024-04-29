@@ -102,15 +102,15 @@ def edit_thread(thread_id_num):
 
 
 # DELETE THREAD
-@thread_routes.delete('/<int:thread_id_num>/delete')
+@thread_routes.delete('/<int:thread_id_num>')
 def delete_thread(thread_id_num):
   thread = Thread.query.get(thread_id_num)
-  images = Image.query.filter_by(thread_id=thread_id_num).all()
+  images = Image.query.filter_by(thread_id=thread_id_num).first()
   comments = Comment.query.filter_by(thread_id=thread_id_num).all()
 
   # Delete images from s3 bucket
-  for image in images:
-    url = image.image_url
+  if images:
+    url = images.image_url
     remove_file_from_s3(url)
 
   # Delete comments

@@ -90,7 +90,7 @@ def edit_comment(comment_id):
 
 
 # DELETE
-@comment_routes.delete('/<int:comment_id>/delete')
+@comment_routes.delete('/<int:comment_id>')
 def delete_comment(comment_id):
   comment = Comment.query.get(comment_id)
 

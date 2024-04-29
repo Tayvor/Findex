@@ -44,7 +44,6 @@ function EditThread({ threadId, goBack, threadImage }) {
       'description': description,
       'community_id': thread.community_id,
     };
-
     dispatch(thunkEditThread(threadInfo, threadId))
 
     // Update Image

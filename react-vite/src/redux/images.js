@@ -6,12 +6,12 @@ const DELETE_IMAGE = 'DELETE_IMAGE';
 const storeImage = (image) => ({
   type: STORE_IMAGE,
   image
-})
+});
 
 const deleteThreadImage = (threadId) => ({
   type: DELETE_IMAGE,
   threadId
-})
+});
 
 
 // THUNKS
@@ -38,7 +38,7 @@ export const thunkGetThreadImages = (threadId) => async (dispatch) => {
       dispatch(storeImage(data));
     }
   }
-}
+};
 
 export const thunkDeleteImage = (fileName) => async (dispatch) => {
   const res = await fetch(`/api/images/${fileName}`, {
@@ -48,7 +48,7 @@ export const thunkDeleteImage = (fileName) => async (dispatch) => {
     const data = await res.json();
     dispatch(deleteThreadImage(data.thread_id));
   }
-}
+};
 
 
 // REDUCER
@@ -58,7 +58,7 @@ function images(state = initialState, action) {
   let newState = {};
   switch (action.type) {
     case STORE_IMAGE:
-      newState = { ...state }
+      newState = { ...state };
       newState[action.image.thread_id] = action.image;
       return newState;
 
