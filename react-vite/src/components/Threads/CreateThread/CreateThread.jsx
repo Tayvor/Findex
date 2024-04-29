@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { thunkCreateThread } from "../../../redux/threads";
 import { thunkUploadImage } from "../../../redux/images";
@@ -12,16 +12,9 @@ function CreateThread({ communityId }) {
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
   const [image, setImage] = useState(null);
-  const [imageSRC, setImageSRC] = useState("");
+  const [imagePreview, setImagePreview] = useState(null);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (image) {
-      setImageSRC(() => URL.createObjectURL(image))
-    }
-    return () => URL.revokeObjectURL(imageSRC)
-  }, [image, imageSRC])
 
 
   const handleSubmit = async (e) => {
@@ -74,8 +67,15 @@ function CreateThread({ communityId }) {
   };
 
   const removeImage = () => {
+    URL.revokeObjectURL(imagePreview)
     setImage(null);
-    setImageSRC("");
+    setImagePreview(null);
+    return;
+  }
+
+  const selectImage = (e) => {
+    setImage(e.target.files[0]);
+    setImagePreview(URL.createObjectURL(e.target.files[0]));
     return;
   }
 
@@ -131,7 +131,7 @@ function CreateThread({ communityId }) {
             <input
               type="file"
               accept="image/*"
-              onChange={(e) => setImage(e.target.files[0])}
+              onChange={(e) => selectImage(e)}
               hidden
             />
           </label>
@@ -145,7 +145,7 @@ function CreateThread({ communityId }) {
         >
           <img
             className='createThread-ImagePreview'
-            src={imageSRC}
+            src={imagePreview}
           ></img>
 
           <div

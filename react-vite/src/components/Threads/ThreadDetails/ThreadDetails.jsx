@@ -141,7 +141,13 @@ function ThreadDetails({ threadId, goBack }) {
           <div className="infoRight">
             {currUser?.id === thread.user.id &&
               < OpenModalButton
-                modalComponent={<EditThread threadId={threadId} goBack={goBack} />}
+                modalComponent={
+                  <EditThread
+                    threadId={threadId}
+                    goBack={goBack}
+                    threadImages={threadImages}
+                  />
+                }
                 buttonText='edit'
                 className='editThreadBtn clickable'
               />

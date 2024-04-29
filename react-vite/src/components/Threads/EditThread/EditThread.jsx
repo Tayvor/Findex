@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkDeleteThread, thunkEditThread } from "../../../redux/threads";
-import { thunkDeleteImages } from "../../../redux/images";
+import { thunkDeleteImages, thunkUploadImage } from "../../../redux/images";
 import './EditThread.css';
 import { useModal } from "../../../context/Modal";
 
 
-function EditThread({ threadId, goBack }) {
+function EditThread({ threadId, goBack, threadImages }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const thread = useSelector((state) => state.threads[threadId]);
   const [title, setTitle] = useState(thread?.title);
   const [description, setDesc] = useState(thread?.description);
   const [errors, setErrors] = useState({});
+  const [image, setImage] = useState(threadImages[0] || null);
+  const [imagePreview, setImagePreview] = useState(threadImages[0]?.url || null);
 
 
   const handleSubmit = async (e) => {
@@ -44,7 +46,24 @@ function EditThread({ threadId, goBack }) {
     };
 
     dispatch(thunkEditThread(formInfo, threadId))
-      .then(() => closeModal())
+
+    if (!image && threadImages[0]) {
+      const fileName = threadImages[0].url.split('/')[3];
+      dispatch(thunkDeleteImages(fileName))
+        .then(() => closeModal());
+    } else {
+      closeModal();
+    }
+
+    //   const formData = new FormData();
+    //   formData.append('image', image);
+    //   formData.append('thread_id', threadId);
+
+    //   dispatch(thunkUploadImage(formData))
+    //     .then(() => closeModal());
+    // } else {
+    //   closeModal();
+    // }
   };
 
   const handleDelete = (e) => {
@@ -56,10 +75,27 @@ function EditThread({ threadId, goBack }) {
       .then(() => closeModal())
   };
 
+  const removeImage = () => {
+    URL.revokeObjectURL(imagePreview)
+    setImage(null);
+    setImagePreview(null);
+    return;
+  }
+
+  const selectImage = (e) => {
+    setImage(e.target.files[0]);
+    setImagePreview(URL.createObjectURL(e.target.files[0]));
+    return;
+  }
+
 
   return (
     <>
-      <form className="editThread-Form" onSubmit={handleSubmit}>
+      <form
+        className="editThread-Form"
+        onSubmit={handleSubmit}
+        encType="multipart/form-data"
+      >
         {errors.length > 0 &&
           errors.map((message) => <p key={message}>{message}</p>)}
 
@@ -69,7 +105,7 @@ function EditThread({ threadId, goBack }) {
             onClick={(e) => handleDelete(e)}
           ><i className="fa-regular fa-trash-can"></i></button>
 
-          <div style={{ 'font-size': 30 }}>Edit Your Thread</div>
+          <div style={{ 'fontSize': 30 }}>Edit Your Thread</div>
 
           <button
             className="editThread-SubmitBtn clickable"
@@ -94,6 +130,39 @@ function EditThread({ threadId, goBack }) {
           required
         ></textarea>
         {errors.description && <p className="error">{errors.description}</p>}
+
+
+        {!image &&
+          <div className="editThread-AddImage">Upload Image
+            <label
+              className="uploadImageBtn clickable"
+            >
+              <i className="fa-regular fa-image"></i>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => selectImage(e)}
+                hidden
+              />
+            </label>
+          </div>
+        }
+
+        {image &&
+          <div
+            className="editThread-ImageCtn"
+            onClick={removeImage}
+          >
+            <img
+              className="editThread-Image"
+              src={imagePreview}
+            ></img>
+
+            <div
+              className="removeImageText"
+            >Remove Image</div>
+          </div>
+        }
       </form >
     </>
   )

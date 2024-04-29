@@ -57,13 +57,14 @@ def upload_image():
 
 
 # REMOVE IMAGE
-@image_routes.delete('/delete')
-def remove_image():
+@image_routes.delete('/<file_name>')
+def remove_image(file_name):
+  # remove image instance from model
+  image = Image.query.filter(Image.image_url.endswith(file_name)).first()
+  db.session.delete(image)
+  db.session.commit()
 
-  # img = Image.query.get(1)
-  # print('******** ********* ******************')
-  # print('******** ********* ******************')
-  # print(img.to_dict())
-  # remove_file_from_s3('image_url')
+  # remove image from aws
+  remove_file_from_s3(file_name)
 
-  return jsonify('hello')
+  return {'thread_id': image.thread_id}

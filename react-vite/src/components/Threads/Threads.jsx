@@ -1,15 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkGetThreads } from "../../redux/threads";
 import { thunkGetUserLikes } from "../../redux/likes";
 import './Threads.css';
-import UserModal from "./UserModal";
-import { createPortal } from 'react-dom';
 
 
 function Threads({ communityId, viewThread }) {
   const dispatch = useDispatch();
-  const [viewingUser, setViewingUser] = useState(-1);
 
   const communityThreads = Object.values(useSelector((state) => state.threads)).filter(
     (thread) => thread.community_id === communityId
@@ -87,8 +84,6 @@ function Threads({ communityId, viewThread }) {
         <div className="threadInfo">
           <div
             className="threadInfo-Username"
-            onMouseEnter={() => setViewingUser(thread.id)}
-            onMouseLeave={() => setViewingUser(-1)}
           >{thread.user.username}</div> &bull;
 
           <div
@@ -118,14 +113,8 @@ function Threads({ communityId, viewThread }) {
           </div>
         </div>
       </div>
-
-      {/* {viewingUser === thread.id &&
-        createPortal(<UserModal user={thread.user} />,
-          document.getElementById('gridLeft'))
-      } */}
     </div>
   )
-
 
   return <>{displayThreads}</>
 }

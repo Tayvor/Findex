@@ -47,11 +47,14 @@ export const thunkGetThreadImages = (threadId) => async (dispatch) => {
   }
 }
 
-export const thunkDeleteImages = (threadId) => async (dispatch) => {
-  // const res = await fetch('/api/images/delete', {
-  //   method: 'DELETE',
-  // })
-  dispatch(deleteThreadImages(threadId));
+export const thunkDeleteImages = (fileName) => async (dispatch) => {
+  const res = await fetch(`/api/images/${fileName}`, {
+    method: 'DELETE',
+  })
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(deleteThreadImages(data.thread_id));
+  }
 }
 
 
@@ -77,7 +80,8 @@ function images(state = initialState, action) {
       return newState;
 
     case DELETE_IMAGES:
-      // newState = { ...state };
+      newState = { ...state };
+      delete newState[action.threadId]
       return newState;
 
     default:
