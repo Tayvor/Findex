@@ -7,7 +7,7 @@ like_routes = Blueprint('like', __name__)
 
 
 # GET USER LIKES
-@like_routes.route('')
+@like_routes.get('')
 @login_required
 def get_user_likes():
   user_likes = Like.query.filter_by(user_id=current_user.id).all()
@@ -20,7 +20,7 @@ def get_user_likes():
 
 
 # CREATE A LIKE
-@like_routes.route('', methods=['POST'])
+@like_routes.post('')
 @login_required
 def create_like():
     req = request.get_json()
@@ -44,7 +44,7 @@ def create_like():
 
 
 # DELETE LIKE
-@like_routes.route('/<int:like_id>', methods=['DELETE'])
+@like_routes.delete('/<int:like_id>')
 @login_required
 def delete_like(like_id):
   like = Like.query.get(like_id)

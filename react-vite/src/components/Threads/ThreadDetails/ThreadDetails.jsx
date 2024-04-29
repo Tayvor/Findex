@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkGetThreadImages } from "../../../redux/images";
 import { thunkCreateLike, thunkDeleteLike } from "../../../redux/likes";
-import Comments from "../../Comments";
-import './ThreadDetails.css';
 import OpenModalButton from "../../OpenModalButton";
+import Comments from "../../Comments";
 import EditThread from '../EditThread';
+import './ThreadDetails.css';
 
 
 function ThreadDetails({ threadId, goBack }) {
@@ -13,7 +13,7 @@ function ThreadDetails({ threadId, goBack }) {
 
   const thread = useSelector((state) => state.threads[threadId]);
   const currUser = useSelector((state) => state.session.user);
-  const threadImages = useSelector((state) => state.images[threadId]);
+  const threadImage = useSelector((state) => state.images[threadId]);
   const currUserLikes = useSelector((state) => state.currUserLikes);
 
   useEffect(() => {
@@ -91,9 +91,9 @@ function ThreadDetails({ threadId, goBack }) {
         <div className="threadDetails-Desc"
         >{thread.description}</div>
 
-        {threadImages && threadImages[0] &&
+        {threadImage &&
           <img
-            src={threadImages[0]?.url}
+            src={threadImage.image_url}
             className="threadDetails-Image"
           ></img>
         }
@@ -141,7 +141,13 @@ function ThreadDetails({ threadId, goBack }) {
           <div className="infoRight">
             {currUser?.id === thread.user.id &&
               < OpenModalButton
-                modalComponent={<EditThread threadId={threadId} goBack={goBack} />}
+                modalComponent={
+                  <EditThread
+                    threadId={threadId}
+                    goBack={goBack}
+                    threadImage={threadImage}
+                  />
+                }
                 buttonText='edit'
                 className='editThreadBtn clickable'
               />

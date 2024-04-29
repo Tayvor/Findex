@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkDeleteThread, thunkEditThread } from "../../../redux/threads";
-import { thunkDeleteImages } from "../../../redux/images";
-import './EditThread.css';
+import { thunkDeleteImage, thunkUploadImage } from "../../../redux/images";
 import { useModal } from "../../../context/Modal";
+import './EditThread.css';
 
 
-function EditThread({ threadId, goBack }) {
+function EditThread({ threadId, goBack, threadImage }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const thread = useSelector((state) => state.threads[threadId]);
   const [title, setTitle] = useState(thread?.title);
   const [description, setDesc] = useState(thread?.description);
   const [errors, setErrors] = useState({});
+  const [newImage, setNewImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(threadImage?.image_url || null);
 
 
   const handleSubmit = async (e) => {
@@ -36,30 +38,68 @@ function EditThread({ threadId, goBack }) {
     }
 
 
-    // Form Submission
-    const formInfo = {
+    // Update Thread
+    const threadInfo = {
       'title': title,
       'description': description,
       'community_id': thread.community_id,
     };
+    dispatch(thunkEditThread(threadInfo, threadId))
 
-    dispatch(thunkEditThread(formInfo, threadId))
-      .then(() => closeModal())
+    // Update Image
+    if (newImage) {
+      if (threadImage) {
+        const fileName = threadImage.image_url.split('/')[3];
+        dispatch(thunkDeleteImage(fileName));
+      }
+      const formData = new FormData();
+      formData.append('image', newImage);
+      formData.append('thread_id', threadId);
+      dispatch(thunkUploadImage(formData));
+      closeModal();
+    } else {
+      if (threadImage) {
+        const fileName = threadImage.image_url.split('/')[3];
+        dispatch(thunkDeleteImage(fileName));
+        closeModal();
+      }
+      return;
+    }
   };
 
   const handleDelete = (e) => {
     e.preventDefault()
     goBack()
 
-    dispatch(thunkDeleteThread(threadId))
-      .then(() => dispatch(thunkDeleteImages(threadId)))
-      .then(() => closeModal())
+    if (threadImage) {
+      const fileName = threadImage.image_url.split('/')[3];
+      dispatch(thunkDeleteImage(fileName))
+    }
+    dispatch(thunkDeleteThread(threadId));
+    closeModal()
   };
+
+  const removeImage = () => {
+    URL.revokeObjectURL(imagePreview)
+    setNewImage(null);
+    setImagePreview(null);
+    return;
+  }
+
+  const selectImage = (e) => {
+    setNewImage(e.target.files[0]);
+    setImagePreview(URL.createObjectURL(e.target.files[0]));
+    return;
+  }
 
 
   return (
     <>
-      <form className="editThread-Form" onSubmit={handleSubmit}>
+      <form
+        className="editThread-Form"
+        onSubmit={handleSubmit}
+        encType="multipart/form-data"
+      >
         {errors.length > 0 &&
           errors.map((message) => <p key={message}>{message}</p>)}
 
@@ -69,7 +109,7 @@ function EditThread({ threadId, goBack }) {
             onClick={(e) => handleDelete(e)}
           ><i className="fa-regular fa-trash-can"></i></button>
 
-          <div style={{ 'font-size': 30 }}>Edit Your Thread</div>
+          <div style={{ 'fontSize': 30 }}>Edit Your Thread</div>
 
           <button
             className="editThread-SubmitBtn clickable"
@@ -94,6 +134,39 @@ function EditThread({ threadId, goBack }) {
           required
         ></textarea>
         {errors.description && <p className="error">{errors.description}</p>}
+
+
+        {!imagePreview &&
+          < div className="editThread-AddImage">Upload Image
+            <label
+              className="uploadImageBtn clickable"
+            >
+              <i className="fa-regular fa-image"></i>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => selectImage(e)}
+                hidden
+              />
+            </label>
+          </div>
+        }
+
+        {imagePreview &&
+          <div
+            className="editThread-ImageCtn"
+            onClick={removeImage}
+          >
+            <img
+              className="editThread-Image"
+              src={imagePreview}
+            ></img>
+
+            <div
+              className="removeImageText"
+            >Remove Image</div>
+          </div>
+        }
       </form >
     </>
   )

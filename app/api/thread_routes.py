@@ -9,7 +9,7 @@ thread_routes = Blueprint('thread', __name__)
 
 
 # GET ALL THREADS
-@thread_routes.route('')
+@thread_routes.get('')
 def get_threads():
   threads = Thread.query.all()
   thread_list = []
@@ -34,7 +34,7 @@ def get_threads():
 
 
 # CREATE THREAD
-@thread_routes.route('/create', methods=['POST'])
+@thread_routes.post('/create')
 def create_thread():
   thread_form = ThreadForm()
   thread_form['csrf_token'].data = request.cookies['csrf_token']
@@ -68,7 +68,7 @@ def create_thread():
 
 
 # EDIT THREAD
-@thread_routes.route('/<int:thread_id_num>/edit', methods=['PUT'])
+@thread_routes.put('/<int:thread_id_num>/edit')
 def edit_thread(thread_id_num):
   form = ThreadForm()
   form['csrf_token'].data = request.cookies['csrf_token']
@@ -102,15 +102,15 @@ def edit_thread(thread_id_num):
 
 
 # DELETE THREAD
-@thread_routes.route('/<int:thread_id_num>/delete', methods=['DELETE'])
+@thread_routes.delete('/<int:thread_id_num>')
 def delete_thread(thread_id_num):
   thread = Thread.query.get(thread_id_num)
-  images = Image.query.filter_by(thread_id=thread_id_num).all()
+  images = Image.query.filter_by(thread_id=thread_id_num).first()
   comments = Comment.query.filter_by(thread_id=thread_id_num).all()
 
   # Delete images from s3 bucket
-  for image in images:
-    url = image.image_url
+  if images:
+    url = images.image_url
     remove_file_from_s3(url)
 
   # Delete comments

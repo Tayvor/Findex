@@ -72,7 +72,7 @@ export const thunkEditThread = (info, threadId) => async (dispatch) => {
 }
 
 export const thunkDeleteThread = (threadId) => async (dispatch) => {
-  await fetch(`/api/threads/${threadId}/delete`, {
+  await fetch(`/api/threads/${threadId}`, {
     method: 'DELETE',
   });
 

@@ -1,36 +1,29 @@
 const STORE_IMAGE = 'STORE_IMAGE';
-const STORE_IMAGES = 'STORE_IMAGES';
-const DELETE_IMAGES = 'DELETE_IMAGES';
+const DELETE_IMAGE = 'DELETE_IMAGE';
 
 
 // ACTIONS
-// const storeImage = (image) => ({
-//   type: STORE_IMAGE,
-//   image
-// })
+const storeImage = (image) => ({
+  type: STORE_IMAGE,
+  image
+});
 
-const storeImages = (images, threadId) => ({
-  type: STORE_IMAGES,
-  images,
+const deleteThreadImage = (threadId) => ({
+  type: DELETE_IMAGE,
   threadId
-})
-
-const deleteThreadImages = (threadId) => ({
-  type: DELETE_IMAGES,
-  threadId
-})
+});
 
 
 // THUNKS
-export const thunkUploadImage = (post) => async () => {
+export const thunkUploadImage = (post) => async (dispatch) => {
   const res = await fetch(`/api/images/new`, {
     method: "POST",
     body: post
   });
 
   if (res.ok) {
-    // const image = await res.json();
-    // dispatch(storeImage(image));
+    const image = await res.json();
+    dispatch(storeImage(image));
   } else {
     console.log("There was an error making your post!")
   }
@@ -40,19 +33,22 @@ export const thunkGetThreadImages = (threadId) => async (dispatch) => {
   const res = await fetch(`/api/images/${threadId}`)
 
   if (res.ok) {
-    const images = await res.json();
-    dispatch(storeImages(images, threadId));
-  } else {
-    console.log("There was an error making your post!")
+    const data = await res.json();
+    if (!data.error) {
+      dispatch(storeImage(data));
+    }
   }
-}
+};
 
-export const thunkDeleteImages = (threadId) => async (dispatch) => {
-  // const res = await fetch('/api/images/delete', {
-  //   method: 'DELETE',
-  // })
-  dispatch(deleteThreadImages(threadId));
-}
+export const thunkDeleteImage = (fileName) => async (dispatch) => {
+  const res = await fetch(`/api/images/${fileName}`, {
+    method: 'DELETE',
+  })
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(deleteThreadImage(data.thread_id));
+  }
+};
 
 
 // REDUCER
@@ -63,21 +59,12 @@ function images(state = initialState, action) {
   switch (action.type) {
     case STORE_IMAGE:
       newState = { ...state };
-      if (newState[action.image.thread_id]) {
-        newState[action.image.thread_id].push(action.image);
-      } else {
-        newState[action.image.thread_id] = [];
-        newState[action.image.thread_id].push(action.image);
-      }
+      newState[action.image.thread_id] = action.image;
       return newState;
 
-    case STORE_IMAGES:
+    case DELETE_IMAGE:
       newState = { ...state };
-      newState[action.threadId] = action.images;
-      return newState;
-
-    case DELETE_IMAGES:
-      // newState = { ...state };
+      delete newState[action.threadId];
       return newState;
 
     default:

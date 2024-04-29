@@ -12,6 +12,7 @@ function CreateThread({ communityId }) {
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
   const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -65,6 +66,19 @@ function CreateThread({ communityId }) {
     }
   };
 
+  const removeImage = () => {
+    URL.revokeObjectURL(imagePreview)
+    setImage(null);
+    setImagePreview(null);
+    return;
+  }
+
+  const selectImage = (e) => {
+    setImage(e.target.files[0]);
+    setImagePreview(URL.createObjectURL(e.target.files[0]));
+    return;
+  }
+
 
   return (
     <form
@@ -79,13 +93,7 @@ function CreateThread({ communityId }) {
           disabled={loading}
         ><i className="fa-solid fa-chevron-up fa-rotate-270"></i></button>
 
-        <input
-          className="createThread-Title"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        ></input>
+        <div className="createThread-HeaderTitle">Create a Thread</div>
 
         <button
           className="createThread-SubmitBtn clickable"
@@ -98,6 +106,14 @@ function CreateThread({ communityId }) {
       {loading && <p>Loading... please wait.</p>}
       {errors.description && <p className="error">{errors.description}</p>}
 
+      <input
+        className="createThread-Title"
+        placeholder="Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        required
+      ></input>
+
       <textarea
         className="createThread-Desc"
         placeholder="Description"
@@ -106,19 +122,37 @@ function CreateThread({ communityId }) {
         required
       ></textarea>
 
-      Add an Image
-      <label
-        className="uploadImageBtn clickable"
-      ><i className="fa-regular fa-image"></i>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setImage(e.target.files[0])}
-          hidden
-        />
-      </label>
-      {image && <p>Image Attached!</p>}
+      {!image &&
+        <div className="addImage">Upload Image
+          <label
+            className="uploadImageBtn clickable"
+          >
+            <i className="fa-regular fa-image"></i>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => selectImage(e)}
+              hidden
+            />
+          </label>
+        </div>
+      }
 
+      {image &&
+        <div
+          className="createThread-ImageCtn"
+          onClick={removeImage}
+        >
+          <img
+            className='createThread-ImagePreview'
+            src={imagePreview}
+          ></img>
+
+          <div
+            className="removeImageText"
+          >Remove Image</div>
+        </div>
+      }
     </form>
   )
 }
