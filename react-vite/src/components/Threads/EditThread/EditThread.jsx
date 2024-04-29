@@ -13,7 +13,7 @@ function EditThread({ threadId, goBack, threadImage }) {
   const [title, setTitle] = useState(thread?.title);
   const [description, setDesc] = useState(thread?.description);
   const [errors, setErrors] = useState({});
-  const [image, setImage] = useState(threadImage || null);
+  const [newImage, setNewImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(threadImage?.image_url || null);
 
 
@@ -38,34 +38,33 @@ function EditThread({ threadId, goBack, threadImage }) {
     }
 
 
-    // Form Submission
-    const formInfo = {
+    // Update Thread
+    const threadInfo = {
       'title': title,
       'description': description,
       'community_id': thread.community_id,
     };
 
-    dispatch(thunkEditThread(formInfo, threadId))
+    dispatch(thunkEditThread(threadInfo, threadId))
 
-    if (!image && threadImage) {
-      const fileName = threadImage.image_url.split('/')[3];
-      dispatch(thunkDeleteImage(fileName))
-        .then(() => closeModal());
-    } else if (image && threadImage && image !== threadImage) {
-      const fileName = threadImage.image_url.split('/')[3];
-      dispatch(thunkDeleteImage(fileName))
-
+    // Update Image
+    if (newImage) {
+      if (threadImage) {
+        const fileName = threadImage.image_url.split('/')[3];
+        dispatch(thunkDeleteImage(fileName));
+      }
       const formData = new FormData();
-      formData.append('image', image);
+      formData.append('image', newImage);
       formData.append('thread_id', threadId);
-      dispatch(thunkUploadImage(formData))
-        .then(() => closeModal());
-    } else if (image && !threadImage) {
-      const formData = new FormData();
-      formData.append('image', image);
-      formData.append('thread_id', threadId);
-      dispatch(thunkUploadImage(formData))
-        .then(() => closeModal());
+      dispatch(thunkUploadImage(formData));
+      closeModal();
+    } else {
+      if (threadImage) {
+        const fileName = threadImage.image_url.split('/')[3];
+        dispatch(thunkDeleteImage(fileName));
+        closeModal();
+      }
+      return;
     }
   };
 
@@ -83,13 +82,13 @@ function EditThread({ threadId, goBack, threadImage }) {
 
   const removeImage = () => {
     URL.revokeObjectURL(imagePreview)
-    setImage(null);
+    setNewImage(null);
     setImagePreview(null);
     return;
   }
 
   const selectImage = (e) => {
-    setImage(e.target.files[0]);
+    setNewImage(e.target.files[0]);
     setImagePreview(URL.createObjectURL(e.target.files[0]));
     return;
   }
@@ -138,8 +137,8 @@ function EditThread({ threadId, goBack, threadImage }) {
         {errors.description && <p className="error">{errors.description}</p>}
 
 
-        {!image &&
-          <div className="editThread-AddImage">Upload Image
+        {!imagePreview &&
+          < div className="editThread-AddImage">Upload Image
             <label
               className="uploadImageBtn clickable"
             >
@@ -154,7 +153,7 @@ function EditThread({ threadId, goBack, threadImage }) {
           </div>
         }
 
-        {image &&
+        {imagePreview &&
           <div
             className="editThread-ImageCtn"
             onClick={removeImage}
