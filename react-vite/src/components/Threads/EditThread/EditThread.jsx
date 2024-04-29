@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkDeleteThread, thunkEditThread } from "../../../redux/threads";
-import { thunkDeleteImages, thunkUploadImage } from "../../../redux/images";
-import './EditThread.css';
+import { thunkDeleteImage, thunkUploadImage } from "../../../redux/images";
 import { useModal } from "../../../context/Modal";
+import './EditThread.css';
 
 
-function EditThread({ threadId, goBack, threadImages }) {
+function EditThread({ threadId, goBack, threadImage }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
   const thread = useSelector((state) => state.threads[threadId]);
   const [title, setTitle] = useState(thread?.title);
   const [description, setDesc] = useState(thread?.description);
   const [errors, setErrors] = useState({});
-  const [image, setImage] = useState(threadImages[0] || null);
-  const [imagePreview, setImagePreview] = useState(threadImages[0]?.url || null);
+  const [image, setImage] = useState(threadImage || null);
+  const [imagePreview, setImagePreview] = useState(threadImage?.image_url || null);
 
 
   const handleSubmit = async (e) => {
@@ -47,32 +47,38 @@ function EditThread({ threadId, goBack, threadImages }) {
 
     dispatch(thunkEditThread(formInfo, threadId))
 
-    if (!image && threadImages[0]) {
-      const fileName = threadImages[0].url.split('/')[3];
-      dispatch(thunkDeleteImages(fileName))
+    if (!image && threadImage) {
+      const fileName = threadImage.image_url.split('/')[3];
+      dispatch(thunkDeleteImage(fileName))
         .then(() => closeModal());
-    } else {
-      closeModal();
+    } else if (image && threadImage && image !== threadImage) {
+      const fileName = threadImage.image_url.split('/')[3];
+      dispatch(thunkDeleteImage(fileName))
+
+      const formData = new FormData();
+      formData.append('image', image);
+      formData.append('thread_id', threadId);
+      dispatch(thunkUploadImage(formData))
+        .then(() => closeModal());
+    } else if (image && !threadImage) {
+      const formData = new FormData();
+      formData.append('image', image);
+      formData.append('thread_id', threadId);
+      dispatch(thunkUploadImage(formData))
+        .then(() => closeModal());
     }
-
-    //   const formData = new FormData();
-    //   formData.append('image', image);
-    //   formData.append('thread_id', threadId);
-
-    //   dispatch(thunkUploadImage(formData))
-    //     .then(() => closeModal());
-    // } else {
-    //   closeModal();
-    // }
   };
 
   const handleDelete = (e) => {
     e.preventDefault()
     goBack()
 
-    dispatch(thunkDeleteThread(threadId))
-      .then(() => dispatch(thunkDeleteImages(threadId)))
-      .then(() => closeModal())
+    if (threadImage) {
+      const fileName = threadImage.image_url.split('/')[3];
+      dispatch(thunkDeleteImage(fileName))
+    }
+    dispatch(thunkDeleteThread(threadId));
+    closeModal()
   };
 
   const removeImage = () => {

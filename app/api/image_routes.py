@@ -8,22 +8,22 @@ from app.api.s3_bucket import get_unique_filename, upload_file_to_s3, remove_fil
 image_routes = Blueprint('image', __name__)
 
 
-# GET IMAGES BY THREAD ID
+# GET IMAGE BY THREAD ID
 @image_routes.get('/<int:thread_id_num>')
-def get_images(thread_id_num):
-  images = Image.query.filter_by(thread_id=thread_id_num).all()
-  image_list = []
+def get_image(thread_id_num):
+  image = Image.query.filter_by(thread_id=thread_id_num).first()
 
-  for image in images:
-    img = {
-      'id': image.id,
-      'url': image.image_url,
-      'thread_id': image.thread_id,
-      'user_id': image.user_id,
+  if not image:
+    return {'error': 'No image found.'}
+
+  img = {
+    'id': image.id,
+    'image_url': image.image_url,
+    'user_id': image.user_id,
+    'thread_id': image.thread_id
     }
-    image_list.append(img)
 
-  return jsonify(image_list)
+  return img
 
 
 # ADD IMAGE
