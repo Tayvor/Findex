@@ -1,6 +1,5 @@
-.threadDetails-Container {
-  display: flex;
-  flex-direction: column;
+.threadDetails {
+  width: 50vw;
   border-radius: 10px;
   box-shadow: 3px 3px 3px rgba(128, 128, 128, 0.7);
   background-color: rgba(255, 255, 255, 0.7);
@@ -18,13 +17,6 @@
   word-wrap: break-word;
 }
 
-.threadDetails-Image {
-  border-radius: 10px;
-  max-width: 100%;
-  object-fit: contain;
-}
-
-
 .threadDetails-Info {
   display: flex;
   justify-content: space-between;
@@ -33,6 +25,17 @@
   margin-top: 10px;
 }
 
+
+/* .threadDetails-Container {
+  display: flex;
+  flex-direction: column;
+}
+
+.threadDetails-Image {
+  border-radius: 10px;
+  max-width: 100%;
+  object-fit: contain;
+}
 .infoLeft {
   display: flex;
   flex-direction: row;
@@ -54,11 +57,11 @@
 .threadDetails-NumComments {
   padding: 0 10px;
   align-self: center;
-}
+} */
 
 
 /* Like Button */
-.threadDetails-Likes {
+/* .threadDetails-Likes {
   display: flex;
   align-items: center;
   height: 25px;
@@ -77,11 +80,11 @@
   transition: all .5s;
   box-shadow: inset 0px 0px 4px red;
   color: black;
-}
+} */
 
 
 /* Edit Button */
-.editThreadBtn {
+/* .editThreadBtn {
   border: none;
   border-radius: 5px;
   width: 50px;
@@ -96,4 +99,4 @@
   transition: all .5s;
   background-color: lightblue;
   color: black;
-}
+} */

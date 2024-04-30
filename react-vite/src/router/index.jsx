@@ -1,9 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
-import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
+import Communities from '../components/Communities';
+import Threads from '../components/Threads'
 import ThreadDetails from '../components/Threads/ThreadDetails';
-import EditThread from '../components/Threads/EditThread';
-import Base from '../components/Base';
+// import EditThread from '../components/Threads/EditThread';
+// import SignupFormPage from '../components/SignupFormPage';
 
 export const router = createBrowserRouter([
   {
@@ -11,20 +12,20 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Base />,
+        element: <Communities />,
       },
       {
-        path: "/threads/:threadId",
+        path: "/communities/:communityId",
+        element: <Threads />,
+      },
+      {
+        path: "/communities/:communityId/threads/:threadId",
         element: <ThreadDetails />,
       },
-      {
-        path: "/threads/:threadId/edit",
-        element: <EditThread />,
-      },
-      {
-        path: "/signup",
-        element: <SignupFormPage />,
-      }
+      // {
+      //   path: "/signup",
+      //   element: <SignupFormPage />,
+      // }
     ],
   },
 ]);

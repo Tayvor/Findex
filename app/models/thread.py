@@ -25,5 +25,6 @@ class Thread(db.Model):
 			'title': self.title,
       'description': self.description,
 			'user_id': self.user_id,
+      'community_id': self.community_id,
       'created_at': self.created_at
 		}

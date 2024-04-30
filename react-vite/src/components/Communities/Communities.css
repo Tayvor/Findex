@@ -1,4 +1,14 @@
-.communityBox {
+.communitiesWrapper {
+  width: 50vw;
+}
+
+.community {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+
+/* .communityBox {
   border: 2px solid rgb(247, 247, 247);
   border-radius: 10px;
   box-shadow: 3px 3px 3px rgba(128, 128, 128, 0.7);
@@ -24,22 +34,22 @@
 
 
 /* Community name inside navBar */
-.communityName {
+/* .communityName {
   display: flex;
   justify-content: center;
   width: 100%;
   font-size: 30px;
-}
+} */
 
 /* Community 'title' inside communityBox */
-.communityTitle {
+/* .communityTitle {
   width: fit-content;
   font-size: 25px;
-}
+} */
 
 
 /* Back Button */
-.backBtn {
+/* .backBtn {
   border: 1px solid gray;
   border-radius: 10px;
   width: 40px;
@@ -51,11 +61,11 @@
 .backBtn:hover {
   transition: all .5s;
   background-color: lightgoldenrodyellow;
-}
+} */
 
 
 /* Create Button */
-.createBtn {
+/* .createBtn {
   border: 1px solid gray;
   border-radius: 10px;
   width: 40px;
@@ -75,4 +85,4 @@
   width: 40px;
   height: 40px;
   font-size: 15px;
-}
+} */

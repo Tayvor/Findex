@@ -27,8 +27,8 @@ const deleteThread = (threadId) => ({
 
 
 // THUNKS
-export const thunkGetThreads = () => async (dispatch) => {
-  const res = await fetch('/api/threads');
+export const thunkGetThreads = (communityId) => async (dispatch) => {
+  const res = await fetch(`/api/threads/${communityId}`);
 
   if (res.ok) {
     const data = await res.json();
