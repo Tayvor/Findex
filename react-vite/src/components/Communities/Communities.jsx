@@ -52,6 +52,7 @@ function Communities() {
               <div
                 className='community clickable'
                 onClick={() => navigate(`/communities/${community.id}`)}
+                key={community.id}
               >
                 {community.name}
               </div>

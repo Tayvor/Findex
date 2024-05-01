@@ -124,6 +124,7 @@ function Threads() {
 
         {threads &&
           <div className="threadsWrapper">
+
             {threads.map((thread) =>
               <div
                 className='thread clickable'
@@ -131,8 +132,8 @@ function Threads() {
                   `/communities/${communityId}/threads/${thread.id}`
                 )}
                 key={thread.id}
-              >
-                {thread.title}
+              >{thread.title}
+                <div className="threadAuthor">{thread.user.username}</div>
               </div>
             )}
           </div>

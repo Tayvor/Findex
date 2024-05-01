@@ -92,7 +92,9 @@ function ThreadDetails() {
             <div className="threadDetails-Title">{thread.title}</div>
             <div className="threadDetails-Desc">{thread.description}</div>
 
-            <div className="threadDetails-Info">hello</div>
+            <div className="threadDetails-Info">
+              <div className="threadDetails-Author">{thread.user.username}</div>
+            </div>
           </div>
         }
       </div>

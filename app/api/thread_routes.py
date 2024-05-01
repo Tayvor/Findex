@@ -11,9 +11,11 @@ thread_routes = Blueprint('thread', __name__)
 # GET COMMUNITY THREADS
 @thread_routes.get('/<int:community_id>')
 def get_threads(community_id):
-  threads = Thread.query.filter(Thread.community_id == community_id)
-  thread_list = [thread.to_dict() for thread in threads]
+  threads = db.session.execute(
+    db.select(Thread).filter_by(community_id=community_id).join(Thread.user)
+    ).scalars()
 
+  thread_list = [thread.to_dict() for thread in threads]
   return jsonify(thread_list)
 
 

@@ -26,5 +26,6 @@ class Thread(db.Model):
       'description': self.description,
 			'user_id': self.user_id,
       'community_id': self.community_id,
-      'created_at': self.created_at
+      'created_at': self.created_at,
+      'user': self.user.to_dict()
 		}
