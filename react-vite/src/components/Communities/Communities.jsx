@@ -45,16 +45,20 @@ function Communities() {
       </div> */}
 
       <div className='displayFlex'>
-
         {communities &&
           <div className="communitiesWrapper">
+
             {communities.map((community) =>
               <div
                 className='community clickable'
                 onClick={() => navigate(`/communities/${community.id}`)}
                 key={community.id}
-              >
-                {community.name}
+              >{community.name}
+
+                <div
+                  className='communityDesc'
+                  style={{ fontSize: 18 }}
+                >{community.description}</div>
               </div>
             )}
           </div>

@@ -1,24 +1,23 @@
 .communitiesWrapper {
   width: 50vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .community {
   font-size: 30px;
-  margin-bottom: 10px;
-}
-
-
-/* .communityBox {
+  margin: 10px;
   border: 2px solid rgb(247, 247, 247);
   border-radius: 10px;
   box-shadow: 3px 3px 3px rgba(128, 128, 128, 0.7);
   height: 85px;
-  margin-bottom: 15px;
-  padding: 10px;
   background-color: rgba(255, 255, 255, .7);
+  padding: 10px;
 }
 
-.navBar {
+
+
+/* .navBar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -30,7 +29,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 15px;
-}
+} */
 
 
 /* Community name inside navBar */
