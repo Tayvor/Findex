@@ -12,8 +12,8 @@ class Thread(db.Model):
   description = db.Column(db.Text, nullable=False)
   created_at = db.Column(db.String, nullable=False)
 
-  user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
-  community_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('communities.id')))
+  user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('User.id')))
+  community_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('Community.id')))
 
   user = db.relationship('User', back_populates='threads')
   comments = db.relationship('Comment')

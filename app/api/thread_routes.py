@@ -11,7 +11,8 @@ thread_routes = Blueprint('thread', __name__)
 # GET COMMUNITY THREADS
 @thread_routes.get('/<int:community_id>')
 def get_threads(community_id):
-  query = db.select(Thread).filter_by(community_id=community_id).join(Thread.user)
+  # query = db.select(Thread).filter_by(community_id=community_id).join(Thread.user)
+  query = db.select(Thread).filter_by(community_id=community_id).join(Thread.user).join(Thread.comments)
   threads = db.session.execute(query).scalars()
 
   thread_list = [thread.to_dict() for thread in threads]
