@@ -10,11 +10,13 @@ class Thread(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   title = db.Column(db.String(50), nullable=False)
   description = db.Column(db.Text, nullable=False)
-  user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
-  community_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('communities.id')))
   created_at = db.Column(db.String, nullable=False)
 
+  user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
+  community_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('communities.id')))
+
   user = db.relationship('User', back_populates='threads')
+  comments = db.relationship('Comment')
   communities = db.relationship('Community', back_populates='threads')
   images = db.relationship('Image', cascade='all, delete-orphan')
   likes = db.relationship('Like')

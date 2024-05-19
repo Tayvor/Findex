@@ -128,12 +128,15 @@ function Threads() {
             {threads.map((thread) =>
               <div
                 className='thread clickable'
-                onClick={() => navigate(
-                  `/communities/${communityId}/threads/${thread.id}`
-                )}
+                onClick={() => navigate(`/communities/${communityId}/threads/${thread.id}`)}
                 key={thread.id}
-              >{thread.title}
-                <div className="threadAuthor">{thread.user.username}</div>
+              >
+                <div className="threadTitle">{thread.title}</div>
+
+                <div className="threadInfo">
+                  <div>{thread.user.username}</div>
+                  <div>{thread.created_at}</div>
+                </div>
               </div>
             )}
           </div>

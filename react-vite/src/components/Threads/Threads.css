@@ -3,6 +3,9 @@
 }
 
 .thread {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   border: 2px solid rgb(247, 247, 247);
   border-radius: 10px;
   box-shadow: 3px 3px 3px rgba(128, 128, 128, 0.7);
@@ -12,6 +15,16 @@
   margin-bottom: 15px;
   padding: 10px;
   background-color: rgba(255, 255, 255, .7);
+}
+
+.threadTitle {
+  font-size: 25px;
+}
+
+.threadInfo {
+  display: flex;
+  color: gray;
+  font-size: 17px;
 }
 
 /* .threadBox {
@@ -25,22 +38,8 @@
   justify-content: space-between;
 }
 
-.threadTitle {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  font-size: 25px;
-  width: fit-content;
-}
-
 .threadTitle:hover {
   text-decoration: underline;
-}
-
-.threadInfo {
-  display: flex;
-  color: gray;
-  font-size: 17px;
 }
 
 .threadInfo-Username {
