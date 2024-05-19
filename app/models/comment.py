@@ -12,8 +12,8 @@ class Comment(db.Model):
   parent_id = db.Column(db.Integer)
   created_at = db.Column(db.String, nullable=False)
 
-  user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('User.id')), nullable=False)
-  thread_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('Thread.id')), nullable=False)
+  user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+  thread_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('threads.id')), nullable=False)
 
   user = db.relationship('User', back_populates='comments')
   likes = db.relationship('Like')
