@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 // import { thunkGetThreadImages } from "../../../redux/images";
 // import { thunkCreateLike, thunkDeleteLike } from "../../../redux/likes";
 // import OpenModalButton from "../../OpenModalButton";
-// import Comments from "../../Comments";
+import Comments from "../../Comments";
 // import EditThread from '../EditThread';
 import './ThreadDetails.css';
 
@@ -19,7 +19,7 @@ function ThreadDetails() {
   // const currUserLikes = useSelector((state) => state.currUserLikes);
 
   // useEffect(() => {
-  //   dispatch(thunkGetThreadImages(threadId));
+  // dispatch(thunkGetThreadImages(threadId));
   // }, [dispatch, threadId]);
 
   // const getTime = (created_at) => {
@@ -97,6 +97,11 @@ function ThreadDetails() {
             </div>
           </div>
         }
+
+      </div>
+
+      <div className="displayFlex">
+        <Comments threadId={threadId} />
       </div>
 
 
@@ -108,9 +113,8 @@ function ThreadDetails() {
             className="threadDetails-Image"
           ></img>
         }
-      </div>
+      </div>*/}
 
-      <Comments threadId={threadId} currUser={currUser} /> */}
     </>
   )
 }

@@ -113,9 +113,7 @@ function Comments({ threadId, currUser }) {
                   {comment.num_likes}
                 </div>
                 :
-                <div
-                  className="commentInfo-Likes"
-                >
+                <div className="commentInfo-Likes">
                   <i className="fa-solid fa-arrow-up"></i>
                   &nbsp;
                   {comment.num_likes}

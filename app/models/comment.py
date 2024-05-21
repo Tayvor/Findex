@@ -9,8 +9,8 @@ class Comment(db.Model):
 
   id = db.Column(db.Integer, primary_key=True)
   content = db.Column(db.Text, nullable=False)
-  parent_id = db.Column(db.Integer)
   created_at = db.Column(db.String, nullable=False)
+  parent_id = db.Column(db.Integer)
 
   user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
   thread_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('threads.id')), nullable=False)
