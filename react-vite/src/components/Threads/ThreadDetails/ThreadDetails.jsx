@@ -99,13 +99,9 @@ function ThreadDetails() {
             </div>
           </div>
         }
-
       </div>
 
-      <div className="displayFlex">
-        <Comments threadId={threadId} />
-      </div>
-
+      <Comments threadId={threadId} />
 
       {/* <div className="threadDetails-Container">
 
