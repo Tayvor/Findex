@@ -18,32 +18,6 @@ function Communities() {
 
   return (
     <>
-      {/* <div className="navBar">
-        <button
-          className="backBtn clickable"
-          onClick={goBack}
-          hidden={communityId ? false : true}
-        ><i className="fa-solid fa-chevron-up fa-rotate-270"></i>
-        </button>
-
-        <div className="communityName">{communityName || 'Discussions'}</div>
-
-        {communityName &&
-          <OpenModalButton
-            modalComponent={!threadId ?
-              <CreateThread communityId={communityId} />
-              :
-              <CreateCommentModal threadId={threadId} />
-            }
-            buttonText={!threadId ? <i className="fa-solid fa-plus"></i> :
-              <i className="fa-regular fa-comment"></i>
-            }
-            className={userLoggedIn ? 'createBtn clickable' : 'createBtnDisabled'}
-            disabled={userLoggedIn ? false : true}
-          />
-        }
-      </div> */}
-
       <div className='displayFlex'>
         {communities &&
           <div className="communitiesWrapper">

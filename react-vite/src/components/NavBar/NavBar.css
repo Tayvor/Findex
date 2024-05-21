@@ -1,0 +1,30 @@
+.navBarWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.navBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 50vw;
+}
+
+.backBtn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid gray;
+  border-radius: 10px;
+}
+
+.createBtn {
+  border: 1px solid gray;
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+}
+
+.communityName {
+  font-size: 30px;
+}

@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { thunkGetThreads } from "../../redux/threads";
 // import { thunkGetUserLikes } from "../../redux/likes";
 import './Threads.css';
+import NavBar from "../NavBar";
 
 
 function Threads() {
@@ -120,8 +121,9 @@ function Threads() {
 
   return (
     <>
-      <div className="displayFlex">
+      <NavBar />
 
+      <div className="displayFlex">
         {threads &&
           <div className="threadsWrapper">
 

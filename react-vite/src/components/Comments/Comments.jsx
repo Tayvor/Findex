@@ -82,20 +82,19 @@ function Comments({ threadId, currUser }) {
     <div className='commentsContainer'>
 
       {comments.map((comment) =>
-        <div
-          className='commentBox'
-          key={'comment' + comment.id}
-        >
+        <div className='commentBox' key={'comment' + comment.id}>
 
           <div className="commentInfo">
-            <div className='commentInfo-Left'>
-              <div
-                className='commentInfo-Username'
-              >{comment.user.username}</div> &bull;
 
-              <div
-                className='commentInfo-Time'
-              >{getTime(comment.created_at)}</div> &bull;
+            <div className='commentInfo-Left'>
+
+              <div className='commentInfo-Username'>
+                {comment.user.username}
+              </div> &bull;
+
+              <div className='commentInfo-Time'>
+                {getTime(comment.created_at)}
+              </div> &bull;
 
               {currUser && currUser.id !== comment.user.id ?
                 <div

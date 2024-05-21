@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import Comments from "../../Comments";
 // import EditThread from '../EditThread';
 import './ThreadDetails.css';
+import NavBar from "../../NavBar";
 
 
 function ThreadDetails() {
@@ -85,8 +86,9 @@ function ThreadDetails() {
 
   return (
     <>
-      <div className="displayFlex">
+      <NavBar threadId={threadId} />
 
+      <div className="displayFlex">
         {thread &&
           <div className="threadDetails">
             <div className="threadDetails-Title">{thread.title}</div>
@@ -114,7 +116,6 @@ function ThreadDetails() {
           ></img>
         }
       </div>*/}
-
     </>
   )
 }
