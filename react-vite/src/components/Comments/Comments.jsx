@@ -1,13 +1,16 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { thunkGetComments } from '../../redux/comments';
 import { thunkCreateLike, thunkDeleteLike } from '../../redux/likes';
 import OpenModalButton from '../../components/OpenModalButton';
 import EditCommentModal from './EditComment/EditCommentModal';
 import './Comments.css';
 
-function Comments({ threadId, currUser }) {
+function Comments() {
   const dispatch = useDispatch();
+  const { threadId } = useParams();
+  const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
     dispatch(thunkGetComments(threadId));
@@ -83,9 +86,7 @@ function Comments({ threadId, currUser }) {
 
       {comments.map((comment) =>
         <div className='commentBox' key={'comment' + comment.id}>
-
           <div className="commentInfo">
-
             <div className='commentInfo-Left'>
 
               <div className='commentInfo-Username'>
@@ -96,7 +97,7 @@ function Comments({ threadId, currUser }) {
                 {getTime(comment.created_at)}
               </div> &bull;
 
-              {currUser && currUser.id !== comment.user.id ?
+              {user && user.id !== comment.user.id ?
                 <div
                   className={currUserLikes.commentLikes[comment.id] ?
                     "commentInfo-Likes isLiked clickable" : "commentInfo-Likes notLiked clickable"
@@ -120,7 +121,7 @@ function Comments({ threadId, currUser }) {
               }
             </div>
 
-            {currUser?.id === comment.user.id && (
+            {user?.id === comment.user.id && (
               < OpenModalButton
                 modalComponent={
                   <EditCommentModal

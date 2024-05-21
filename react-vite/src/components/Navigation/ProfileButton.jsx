@@ -52,7 +52,6 @@ function ProfileButton() {
           {user && (
             <>
               <div>{`Hello, ${user.username}`}</div>
-              <div>{user.email}</div>
               <button className='clickable' onClick={logout}>Log Out</button>
             </>
           )}
