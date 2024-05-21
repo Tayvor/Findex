@@ -123,9 +123,9 @@ function Threads() {
     <>
       <NavBar />
 
-      <div className="displayFlex">
+      <div className="threadsWrapper">
         {threads &&
-          <div className="threadsWrapper">
+          <div className="threads">
 
             {threads.map((thread) =>
               <div

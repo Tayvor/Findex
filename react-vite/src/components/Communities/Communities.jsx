@@ -18,9 +18,9 @@ function Communities() {
 
   return (
     <>
-      <div className='displayFlex'>
+      <div className='communitiesWrapper'>
         {communities &&
-          <div className="communitiesWrapper">
+          <div className="communities">
 
             {communities.map((community) =>
               <div

@@ -88,7 +88,7 @@ function ThreadDetails() {
     <>
       <NavBar threadId={threadId} />
 
-      <div className="displayFlex">
+      <div className="threadDetailsWrapper">
         {thread &&
           <div className="threadDetails">
             <div className="threadDetails-Title">{thread.title}</div>
@@ -103,15 +103,12 @@ function ThreadDetails() {
 
       <Comments threadId={threadId} />
 
-      {/* <div className="threadDetails-Container">
-
-        {threadImage &&
+      {/*{threadImage &&
           <img
             src={threadImage.image_url}
             className="threadDetails-Image"
           ></img>
-        }
-      </div>*/}
+        }*/}
     </>
   )
 }

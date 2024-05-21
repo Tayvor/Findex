@@ -1,4 +1,9 @@
 .communitiesWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.communities {
   width: 50vw;
   display: grid;
   grid-template-columns: 1fr 1fr;

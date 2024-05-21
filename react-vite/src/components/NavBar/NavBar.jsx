@@ -8,8 +8,9 @@ import './NavBar.css';
 
 function NavBar({ threadId }) {
   const { communityId } = useParams();
-  const community = useSelector((state) => state.communities[communityId].name);
   const navigate = useNavigate();
+  const community = useSelector((state) => state.communities[communityId].name);
+  const user = useSelector((state) => state.session.user);
 
   const goBack = () => {
     if (!threadId) {
@@ -42,12 +43,8 @@ function NavBar({ threadId }) {
               <i className="fa-solid fa-plus"></i> :
               <i className="fa-regular fa-comment"></i>
             }
+            disabled={user ? false : true}
           />
-
-          {/*
-        className={userLoggedIn ? 'createBtn clickable' : 'createBtnDisabled'}
-        disabled={userLoggedIn ? false : true}
-        */}
         </div>
       </div>
     </>
