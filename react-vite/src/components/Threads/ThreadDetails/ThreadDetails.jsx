@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 // import { thunkGetThreadImages } from "../../../redux/images";
 // import { thunkCreateLike, thunkDeleteLike } from "../../../redux/likes";
-// import OpenModalButton from "../../OpenModalButton";
+import OpenModalButton from "../../OpenModalButton";
 import Comments from "../../Comments";
-// import EditThread from '../EditThread';
+import EditThread from '../EditThread';
 import './ThreadDetails.css';
 import NavBar from "../../NavBar";
 
@@ -15,7 +15,7 @@ function ThreadDetails() {
   const { threadId } = useParams();
 
   const thread = useSelector((state) => state.threads[threadId]);
-  // const currUser = useSelector((state) => state.session.user);
+  const user = useSelector((state) => state.session.user);
   // const threadImage = useSelector((state) => state.images[threadId]);
   // const currUserLikes = useSelector((state) => state.currUserLikes);
 
@@ -94,21 +94,34 @@ function ThreadDetails() {
             <div className="threadDetails-Title">{thread.title}</div>
             <div className="threadDetails-Desc">{thread.description}</div>
 
+            {/*{threadImage &&
+                <img
+                src={threadImage.image_url}
+                className="threadDetails-Image"
+                ></img>
+              }*/}
+
             <div className="threadDetails-Info">
               <div className="threadDetails-Author">{thread.user.username}</div>
             </div>
+
+
+            {/* ADD EDIT BTN TO THREAD */}
+            {/* {user?.id === comment.user.id && (
+              < OpenModalButton
+                modalComponent={
+                  <EditThread />
+                }
+                buttonText='edit'
+                className='threadDetails-EditBtn clickable'
+              />
+            )} */}
           </div>
         }
       </div>
 
       <Comments threadId={threadId} />
 
-      {/*{threadImage &&
-          <img
-            src={threadImage.image_url}
-            className="threadDetails-Image"
-          ></img>
-        }*/}
     </>
   )
 }

@@ -1,21 +1,23 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { thunkCreateThread } from "../../../redux/threads";
 import { thunkUploadImage } from "../../../redux/images";
 import { useModal } from "../../../context/Modal";
 import './CreateThread.css';
 
 
-function CreateThread({ communityId }) {
+function CreateThread() {
   const dispatch = useDispatch();
+  const { communityId } = useParams();
   const { closeModal } = useModal();
+
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,7 +39,6 @@ function CreateThread({ communityId }) {
     if (Object.values(errors).length) {
       return setErrors(errors);
     }
-
 
     // Form Submission
     // First, create a new thread.
@@ -148,9 +149,9 @@ function CreateThread({ communityId }) {
             src={imagePreview}
           ></img>
 
-          <div
-            className="removeImageText"
-          >Remove Image</div>
+          <div className="textOverlay">
+            Remove Image
+          </div>
         </div>
       }
     </form>

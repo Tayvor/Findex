@@ -16,6 +16,12 @@
   height: 40px;
   border: 1px solid gray;
   border-radius: 10px;
+  transition: all 1s;
+}
+
+.backBtn:hover {
+  transition: all .5s;
+  background-color: lightgoldenrodyellow;
 }
 
 .createBtn {
@@ -23,6 +29,12 @@
   border-radius: 10px;
   width: 40px;
   height: 40px;
+  transition: all 1s;
+}
+
+.createBtn:hover {
+  transition: all .5s;
+  background-color: lightgreen;
 }
 
 .communityName {

@@ -27,34 +27,3 @@
   color: gray;
   font-size: 17px;
 }
-
-/* .threadBox {
-  display: flex;
-  justify-content: space-between;
-}
-
-.threadBox-Left {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.threadTitle:hover {
-  text-decoration: underline;
-}
-
-.threadInfo-Username {
-  padding-right: 10px;
-}
-
-.threadInfo-Time {
-  padding: 0 10px;
-}
-
-.threadInfo-NumComments {
-  padding: 0 10px;
-}
-
-.threadInfo-NumLikes {
-  padding: 0 10px;
-} */
