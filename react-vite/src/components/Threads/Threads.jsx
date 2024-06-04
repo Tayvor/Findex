@@ -64,34 +64,6 @@ function Threads() {
           )}
         </div>
       }
-
-
-      {/* {threads &&
-          <div className="threads">
-
-            {threads.map((thread) =>
-              <div
-                className='thread clickable'
-                onClick={() => navigate(`/communities/${communityId}/threads/${thread.id}`)}
-                key={thread.id}
-              >
-                <div className="threadTitle">{thread.title}</div>
-
-                <div className="threadInfo">
-                  <div>{thread.user.username}</div>
-
-                  <div>
-                    {currUserLikes.threadLikes[thread.id] ?
-                      <i className="fa-solid fa-arrow-up liked"></i> : ''
-                    }
-                    {formatDate(thread.created_at)}
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        } */}
-      {/* </div> */}
     </>
   )
 }
