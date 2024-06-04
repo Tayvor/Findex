@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { thunkGetComments } from '../../redux/comments';
-import { thunkCreateLike, thunkDeleteLike } from '../../redux/likes';
 import OpenModalButton from '../../components/OpenModalButton';
 import EditCommentModal from './EditComment/EditCommentModal';
 import './Comments.css';
+import LikeButton from '../LikeButton';
 
 function Comments() {
   const dispatch = useDispatch();
@@ -13,7 +13,6 @@ function Comments() {
 
   const user = useSelector((state) => state.session.user);
   const comments = Object.values(useSelector((state) => state.comments));
-  const currUserLikes = useSelector((state) => state.currUserLikes);
 
   useEffect(() => {
     dispatch(thunkGetComments(threadId));
@@ -26,16 +25,6 @@ function Comments() {
     month = months[Number(month) - 1]
 
     return `${month} ${day}, ${year}`;
-  }
-
-  const handleLike = (comment) => {
-    if (!currUserLikes.commentLikes[comment.id]) {
-      comment.num_likes += 1;
-      dispatch(thunkCreateLike('comment', comment.id));
-    } else {
-      comment.num_likes -= 1;
-      dispatch(thunkDeleteLike(currUserLikes.commentLikes[comment.id]));
-    }
   }
 
   return (
@@ -64,40 +53,7 @@ function Comments() {
           <div>{comment.content}</div>
 
           <div className='commentInfo-Footer'>
-            {!user &&
-              <div className='commentInfo-Likes'>
-                <i className="fa-solid fa-arrow-up"></i>
-                &nbsp;
-                {comment.num_likes}
-              </div>
-            }
-
-            {/* User logged in, but is not the author. */}
-            {user && user.id !== comment.user.id &&
-              <div
-                className={currUserLikes.commentLikes[comment.id] ?
-                  "commentInfo-Likes isLiked clickable" : "commentInfo-Likes notLiked clickable"
-                }
-                onClick={() => handleLike(comment)}
-              >
-                {currUserLikes.commentLikes[comment.id] ?
-                  <i className="fa-solid fa-arrow-up liked"></i>
-                  :
-                  <i className="fa-solid fa-arrow-up"></i>
-                }
-                &nbsp;
-                {comment.num_likes}
-              </div>
-            }
-
-            {/* User logged in, and is the author. */}
-            {user && user.id === comment.user.id &&
-              <div className='commentInfo-Likes'>
-                <i className="fa-solid fa-arrow-up"></i>
-                &nbsp;
-                {comment.num_likes}
-              </div>
-            }
+            <LikeButton comment={comment} />
           </div>
         </div>
       )
