@@ -35,7 +35,7 @@ function NavBar({ threadId }) {
           <div className="communityName">{community}</div>
 
           <OpenModalButton
-            className={'createBtn clickable'}
+            className={user ? 'createBtn clickable' : 'createBtn'}
             modalComponent={!threadId ?
               <CreateThread /> : <CreateCommentModal />
             }
