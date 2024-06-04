@@ -38,7 +38,6 @@ function Comments() {
     }
   }
 
-
   return (
     <div className='commentsWrapper'>
 
@@ -65,7 +64,16 @@ function Comments() {
           <div>{comment.content}</div>
 
           <div className='commentInfo-Footer'>
-            {user?.id !== comment.user.id ?
+            {!user &&
+              <div className='commentInfo-Likes'>
+                <i className="fa-solid fa-arrow-up"></i>
+                &nbsp;
+                {comment.num_likes}
+              </div>
+            }
+
+            {/* User logged in, but is not the author. */}
+            {user && user.id !== comment.user.id &&
               <div
                 className={currUserLikes.commentLikes[comment.id] ?
                   "commentInfo-Likes isLiked clickable" : "commentInfo-Likes notLiked clickable"
@@ -80,8 +88,11 @@ function Comments() {
                 &nbsp;
                 {comment.num_likes}
               </div>
-              :
-              <div className="commentInfo-Likes">
+            }
+
+            {/* User logged in, and is the author. */}
+            {user && user.id === comment.user.id &&
+              <div className='commentInfo-Likes'>
                 <i className="fa-solid fa-arrow-up"></i>
                 &nbsp;
                 {comment.num_likes}
