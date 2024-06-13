@@ -3,8 +3,7 @@ import Layout from './Layout';
 import Communities from '../components/Communities';
 import Threads from '../components/Threads'
 import ThreadDetails from '../components/Threads/ThreadDetails';
-// import EditThread from '../components/Threads/EditThread';
-// import SignupFormPage from '../components/SignupFormPage';
+import SignupForm from '../components/SignupForm';
 
 export const router = createBrowserRouter([
   {
@@ -22,10 +21,10 @@ export const router = createBrowserRouter([
         path: "/communities/:communityId/threads/:threadId",
         element: <ThreadDetails />,
       },
-      // {
-      //   path: "/signup",
-      //   element: <SignupFormPage />,
-      // }
+      {
+        path: "/signup",
+        element: <SignupForm />,
+      }
     ],
   },
 ]);

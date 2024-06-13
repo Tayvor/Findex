@@ -6,6 +6,7 @@ import OpenModalButton from '../../components/OpenModalButton';
 import EditCommentModal from './EditComment/EditCommentModal';
 import './Comments.css';
 import LikeButton from '../LikeButton';
+import formatDate from '../../functions/formatDate';
 
 function Comments() {
   const dispatch = useDispatch();
@@ -18,14 +19,6 @@ function Comments() {
     dispatch(thunkGetComments(threadId));
   }, [dispatch, threadId])
 
-  const formatDate = (created_at) => {
-    const ymd = created_at.split(' ')[0];
-    let [year, month, day] = ymd.split('-');
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    month = months[Number(month) - 1]
-
-    return `${month} ${day}, ${year}`;
-  }
 
   return (
     <div className='commentsWrapper'>

@@ -9,11 +9,11 @@ function Communities() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const communities = Object.values(useSelector((state) => state.communities));
+
   useEffect(() => {
     dispatch(thunkGetCommunities());
   }, [dispatch]);
-
-  const communities = Object.values(useSelector((state) => state.communities));
 
 
   return (

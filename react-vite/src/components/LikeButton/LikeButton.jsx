@@ -20,6 +20,7 @@ function LikeButton({ comment }) {
 
   return (
     <>
+      {/* No user logged in. */}
       {!user &&
         <div className='commentInfo-Likes'>
           <i className="fa-solid fa-arrow-up"></i>

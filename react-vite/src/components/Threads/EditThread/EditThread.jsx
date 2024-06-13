@@ -1,13 +1,17 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import { thunkDeleteThread, thunkEditThread } from "../../../redux/threads";
 import { thunkDeleteImage, thunkUploadImage } from "../../../redux/images";
 import { useModal } from "../../../context/Modal";
 import './EditThread.css';
 
 
-function EditThread({ threadId, goBack, threadImage }) {
+function EditThread({ threadId, threadImage }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { communityId } = useParams();
+
   const { closeModal } = useModal();
   const thread = useSelector((state) => state.threads[threadId]);
   const [title, setTitle] = useState(thread?.title);
@@ -69,14 +73,14 @@ function EditThread({ threadId, goBack, threadImage }) {
 
   const handleDelete = (e) => {
     e.preventDefault()
-    goBack()
 
     if (threadImage) {
       const fileName = threadImage.image_url.split('/')[3];
       dispatch(thunkDeleteImage(fileName))
     }
     dispatch(thunkDeleteThread(threadId));
-    closeModal()
+    closeModal();
+    navigate(`/communities/${communityId}`);
   };
 
   const removeImage = () => {

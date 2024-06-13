@@ -31,53 +31,25 @@
   margin-top: 10px;
 }
 
+.threadDetails-LikeButton {
+  display: flex;
+  justify-content: end;
+}
 
-/*
 .threadDetails-Image {
   border-radius: 10px;
   max-width: 100%;
   object-fit: contain;
 }
 
-.threadDetails-Username {
-  display: flex;
-  align-items: center;
-  height: 25px;
-  border-radius: 5px;
-  padding-right: 10px;
-}
 
-.threadDetails-NumComments {
+/* .threadDetails-NumComments {
   padding: 0 10px;
   align-self: center;
 } */
 
-
-/* Like Button */
-/* .threadDetails-Likes {
-  display: flex;
-  align-items: center;
-  height: 25px;
-  border-radius: 5px;
-  padding: 0 10px;
-  transition: all 1s;
-}
-
-.threadDetails-Likes.clickable.notLiked:hover {
-  transition: all .5s;
-  box-shadow: inset 0px 0px 4px rgb(0, 167, 0);
-  color: black;
-}
-
-.threadDetails-Likes.clickable.isLiked:hover {
-  transition: all .5s;
-  box-shadow: inset 0px 0px 4px red;
-  color: black;
-} */
-
-
 /* Edit Button */
-/* .editThreadBtn {
+.threadDetails-EditBtn {
   border: none;
   border-radius: 5px;
   width: 50px;
@@ -88,8 +60,8 @@
   transition: all 1s;
 }
 
-.editThreadBtn:hover {
+.threadDetails-EditBtn:hover {
   transition: all .5s;
   background-color: lightblue;
   color: black;
-} */
+}
