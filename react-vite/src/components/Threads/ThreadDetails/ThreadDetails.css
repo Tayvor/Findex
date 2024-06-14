@@ -23,30 +23,18 @@
   word-wrap: break-word;
 }
 
-.threadDetails-Info {
-  display: flex;
-  justify-content: space-between;
-  color: gray;
-  font-size: 17px;
-  margin-top: 10px;
-}
-
-.threadDetails-LikeButton {
-  display: flex;
-  justify-content: end;
-}
-
 .threadDetails-Image {
   border-radius: 10px;
   max-width: 100%;
   object-fit: contain;
 }
 
-
-/* .threadDetails-NumComments {
-  padding: 0 10px;
-  align-self: center;
-} */
+.threadDetails-Footer {
+  display: flex;
+  justify-content: space-between;
+  color: gray;
+  font-size: 17px;
+}
 
 /* Edit Button */
 .threadDetails-EditBtn {

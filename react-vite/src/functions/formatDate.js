@@ -7,5 +7,4 @@ const formatDate = (created_at) => {
   return `${month} ${day}, ${year}`;
 }
 
-
 export default formatDate;

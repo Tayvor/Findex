@@ -17,11 +17,16 @@ function Comments() {
 
   useEffect(() => {
     dispatch(thunkGetComments(threadId));
-  }, [dispatch, threadId])
+  }, [dispatch, threadId]);
 
 
   return (
     <div className='commentsWrapper'>
+      <div className="commentsHeader">
+        <i className="fa-regular fa-comment"></i>
+        &nbsp;
+        {comments.length}
+      </div>
 
       {comments.map((comment) =>
         <div className='comment' key={comment.id}>

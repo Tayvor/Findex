@@ -4,6 +4,12 @@
   align-items: center;
 }
 
+.commentsHeader {
+  color: gray;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
 .comment {
   box-shadow: 3px 3px 3px rgba(128, 128, 128, 0.7);
   border-radius: 10px;
