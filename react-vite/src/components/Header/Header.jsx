@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
-import "./Navigation.css";
+import "./Header.css";
 
-function Navigation() {
+function Header() {
   const navigate = useNavigate();
   const currUser = useSelector((state) => state.session.user);
 
@@ -36,4 +36,4 @@ function Navigation() {
   );
 }
 
-export default Navigation;
+export default Header;

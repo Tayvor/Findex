@@ -1,11 +1,16 @@
-.threadDetails-Container {
+.threadDetailsWrapper {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+}
+
+.threadDetails {
+  width: 50vw;
   border-radius: 10px;
   box-shadow: 3px 3px 3px rgba(128, 128, 128, 0.7);
   background-color: rgba(255, 255, 255, 0.7);
   padding: 10px;
   margin-bottom: 15px;
+  box-sizing: border-box;
 }
 
 .threadDetails-Title {
@@ -24,64 +29,21 @@
   object-fit: contain;
 }
 
-
-.threadDetails-Info {
+.threadDetails-Footer {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   color: gray;
   font-size: 17px;
-  margin-top: 10px;
 }
 
-.infoLeft {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.threadDetails-Username {
+.threadDetails-FooterRight {
   display: flex;
   align-items: center;
-  height: 25px;
-  border-radius: 5px;
-  padding-right: 10px;
 }
-
-.threadDetails-Time {
-  padding: 0 10px;
-}
-
-.threadDetails-NumComments {
-  padding: 0 10px;
-  align-self: center;
-}
-
-
-/* Like Button */
-.threadDetails-Likes {
-  display: flex;
-  align-items: center;
-  height: 25px;
-  border-radius: 5px;
-  padding: 0 10px;
-  transition: all 1s;
-}
-
-.threadDetails-Likes.clickable.notLiked:hover {
-  transition: all .5s;
-  box-shadow: inset 0px 0px 4px rgb(0, 167, 0);
-  color: black;
-}
-
-.threadDetails-Likes.clickable.isLiked:hover {
-  transition: all .5s;
-  box-shadow: inset 0px 0px 4px red;
-  color: black;
-}
-
 
 /* Edit Button */
-.editThreadBtn {
+.threadDetails-EditBtn {
   border: none;
   border-radius: 5px;
   width: 50px;
@@ -92,7 +54,7 @@
   transition: all 1s;
 }
 
-.editThreadBtn:hover {
+.threadDetails-EditBtn:hover {
   transition: all .5s;
   background-color: lightblue;
   color: black;

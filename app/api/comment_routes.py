@@ -45,8 +45,8 @@ def create_comment():
       created_at = curr_date
     )
 
-  db.session.add(new_comment)
-  db.session.commit()
+    db.session.add(new_comment)
+    db.session.commit()
 
   comm_with_user = {
     'id': new_comment.id or 1,

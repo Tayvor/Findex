@@ -1,129 +1,44 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { thunkGetComments } from '../../redux/comments';
-import { thunkCreateLike, thunkDeleteLike } from '../../redux/likes';
 import OpenModalButton from '../../components/OpenModalButton';
 import EditCommentModal from './EditComment/EditCommentModal';
 import './Comments.css';
+import LikeButton from '../LikeButton';
+import formatDate from '../../functions/formatDate';
 
-function Comments({ threadId, currUser }) {
+function Comments() {
   const dispatch = useDispatch();
+  const { threadId } = useParams();
+
+  const user = useSelector((state) => state.session.user);
+  const comments = Object.values(useSelector((state) => state.comments));
 
   useEffect(() => {
     dispatch(thunkGetComments(threadId));
-  }, [dispatch, threadId])
-
-  const comments = Object.values(useSelector((state) => state.comments));
-  const currUserLikes = useSelector((state) => state.currUserLikes);
-
-  const getTime = (created_at) => {
-    const dateCreated = String(created_at).split(' ')[0].split('-');
-    const timeCreated = String(created_at).split(' ')[1].slice(0, 8).split(':');
-
-    const [yearCreated, monthCreated, dayCreated] = dateCreated;
-    const [hourCreated, minuteCreated, secondCreated] = timeCreated;
-
-    const oldDateTime = Date.UTC(
-      Number(yearCreated),
-      (Number(monthCreated) - 1),
-      dayCreated,
-      hourCreated,
-      minuteCreated,
-      secondCreated
-    )
-
-    const currDateTime = Date.now();
-    const elapsedTime = currDateTime - oldDateTime;
-
-    // let years = Math.floor(elapsedTime / (60000 * 60 * 24 * 365));
-    // let months = Math.floor(elapsedTime / (60000 * 60 * 24 * 30));
-    let days = Math.floor(elapsedTime / (60000 * 60 * 24));
-    let hours = Math.floor(elapsedTime / (60000 * 60));
-    let minutes = Math.floor(elapsedTime / 60000);
-
-    if (days >= 1) {
-      if (days === 1) {
-        return `${days} day ago`;
-      } else {
-        return `${days} days ago`;
-      }
-
-    } else if (hours >= 1) {
-      if (hours === 1) {
-        return `${hours} hour ago`;
-      } else {
-        return `${hours} hours ago`;
-      }
-
-    } else if (minutes >= 1) {
-      if (minutes === 1) {
-        return `${minutes} minute ago`;
-      } else {
-        return `${minutes} minutes ago`;
-      }
-
-    } else {
-      return 'A moment ago';
-    }
-  }
-
-  const handleLike = (comment) => {
-    if (!currUserLikes.commentLikes[comment.id]) {
-      comment.num_likes += 1;
-      dispatch(thunkCreateLike('comment', comment.id));
-    } else {
-      comment.num_likes -= 1;
-      dispatch(thunkDeleteLike(currUserLikes.commentLikes[comment.id]));
-    }
-  }
+  }, [dispatch, threadId]);
 
 
   return (
-    <div className='commentsContainer'>
+    <div className='commentsWrapper'>
+      <div className="commentsHeader">
+        <i className="fa-regular fa-comment"></i>
+        &nbsp;
+        {comments.length}
+      </div>
 
       {comments.map((comment) =>
-        <div
-          className='commentBox'
-          key={'comment' + comment.id}
-        >
-
+        <div className='comment' key={comment.id}>
           <div className="commentInfo">
-            <div className='commentInfo-Left'>
-              <div
-                className='commentInfo-Username'
-              >{comment.user.username}</div> &bull;
+            <div>{comment.user.username}</div>
+            <div>{formatDate(comment.created_at)}</div>
+          </div>
 
-              <div
-                className='commentInfo-Time'
-              >{getTime(comment.created_at)}</div> &bull;
+          <div>{comment.content}</div>
 
-              {currUser && currUser.id !== comment.user.id ?
-                <div
-                  className={currUserLikes.commentLikes[comment.id] ?
-                    "commentInfo-Likes isLiked clickable" : "commentInfo-Likes notLiked clickable"
-                  }
-                  onClick={() => handleLike(comment)}
-                >
-                  {currUserLikes.commentLikes[comment.id] ?
-                    <i className="fa-solid fa-arrow-up liked"></i>
-                    :
-                    <i className="fa-solid fa-arrow-up"></i>
-                  }
-                  &nbsp;
-                  {comment.num_likes}
-                </div>
-                :
-                <div
-                  className="commentInfo-Likes"
-                >
-                  <i className="fa-solid fa-arrow-up"></i>
-                  &nbsp;
-                  {comment.num_likes}
-                </div>
-              }
-            </div>
-
-            {currUser?.id === comment.user.id && (
+          <div className='commentInfo-Footer'>
+            {user?.id === comment.user.id && (
               < OpenModalButton
                 modalComponent={
                   <EditCommentModal
@@ -135,9 +50,9 @@ function Comments({ threadId, currUser }) {
                 className='commentBox-EditBtn clickable'
               />
             )}
-          </div>
 
-          <div>{comment.content}</div>
+            <LikeButton comment={comment} />
+          </div>
         </div>
       )
       }

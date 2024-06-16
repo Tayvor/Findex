@@ -1,13 +1,17 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import { thunkDeleteThread, thunkEditThread } from "../../../redux/threads";
 import { thunkDeleteImage, thunkUploadImage } from "../../../redux/images";
 import { useModal } from "../../../context/Modal";
 import './EditThread.css';
 
 
-function EditThread({ threadId, goBack, threadImage }) {
+function EditThread({ threadId, threadImage }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { communityId } = useParams();
+
   const { closeModal } = useModal();
   const thread = useSelector((state) => state.threads[threadId]);
   const [title, setTitle] = useState(thread?.title);
@@ -23,20 +27,17 @@ function EditThread({ threadId, goBack, threadImage }) {
     const errors = {};
 
     // Validations
-    if (title.length < 1 || title.length > 30) {
-      errors.title = 'Title must be between 1 and 30 characters.'
-    } else if (!title.trim()) {
-      errors.title = 'Title must not contain entirely whitespace.'
+    if (title.length < 1 || !title.trim()) {
+      errors.title = 'Please add a title!'
     }
 
-    if (description.length < 1) {
-      errors.description = 'Description must be at least 1 character.'
+    if (description.length < 1 || !description.trim()) {
+      errors.description = 'Please add a description!'
     }
 
     if (Object.values(errors).length) {
       return setErrors(errors);
     }
-
 
     // Update Thread
     const threadInfo = {
@@ -44,7 +45,7 @@ function EditThread({ threadId, goBack, threadImage }) {
       'description': description,
       'community_id': thread.community_id,
     };
-    dispatch(thunkEditThread(threadInfo, threadId))
+    dispatch(thunkEditThread(threadInfo, threadId));
 
     // Update Image
     if (newImage) {
@@ -69,14 +70,14 @@ function EditThread({ threadId, goBack, threadImage }) {
 
   const handleDelete = (e) => {
     e.preventDefault()
-    goBack()
 
     if (threadImage) {
       const fileName = threadImage.image_url.split('/')[3];
       dispatch(thunkDeleteImage(fileName))
     }
     dispatch(thunkDeleteThread(threadId));
-    closeModal()
+    closeModal();
+    navigate(`/communities/${communityId}`);
   };
 
   const removeImage = () => {

@@ -1,28 +1,25 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { thunkCreateComment } from "../../../redux/comments";
 import { useModal } from "../../../context/Modal";
 import './CreateCommentModal.css';
 
 
-function CreateCommentModal({ threadId }) {
+function CreateCommentModal() {
   const dispatch = useDispatch();
-  const [comment, setComment] = useState('');
+  const { threadId } = useParams();
   const { closeModal } = useModal();
-  const currUser = useSelector((state) => state.session.user);
-
+  const [comment, setComment] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Form Submission
-    const formInfo = {
+    const data = {
       'content': comment,
-      'user_id': currUser.id,
       'thread_id': Number(threadId),
     }
-
-    dispatch(thunkCreateComment(formInfo))
+    dispatch(thunkCreateComment(data))
       .then(() => closeModal())
   }
 

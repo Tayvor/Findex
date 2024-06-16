@@ -1,53 +1,31 @@
-.threadBox {
+.threadsWrapper {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.thread {
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
   border: 2px solid rgb(247, 247, 247);
   border-radius: 10px;
   box-shadow: 3px 3px 3px rgba(128, 128, 128, 0.7);
   box-sizing: border-box;
-  width: 100%;
+  width: 50vw;
   height: 85px;
   margin-bottom: 15px;
   padding: 10px;
   background-color: rgba(255, 255, 255, .7);
 }
 
-.threadBox-Left {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
 .threadTitle {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   font-size: 25px;
-  width: fit-content;
-}
-
-.threadTitle:hover {
-  text-decoration: underline;
 }
 
 .threadInfo {
   display: flex;
+  justify-content: space-between;
   color: gray;
   font-size: 17px;
-}
-
-.threadInfo-Username {
-  padding-right: 10px;
-}
-
-.threadInfo-Time {
-  padding: 0 10px;
-}
-
-.threadInfo-NumComments {
-  padding: 0 10px;
-}
-
-.threadInfo-NumLikes {
-  padding: 0 10px;
 }

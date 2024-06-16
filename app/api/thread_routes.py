@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.models import db, Thread, Image, Comment, Like
+from app.models import db, Thread, Image, Comment, Like, User
 from flask_login import current_user
 from app.forms.thread_form import ThreadForm
 from app.api.s3_bucket import remove_file_from_s3
@@ -8,29 +8,14 @@ from datetime import datetime
 thread_routes = Blueprint('thread', __name__)
 
 
-# GET ALL THREADS
-@thread_routes.get('')
-def get_threads():
-  threads = Thread.query.all()
-  thread_list = []
+# GET COMMUNITY THREADS
+@thread_routes.get('/<int:community_id>')
+def get_threads(community_id):
+  get_threads = db.select(Thread).filter_by(community_id=community_id).join(Thread.user)
+  threads = db.session.execute(get_threads).scalars()
 
-  for thread in threads:
-    num_comments = Comment.query.filter(Comment.thread_id == thread.id).count()
-    num_likes = Like.query.filter(Like.thread_id == thread.id).count()
-
-    item = {
-			'id': thread.id,
-      'community_id': thread.community_id,
-			'title': thread.title,
-      'description': thread.description,
-      'user': thread.user.to_dict(),
-      'num_comments': num_comments,
-      'num_likes': num_likes,
-      'created_at': thread.created_at
-		}
-    thread_list.append(item)
-
-  return jsonify(thread_list)
+  thread_list = [thread.to_dict() for thread in threads]
+  return thread_list
 
 
 # CREATE THREAD
@@ -50,21 +35,21 @@ def create_thread():
       created_at = curr_date
     )
 
-  db.session.add(new_thread)
-  db.session.commit()
+    db.session.add(new_thread)
+    db.session.commit()
 
-  thread_with_user = {
-		'id': new_thread.id,
-    'community_id': new_thread.community_id,
-		'title': new_thread.title,
-    'description': new_thread.description,
-    'user': new_thread.user.to_dict(),
-    'num_comments': 0,
-    'num_likes': 0,
-    'created_at': new_thread.created_at
-	}
+    thread_with_user = {
+      'id': new_thread.id,
+      'community_id': new_thread.community_id,
+      'title': new_thread.title,
+      'description': new_thread.description,
+      'user': new_thread.user.to_dict(),
+      'num_comments': 0,
+      'num_likes': 0,
+      'created_at': new_thread.created_at
+    }
 
-  return jsonify(thread_with_user)
+    return jsonify(thread_with_user)
 
 
 # EDIT THREAD
