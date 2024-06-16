@@ -46,19 +46,21 @@ function ThreadDetails() {
             <div className="threadDetails-Footer">
               <div>{thread.user.username}</div>
 
-              <LikeButton comment={thread} />
+              {/* <LikeButton comment={thread} /> */}
 
-              {user?.id === thread.user.id && (
-                < OpenModalButton
-                  modalComponent={
-                    <EditThread threadId={threadId} threadImage={threadImage} />
-                  }
-                  buttonText='edit'
-                  className='threadDetails-EditBtn clickable'
-                />
-              )}
+              <div className="threadDetails-FooterRight">
+                {user?.id === thread.user.id && (
+                  < OpenModalButton
+                    modalComponent={
+                      <EditThread threadId={threadId} threadImage={threadImage} />
+                    }
+                    buttonText='edit'
+                    className='threadDetails-EditBtn clickable'
+                  />
+                )}
 
-              <div>{formatDate(thread.created_at)}</div>
+                <div>{formatDate(thread.created_at)}</div>
+              </div>
             </div>
 
           </div>

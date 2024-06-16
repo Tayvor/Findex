@@ -33,7 +33,11 @@ function Comments() {
           <div className="commentInfo">
             <div>{comment.user.username}</div>
             <div>{formatDate(comment.created_at)}</div>
+          </div>
 
+          <div>{comment.content}</div>
+
+          <div className='commentInfo-Footer'>
             {user?.id === comment.user.id && (
               < OpenModalButton
                 modalComponent={
@@ -46,11 +50,7 @@ function Comments() {
                 className='commentBox-EditBtn clickable'
               />
             )}
-          </div>
 
-          <div>{comment.content}</div>
-
-          <div className='commentInfo-Footer'>
             <LikeButton comment={comment} />
           </div>
         </div>
