@@ -9,7 +9,7 @@ import EditThread from '../EditThread';
 import './ThreadDetails.css';
 import NavBar from "../../NavBar";
 import formatDate from "../../../functions/formatDate";
-import LikeButton from "../../LikeButton";
+// import LikeButton from "../../LikeButton";
 
 
 function ThreadDetails() {

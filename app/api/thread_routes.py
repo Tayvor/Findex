@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.models import db, Thread, Image, Comment, Like, User
+from app.models import db, Thread, Image, Comment, Like
 from flask_login import current_user
 from app.forms.thread_form import ThreadForm
 from app.api.s3_bucket import remove_file_from_s3
@@ -11,8 +11,8 @@ thread_routes = Blueprint('thread', __name__)
 # GET COMMUNITY THREADS
 @thread_routes.get('/<int:community_id>')
 def get_threads(community_id):
-  get_threads = db.select(Thread).filter_by(community_id=community_id).join(Thread.user)
-  threads = db.session.execute(get_threads).scalars()
+  query = db.select(Thread).filter_by(community_id=community_id).join(Thread.user)
+  threads = db.session.scalars(query)
 
   thread_list = [thread.to_dict() for thread in threads]
   return thread_list

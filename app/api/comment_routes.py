@@ -10,18 +10,20 @@ comment_routes = Blueprint('comment', __name__)
 # GET COMMENTS BY THREAD ID
 @comment_routes.get('/<int:thread_id>')
 def get_thread_comments(thread_id):
-  comments = Comment.query.filter(Comment.thread_id == thread_id)
+  query = db.select(Comment).filter_by(thread_id=thread_id)
+  comments = db.session.scalars(query)
   comment_list = []
 
   for comment in comments:
-    num_likes = Like.query.filter(Like.comment_id == comment.id).count()
+    likes_query = db.select(Like).filter_by(comment_id=comment.id)
+    likes = db.session.scalars(likes_query).all()
 
     comm = {
       'id': comment.id,
       'content': comment.content,
       'thread_id': comment.thread_id,
       'user' : comment.user.to_dict(),
-      'num_likes': num_likes,
+      'num_likes': len(likes),
       'created_at': comment.created_at,
     }
     comment_list.append(comm)
@@ -68,20 +70,20 @@ def edit_comment(comment_id):
   form['csrf_token'].data = request.cookies['csrf_token']
 
   if form.validate_on_submit():
-    old_comment = Comment.query.get(comment_id)
+    comment_query = db.select(Comment).filter_by(id=comment_id)
+    comment = db.session.scalar(comment_query)
     content = form.data['content']
 
-    setattr(old_comment, 'content', content)
-
+    setattr(comment, 'content', content)
     db.session.commit()
 
     comm_with_user = {
-      'id': old_comment.id,
-      'content': old_comment.content,
-      'user_id': old_comment.user_id,
-      'thread_id': old_comment.thread_id,
-      'created_at': old_comment.created_at,
-      'user': old_comment.user.to_dict()
+      'id': comment.id,
+      'content': comment.content,
+      'user_id': comment.user_id,
+      'thread_id': comment.thread_id,
+      'created_at': comment.created_at,
+      'user': comment.user.to_dict()
     }
 
     return jsonify(comm_with_user)
@@ -92,7 +94,8 @@ def edit_comment(comment_id):
 # DELETE
 @comment_routes.delete('/<int:comment_id>')
 def delete_comment(comment_id):
-  comment = Comment.query.get(comment_id)
+  comment_query = db.select(Comment).filter_by(id=comment_id)
+  comment = db.session.scalar(comment_query)
 
   db.session.delete(comment)
   db.session.commit()
