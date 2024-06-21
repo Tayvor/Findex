@@ -1,6 +1,5 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, jsonify
 from app.models import db, Community
-from flask_login import current_user
 
 community_routes = Blueprint('community', __name__)
 
@@ -8,7 +7,7 @@ community_routes = Blueprint('community', __name__)
 # GET COMMUNITIES
 @community_routes.get('')
 def get_communities():
-  communities = Community.query.all()
+  communities = db.session.scalars(db.select(Community)).all()
   lst = []
 
   for community in communities:

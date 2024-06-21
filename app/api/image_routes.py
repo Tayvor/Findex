@@ -11,7 +11,8 @@ image_routes = Blueprint('image', __name__)
 # GET IMAGE BY THREAD ID
 @image_routes.get('/<int:thread_id_num>')
 def get_image(thread_id_num):
-  image = Image.query.filter_by(thread_id=thread_id_num).first()
+  image_query = db.select(Image).filter_by(thread_id=thread_id_num)
+  image = db.session.scalar(image_query)
 
   if not image:
     return {'error': 'No image found.'}
@@ -61,6 +62,7 @@ def upload_image():
 def remove_image(file_name):
   # remove image instance from model
   image = Image.query.filter(Image.image_url.endswith(file_name)).first()
+
   db.session.delete(image)
   db.session.commit()
 
