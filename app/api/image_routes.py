@@ -61,7 +61,7 @@ def upload_image():
 @image_routes.delete('/<file_name>')
 def remove_image(file_name):
   # remove image instance from model
-  image = Image.query.filter(Image.image_url.endswith(file_name)).first()
+  image = db.session.scalar(db.select(Image).where(Image.image_url.endswith(file_name)))
 
   db.session.delete(image)
   db.session.commit()
