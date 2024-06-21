@@ -59,12 +59,11 @@ def edit_thread(thread_id_num):
   form['csrf_token'].data = request.cookies['csrf_token']
 
   if form.validate_on_submit():
-    thread = Thread.query.get(thread_id_num)
+    thread_query = db.select(Thread).filter_by(id=thread_id_num)
+    thread = db.session.scalar(thread_query)
+
     title = form.data['title']
     description = form.data['description']
-    num_comments = Comment.query.filter(Comment.thread_id == thread.id).count()
-    num_likes = Like.query.filter(Like.thread_id == thread.id).count()
-
     setattr(thread, 'title', title)
     setattr(thread, 'description', description)
 
@@ -75,8 +74,6 @@ def edit_thread(thread_id_num):
       'community_id': thread.community_id,
       'title': thread.title,
       'description': thread.description,
-      'num_comments': num_comments,
-      'num_likes': num_likes,
       'user': thread.user.to_dict(),
       'created_at': thread.created_at,
     }
@@ -89,13 +86,21 @@ def edit_thread(thread_id_num):
 # DELETE THREAD
 @thread_routes.delete('/<int:thread_id_num>')
 def delete_thread(thread_id_num):
-  thread = Thread.query.get(thread_id_num)
-  images = Image.query.filter_by(thread_id=thread_id_num).first()
-  comments = Comment.query.filter_by(thread_id=thread_id_num).all()
+  # thread = Thread.query.get(thread_id_num)
+  thread_query = db.select(Thread).filter_by(id=thread_id_num)
+  thread = db.session.scalar(thread_query)
+
+  # images = Image.query.filter_by(thread_id=thread_id_num).first()
+  image_query = db.select(Image).filter_by(thread_id=thread_id_num)
+  image = db.session.scalar(image_query)
+
+  # comments = Comment.query.filter_by(thread_id=thread_id_num).all()
+  comments_query = db.select(Comment).filter_by(thread_id=thread_id_num)
+  comments = db.session.scalars(comments_query)
 
   # Delete images from s3 bucket
-  if images:
-    url = images.image_url
+  if image:
+    url = image.image_url
     remove_file_from_s3(url)
 
   # Delete comments

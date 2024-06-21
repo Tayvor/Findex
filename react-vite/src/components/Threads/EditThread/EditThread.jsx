@@ -62,8 +62,8 @@ function EditThread({ threadId, threadImage }) {
       if (threadImage) {
         const fileName = threadImage.image_url.split('/')[3];
         dispatch(thunkDeleteImage(fileName));
-        closeModal();
       }
+      closeModal();
       return;
     }
   };
