@@ -15,6 +15,15 @@ def get_threads(community_id):
   threads = db.session.scalars(query)
 
   thread_list = [thread.to_dict() for thread in threads]
+
+  for item in thread_list:
+    id = item.get('id')
+    search = db.select(Image).filter_by(thread_id=id)
+    image = db.session.scalar(search)
+
+    if image:
+      item['image_url'] = image.image_url
+
   return thread_list
 
 

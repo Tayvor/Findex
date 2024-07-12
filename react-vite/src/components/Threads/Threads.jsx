@@ -5,6 +5,7 @@ import { thunkGetThreads } from "../../redux/threads";
 import { thunkGetUserLikes } from "../../redux/likes";
 import NavBar from "../NavBar";
 import './Threads.css';
+import formatDate from "../../functions/formatDate";
 
 
 function Threads() {
@@ -23,16 +24,6 @@ function Threads() {
     }
   }, [dispatch, communityId, currUser]);
 
-  const formatDate = (created_at) => {
-    const ymd = created_at.split(' ')[0];
-    let [year, month, day] = ymd.split('-');
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    month = months[Number(month) - 1]
-
-    return `${month} ${day}, ${year}`;
-  }
-
-  // <i className="fa-regular fa-comment"></i>
 
   return (
     <>
@@ -47,6 +38,11 @@ function Threads() {
               onClick={() => navigate(`/communities/${communityId}/threads/${thread.id}`)}
               key={thread.id}
             >
+              {/* {thread.image_url ?
+                <img src={`${thread.image_url}`} className="threadBackground" />
+                : ''
+              } */}
+
               <div className="threadTitle">{thread.title}</div>
 
               <div className="threadInfo">

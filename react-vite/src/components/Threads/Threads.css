@@ -8,6 +8,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  /* align-items: center; */
   border: 2px solid rgb(247, 247, 247);
   border-radius: 10px;
   box-shadow: 3px 3px 3px rgba(128, 128, 128, 0.7);
@@ -17,6 +18,7 @@
   margin-bottom: 15px;
   padding: 10px;
   background-color: rgba(255, 255, 255, .7);
+  /* overflow: hidden; */
 }
 
 .threadTitle {
@@ -29,3 +31,8 @@
   color: gray;
   font-size: 17px;
 }
+
+/* .threadBackground {
+  height: 100%;
+  object-fit: cover;
+} */
