@@ -15,7 +15,7 @@ function Threads() {
 
   const threads = Object.values(useSelector((state) => state.threads));
   const currUser = useSelector((state) => state.session.user);
-  const currUserLikes = useSelector((state) => state.currUserLikes);
+  // const currUserLikes = useSelector((state) => state.currUserLikes);
 
   useEffect(() => {
     dispatch(thunkGetThreads(communityId));
@@ -38,22 +38,24 @@ function Threads() {
               onClick={() => navigate(`/communities/${communityId}/threads/${thread.id}`)}
               key={thread.id}
             >
-              {/* {thread.image_url ?
-                <img src={`${thread.image_url}`} className="threadBackground" />
+              {thread.image_url ?
+                <img src={`${thread.image_url}`} className="threadBackgroundImage" />
                 : ''
-              } */}
+              }
 
-              <div className="threadTitle">{thread.title}</div>
+              <div className="threadText">
+                <div className="threadTitle">{thread.title}</div>
 
-              <div className="threadInfo">
-                <div>{thread.user.username}</div>
+                <div className="threadInfo">
+                  <div>{thread.user.username}</div>
 
-                <div>
-                  {currUser && currUserLikes.threadLikes[thread.id] ?
-                    <i className="fa-solid fa-arrow-up liked"></i> : ''
-                  }
-                  {' '}
-                  {formatDate(thread.created_at)}
+                  <div>
+                    {/* {currUser && currUserLikes.threadLikes[thread.id] ?
+                      <i className="fa-solid fa-arrow-up liked"></i> : ''
+                    }
+                    {' '} */}
+                    {formatDate(thread.created_at)}
+                  </div>
                 </div>
               </div>
             </div>
