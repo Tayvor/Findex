@@ -1,13 +1,21 @@
-.signupPage {
+.signupForm {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.signupPage>h1 {
-  margin-bottom: 5px;
+.signupForm>label>input {
+  width: 200px;
+  height: 35px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  box-sizing: border-box;
+  font-size: 18px;
 }
-
 
 /* Submit Btn */
 .signupForm-BtnDiv {
@@ -23,10 +31,6 @@
   font-size: 16px;
   transition: all 1s;
   margin-top: 10px;
-}
-
-.cellRight {
-  text-align: right;
 }
 
 .signupErrors>p {

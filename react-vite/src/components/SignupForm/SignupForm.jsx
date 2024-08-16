@@ -68,97 +68,61 @@ function SignupForm() {
   };
 
   return (
-    <div className="signupPage">
-      <h1>Sign Up</h1>
-      <div className="signupErrors">
-        {errors.server && <p className="error">{errors.server}</p>}
-        {errors.email && <p className="error">{errors.email}</p>}
-        {errors.username && <p className="error">{errors.username}</p>}
-        {errors.password && <p className="error">{errors.password}</p>}
-        {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
-      </div>
+    <form onSubmit={handleSubmit} className="signupForm">
+      <h1>Sign Up!</h1>
 
-      <form onSubmit={handleSubmit} className="signupForm">
-        <table>
-          <tr>
-            <td className="cellRight">
-              Email:
-            </td>
-            <td>
-              <input
-                type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </td>
-          </tr>
+      <label>
+        <input
+          type="text"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+      </label>
 
-          <tr>
-            <td className="cellRight">
-              Username:
-            </td>
-            <td>
-              <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-              />
-            </td>
-          </tr>
+      <label>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+      </label>
 
-          <tr>
-            <td className="cellRight">
-              Password:
-            </td>
-            <td>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </td>
-          </tr>
+      <label>
+        <input
+          type="text"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </label>
 
-          <tr>
-            <td className="cellRight">
-              Confirm Password:
-            </td>
-            <td>
-              <input
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-            </td>
-          </tr>
-        </table>
+      <label>
+        <input
+          type="text"
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+        />
+      </label>
 
-        {/* <div className="signupErrors">
-          {errors.email && <p className="error">{errors.email}</p>}
-          {errors.username && <p className="error">{errors.username}</p>}
-          {errors.password && <p className="error">{errors.password}</p>}
-          {errors.confirmPassword && <p className="error">{errors.confirmPassword}</p>}
-        </div> */}
-
-        <div className="signupForm-BtnDiv">
-          <button
-            type="submit"
-            className={email && username && password && confirmPassword ?
-              "signupForm-SubmitBtn gGlow clickable"
-              :
-              "signupForm-SubmitBtn"
-            }
-            disabled={email && username && password && confirmPassword ?
-              false : true
-            }
-          >Sign Up!</button>
-        </div>
-      </form>
-    </div >
+      <button
+        type="submit"
+        className={email && username && password && confirmPassword ?
+          "signupForm-SubmitBtn gGlow clickable"
+          :
+          "signupForm-SubmitBtn"
+        }
+        disabled={email && username && password && confirmPassword ?
+          false : true
+        }
+      >Sign Up!</button>
+    </form>
   );
 }
 
