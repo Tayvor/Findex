@@ -9,15 +9,12 @@ class Image(db.Model):
 
   id = db.Column(db.Integer, primary_key=True)
   image_url = db.Column(db.String, nullable=False)
-  user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
   thread_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('threads.id')), nullable=False)
 
-  user = db.relationship('User', back_populates='images')
 
   def to_dict(self):
     return {
 			'id': self.id,
       'image_url': self.image_url,
-			'user_id': self.user_id,
-      'thread_id': self.thread_id or 0,
+      'thread_id': self.thread_id,
 		}

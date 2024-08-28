@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from app.models import db, Thread, Image, Comment, Like
+from app.models import db, Thread, Image, Comment
 from flask_login import current_user
 from app.forms.thread_form import ThreadForm
 from app.api.s3_bucket import remove_file_from_s3

@@ -12,22 +12,21 @@ class Thread(db.Model):
   description = db.Column(db.Text, nullable=False)
   created_at = db.Column(db.String, nullable=False)
 
-  user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
+  author_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
   community_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('communities.id')))
 
-  user = db.relationship('User', back_populates='threads')
-  comments = db.relationship('Comment')
-  communities = db.relationship('Community', back_populates='threads')
-  images = db.relationship('Image', cascade='all, delete-orphan')
-  likes = db.relationship('Like')
+  author = db.relationship('User', back_populates='threads')
+  comments = db.relationship('Comment', back_populates='thread', cascade='all, delete-orphan' )
+  community = db.relationship('Community', back_populates='threads')
+  image = db.relationship('Image', cascade='all, delete-orphan')
 
   def to_dict(self):
     return {
 			'id': self.id,
 			'title': self.title,
       'description': self.description,
-			'user_id': self.user_id,
+			'author_id': self.user_id,
       'community_id': self.community_id,
       'created_at': self.created_at,
-      'user': self.user.to_dict(),
+      'author': self.user.to_dict(),
 		}

@@ -14,10 +14,8 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
-    threads = db.relationship('Thread', back_populates='user')
-    comments = db.relationship('Comment', back_populates='user')
-    images = db.relationship('Image', back_populates='user')
-    likes = db.relationship('Like')
+    threads = db.relationship('Thread', back_populates='author')
+    comments = db.relationship('Comment', back_populates='author')
 
 
     @property

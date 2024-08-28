@@ -11,7 +11,7 @@ class Community(db.Model):
   name = db.Column(db.String(20), nullable=False, unique=True)
   description = db.Column(db.String(100), nullable=False)
 
-  threads = db.relationship('Thread', back_populates='communities')
+  threads = db.relationship('Thread', back_populates='community')
 
   def __repr__(self):
     return "<Community(id='%s', name='%s')>" % (
