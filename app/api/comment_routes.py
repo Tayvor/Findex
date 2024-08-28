@@ -19,7 +19,7 @@ def get_thread_comments(thread_id):
       'id': comment.id,
       'content': comment.content,
       'thread_id': comment.thread_id,
-      'user' : comment.user.to_dict(),
+      'user' : comment.author.to_dict(),
       'created_at': comment.created_at,
     }
     comment_list.append(comm)
@@ -52,7 +52,7 @@ def create_comment():
     'user_id': new_comment.user_id,
     'thread_id': new_comment.thread_id,
     'created_at': new_comment.created_at,
-    'user': new_comment.user.to_dict()
+    'user': new_comment.author.to_dict()
   }
 
   return jsonify(comm_with_user)

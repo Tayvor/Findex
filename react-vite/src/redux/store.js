@@ -9,7 +9,6 @@ import sessionReducer from "./session";
 import threads from "./threads";
 import comments from "./comments";
 import images from "./images";
-import currUserLikes from "./likes";
 import communities from "./communities";
 
 
@@ -18,7 +17,6 @@ const rootReducer = combineReducers({
   threads,
   comments,
   images,
-  currUserLikes,
   communities,
 });
 

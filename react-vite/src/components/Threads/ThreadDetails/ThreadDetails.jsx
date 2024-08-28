@@ -2,14 +2,12 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { thunkGetThreadImages } from "../../../redux/images";
-// import { thunkCreateLike, thunkDeleteLike } from "../../../redux/likes";
 import OpenModalButton from "../../OpenModalButton";
 import Comments from "../../Comments";
 import EditThread from '../EditThread';
 import './ThreadDetails.css';
 import NavBar from "../../NavBar";
 import formatDate from "../../../functions/formatDate";
-// import LikeButton from "../../LikeButton";
 
 
 function ThreadDetails() {
@@ -19,7 +17,6 @@ function ThreadDetails() {
   const thread = useSelector((state) => state.threads[threadId]);
   const user = useSelector((state) => state.session.user);
   const threadImage = useSelector((state) => state.images[threadId]);
-  // const currUserLikes = useSelector((state) => state.currUserLikes);
 
   useEffect(() => {
     dispatch(thunkGetThreadImages(threadId));
@@ -44,12 +41,10 @@ function ThreadDetails() {
             }
 
             <div className="threadDetails-Footer">
-              <div>{thread.user.username}</div>
-
-              {/* <LikeButton comment={thread} /> */}
+              <div>{thread.author.username}</div>
 
               <div className="threadDetails-FooterRight">
-                {user?.id === thread.user.id && (
+                {user?.id === thread.author.id && (
                   < OpenModalButton
                     modalComponent={
                       <EditThread threadId={threadId} threadImage={threadImage} />
@@ -67,8 +62,7 @@ function ThreadDetails() {
         }
       </div>
 
-      <Comments threadId={threadId} />
-
+      <Comments />
     </>
   )
 }

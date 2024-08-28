@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { thunkGetThreads } from "../../redux/threads";
-import { thunkGetUserLikes } from "../../redux/likes";
 import NavBar from "../NavBar";
 import './Threads.css';
 import formatDate from "../../functions/formatDate";
@@ -15,7 +14,6 @@ function Threads() {
 
   const threads = Object.values(useSelector((state) => state.threads));
   const currUser = useSelector((state) => state.session.user);
-  // const currUserLikes = useSelector((state) => state.currUserLikes);
 
   useEffect(() => {
     dispatch(thunkGetThreads(communityId));
@@ -47,13 +45,9 @@ function Threads() {
                 <div className="threadTitle">{thread.title}</div>
 
                 <div className="threadInfo">
-                  <div>{thread.user.username}</div>
+                  <div>{thread.author.username}</div>
 
                   <div>
-                    {/* {currUser && currUserLikes.threadLikes[thread.id] ?
-                      <i className="fa-solid fa-arrow-up liked"></i> : ''
-                    }
-                    {' '} */}
                     {formatDate(thread.created_at)}
                   </div>
                 </div>

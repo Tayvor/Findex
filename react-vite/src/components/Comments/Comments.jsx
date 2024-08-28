@@ -5,7 +5,6 @@ import { thunkGetComments } from '../../redux/comments';
 import OpenModalButton from '../../components/OpenModalButton';
 import EditCommentModal from './EditComment/EditCommentModal';
 import './Comments.css';
-import LikeButton from '../LikeButton';
 import formatDate from '../../functions/formatDate';
 
 function Comments() {
@@ -17,6 +16,7 @@ function Comments() {
 
   useEffect(() => {
     dispatch(thunkGetComments(threadId));
+    console.log('thunk here!!')
   }, [dispatch, threadId]);
 
 
@@ -50,8 +50,6 @@ function Comments() {
                 className='commentBox-EditBtn clickable'
               />
             )}
-
-            <LikeButton comment={comment} />
           </div>
         </div>
       )

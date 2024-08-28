@@ -15,7 +15,7 @@ class Thread(db.Model):
   author_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')))
   community_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('communities.id')))
 
-  author = db.relationship('User', back_populates='threads')
+  author = db.relationship('User', back_populates='threads', lazy='joined', innerjoin=True)
   comments = db.relationship('Comment', back_populates='thread', cascade='all, delete-orphan' )
   community = db.relationship('Community', back_populates='threads')
   image = db.relationship('Image', cascade='all, delete-orphan')
@@ -25,8 +25,8 @@ class Thread(db.Model):
 			'id': self.id,
 			'title': self.title,
       'description': self.description,
-			'author_id': self.user_id,
+			'author_id': self.author_id,
       'community_id': self.community_id,
       'created_at': self.created_at,
-      'author': self.user.to_dict(),
+      'author': self.author.to_dict(),
 		}
