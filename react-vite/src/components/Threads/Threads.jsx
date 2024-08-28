@@ -17,9 +17,6 @@ function Threads() {
 
   useEffect(() => {
     dispatch(thunkGetThreads(communityId));
-    if (currUser) {
-      dispatch(thunkGetUserLikes());
-    }
   }, [dispatch, communityId, currUser]);
 
 
