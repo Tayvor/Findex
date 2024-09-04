@@ -9,7 +9,7 @@ class Image(db.Model):
 
   id = db.Column(db.Integer, primary_key=True)
   image_url = db.Column(db.String, nullable=False)
-  thread_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('threads.id')), nullable=False)
+  # thread_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('threads.id')), nullable=False)
 
 
   def to_dict(self):

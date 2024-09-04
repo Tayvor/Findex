@@ -9,18 +9,18 @@ class Comment(db.Model):
 
   id = db.Column(db.Integer, primary_key=True)
   content = db.Column(db.Text, nullable=False)
-  author_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-  thread_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('threads.id')), nullable=False)
   created_at = db.Column(db.String, nullable=False)
+  # author_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+  # thread_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('threads.id')), nullable=False)
 
-  author = db.relationship('User', back_populates='comments')
-  thread = db.relationship('Thread', back_populates='comments')
+  # author = db.relationship('User', back_populates='comments')
+  # thread = db.relationship('Thread', back_populates='comments')
 
   def to_dict(self):
     return {
 			'id': self.id,
       'content': self.content,
-			'author_id': self.author_id,
-      'thread_id': self.thread_id,
+			# 'author_id': self.author_id,
+      # 'thread_id': self.thread_id,
       'created_at': self.created_at
 		}
